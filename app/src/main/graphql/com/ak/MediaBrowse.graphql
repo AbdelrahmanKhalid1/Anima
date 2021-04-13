@@ -1,0 +1,49 @@
+query MediaBrowse(
+    $page: Int,
+    $type: MediaType,
+    $format: MediaFormat,
+    $status: MediaStatus,
+    $season: MediaSeason,
+    $startDate: String,
+    $source: MediaSource,
+    $genres: [String],
+    $isAdult: Boolean = false, # Assign default value if isAdult is not included in our query variables
+    $sort: [MediaSort],
+) {
+    Page (page: $page) {
+        pageInfo {
+            currentPage
+            hasNextPage
+        }
+        media (
+            type: $type,
+            format: $format,
+            status: $status,
+            season: $season,
+            source: $source,
+            genre_in: $genres,
+            startDate_like: $startDate, # "2017%" will get all media starting in 2017, alternatively you could use the lesser & greater suffixes
+            sort: $sort,
+            isAdult: $isAdult,
+        ){
+            id
+            title {
+                userPreferred
+            }
+            coverImage {
+                extraLarge
+            }
+            mediaListEntry {
+                id
+                status
+            }
+            isFavourite
+            format
+            type
+            status
+            season
+            averageScore
+            genres
+        }
+    }
+}
