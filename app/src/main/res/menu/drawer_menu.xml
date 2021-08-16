@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_discover"
+        android:title="@string/discover">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_home_feed"
+                    android:title="@string/activity_feed"
+                    android:icon="@drawable/ic_home"
+                    android:visible="false" />
+                <item
+                    android:id="@+id/nav_browse_anime"
+                    android:icon="@drawable/ic_browse"
+                    android:title="@string/browse_anime" />
+                <item
+                    android:id="@+id/nav_browse_manga"
+                    android:icon="@drawable/ic_browse"
+                    android:title="@string/browse_manga" />
+                <item
+                    android:id="@+id/nav_discover"
+                    android:icon="@drawable/ic_discover"
+                    android:title="@string/discover" />
+                <item
+                    android:id="@+id/nav_trending"
+                    android:icon="@drawable/ic_trending"
+                    android:title="@string/what_s_trending"/>
+            </group>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/action_manage"
+        android:title="@string/manage"
+        android:visible="false">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_myAnime"
+                    android:icon="@drawable/ic_anime_list"
+                    android:title="@string/my_anime_list" />
+                <item
+                    android:id="@+id/nav_myManga"
+                    android:icon="@drawable/ic_manga_list"
+                    android:title="@string/my_manga_list" />
+            </group>
+        </menu>
+    </item>
+
+    <group
+        android:id="@+id/group_settings">
+            <item
+                android:id="@+id/nav_sing_out"
+                android:title="@string/sign_out"
+                android:icon="@drawable/ic_logout"
+                android:visible="false" />
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/settings" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_info"
+                android:title="@string/about" />
+    </group>
+</menu>

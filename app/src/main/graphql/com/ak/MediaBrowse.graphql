@@ -4,7 +4,7 @@ query MediaBrowse(
     $format: MediaFormat,
     $status: MediaStatus,
     $season: MediaSeason,
-    $startDate: String,
+    $seasonYear: Int,
     $source: MediaSource,
     $genres: [String],
     $isAdult: Boolean = false, # Assign default value if isAdult is not included in our query variables
@@ -22,7 +22,8 @@ query MediaBrowse(
             season: $season,
             source: $source,
             genre_in: $genres,
-            startDate_like: $startDate, # "2017%" will get all media starting in 2017, alternatively you could use the lesser & greater suffixes
+            seasonYear: $seasonYear
+#            startDate_like: $startDate, # "2017%" will get all media starting in 2017, alternatively you could use the lesser & greater suffixes
             sort: $sort,
             isAdult: $isAdult,
         ){

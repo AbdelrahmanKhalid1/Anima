@@ -1,3 +1,153 @@
 <resources>
     <string name="app_name">Otaku-Kun</string>
+    <string name="the_best_anime_of_all_time">The Best Anime of all Time</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="tab_series_overview">Overview</string>
+    <string name="tab_series_relation">Relation</string>
+    <string name="tab_characters">Characters</string>
+    <string name="tab_staff">Staff</string>
+
+    <!--  Filter Activity Section  -->
+    <string name="title_activity_filter">Filter Series</string>
+    <!--  Filter by season -->
+    <string name="winter">Winter</string>
+    <string name="spring">Spring</string>
+    <string name="summer">Summer</string>
+    <string name="fall">Fall</string>
+
+    <string-array name="spinner_type_array">
+        <item>Anime</item>
+        <item>Manga</item>
+    </string-array>
+    <string-array name="spinner_status_array">
+        <item>All</item>
+        <item>Finished</item>
+        <item>Releasing</item>
+        <item>Not Yet Released</item>
+        <item>Cancelled</item>
+        <item>Hiatus</item> <!--for manga only -->
+    </string-array>
+    <string-array name="spinner_season_array">
+        <item>All</item>
+        <item>Winter</item>
+        <item>Spring</item>
+        <item>Summer</item>
+        <item>Fall</item>
+    </string-array>
+    <string-array name="spinner_format_anime_array">
+        <item>All</item>
+        <item>TV</item>
+        <item>TV Short</item>
+        <item>Movie</item>
+        <item>Special</item>
+        <item>OVA</item>
+        <item>ONA</item>
+        <item>Music</item>
+    </string-array>
+    <string-array name="spinner_format_manga_array">
+        <item>All</item>
+        <item>Manga</item>
+        <item>Novel</item>
+        <item>One Shot</item>
+    </string-array>
+    <string-array name="spinner_source_array">
+        <item>All</item>
+        <item>Original</item>
+        <item>Manga</item>
+        <item>Novel</item>
+        <item>Anime</item>
+        <item>Light Novel</item>
+        <item>Visual Novel</item>
+        <item>Video Game</item>
+        <item>Doujinshi</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="genres">
+        <item>Action</item>
+        <item>Adventure</item>
+        <item>Comedy</item>
+        <item>Drama</item>
+        <item>Ecchi</item>
+        <item>Fantasy</item>
+        <item>Hentai</item>
+        <item>Horror</item>
+        <item>Machou Shouju</item>
+        <item>Mecha</item>
+        <item>Music</item>
+        <item>Mystery</item>
+        <item>Psychological</item>
+        <item>Romance</item>
+        <item>Sci-Fi</item>
+        <item>Slice of Life</item>
+        <item>Sports</item>
+        <item>Supernatural</item>
+        <item>Thriller</item>
+    </string-array>
+    <string-array name="sort_in">
+        <item>Ascending</item>
+        <item>Descending</item>
+    </string-array>
+    <string-array name="sort_by">
+        <item>Popularity</item>
+        <item>Score</item>
+        <item>Start Date</item>
+        <item>Episodes</item>
+        <item>Chapters</item>
+        <item>Volumes</item>
+    </string-array>
+
+    <string name="filter">Filter</string>
+    <string name="sort">Sort</string>
+    <string name="filter_type">Type</string>
+    <string name="filter_format">Format</string>
+    <string name="filter_status">Status</string>
+    <string name="filter_season">Season</string>
+    <string name="filter_start_year">Start Year</string>
+    <string name="filter_genres">Genres</string>
+    <string name="btn_genre">Genre</string>
+    <string name="filter_source">Source</string>
+    <string name="filter_all_time">All Time</string>
+
+    <string name="sort_by_popularity">Popularity</string>
+    <string name="sort_by_score">Score</string>
+    <string name="sort_by_start_date">Start Date</string>
+    <string name="sort_by_episodes">Episodes</string>
+    <string name="sort_by_chapters">Chapters</string>
+    <string name="sort_by_volumes">Volumes</string>
+    <string name="sort_in_ascending">Ascending</string>
+    <string name="sort_in_descending">Descending</string>
+
+    <!--    -->
+    <string name="browse_anime">Browse Anime</string>
+    <string name="browse_manga">Browse Manga</string>
+    <string name="discover">Discover</string>
+    <string name="trending">Trending</string>
+
+    <string name="trending_watched">Being Watch</string>
+    <string name="trending_finished">Finished</string>
+    <string name="trending_airing_now">Airing Now</string>
+    <string name="hello_blank_fragment">Hello</string>
+    <string name="activity_feed">Activity Feed</string>
+    <string name="what_s_trending">What\'s Trending</string>
+    <string name="manage">Manage</string>
+    <string name="my_anime_list">My Anime List</string>
+    <string name="my_manga_list">My Manga List</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="title_activity_search">Search</string>
+    <string name="searchHint">Search.....</string>
+    <string name="tab_anime">Anime</string>
+    <string name="tab_manga">Manga</string>
+    <string name="tab_studio">Studio</string>
+    <string name="tab_user">User</string>
+    <string name="character_main">Main</string>
+    <string name="character_support">Supporting</string>
+    <string name="character_background">Backgrond</string>
+    <string name="title_main">Main Fragment</string>
+    <string name="reset">Reset</string>
+    <string name="save">Save</string>
 </resources>

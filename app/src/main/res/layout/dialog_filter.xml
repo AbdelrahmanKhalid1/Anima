@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/app_toolbar" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
+
+                <LinearLayout
+                    android:id="@+id/linear_type"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    app:layout_constraintEnd_toStartOf="@+id/linear_format"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/filter_type" />
+
+                    <Spinner
+                        android:id="@+id/spinner_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:entries="@array/spinner_type_array" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_format"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/linear_type"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/linear_type">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/filter_format" />
+
+                    <Spinner
+                        android:id="@+id/spinner_format"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    app:layout_constraintEnd_toEndOf="@id/linear_type"
+                    app:layout_constraintStart_toStartOf="@id/linear_type"
+                    app:layout_constraintTop_toBottomOf="@id/linear_type">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/filter_status" />
+
+                    <Spinner
+                        android:id="@+id/spinner_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:entries="@array/spinner_status_array" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_season"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    app:layout_constraintEnd_toEndOf="@id/linear_format"
+                    app:layout_constraintStart_toStartOf="@id/linear_format"
+                    app:layout_constraintTop_toBottomOf="@id/linear_format">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/filter_season" />
+
+                    <Spinner
+                        android:id="@+id/spinner_season"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:entries="@array/spinner_season_array" />
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_all_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/filter_all_time"
+                    android:textColor="?attr/colorAccent"
+                    app:layout_constraintBottom_toTopOf="@id/linear_source"
+                    app:layout_constraintEnd_toEndOf="@id/linear_status"
+                    app:layout_constraintStart_toStartOf="@id/linear_status"
+                    app:layout_constraintTop_toBottomOf="@id/linear_status" />
+
+                <LinearLayout
+                    android:id="@+id/linear_year"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    app:layout_constraintEnd_toEndOf="@id/linear_season"
+                    app:layout_constraintStart_toStartOf="@id/linear_season"
+                    app:layout_constraintTop_toBottomOf="@id/linear_season">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/filter_start_year" />
+
+                    <com.ak.otaku_kun.custom.DatePickerCustom
+                        android:id="@+id/date_picker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <!--change picker to edit text-->
+                    <!--                <it.sephiroth.android.library.numberpicker.NumberPicker-->
+                    <!--                    android:id="@+id/picker_year"-->
+                    <!--                    style="@style/NumberPicker.Outlined"-->
+                    <!--                    app:picker_editTextStyle="@style/NumberPicker.EditTextStyle.Disabled"-->
+                    <!--                    app:picker_min="1550"-->
+                    <!--                    app:picker_orientation="vertical"-->
+                    <!--                    app:picker_stepSize="1"-->
+                    <!--                    android:layout_width="wrap_content"-->
+                    <!--                    android:layout_height="40dp"-->
+                    <!--                    android:background="@android:color/transparent"-->
+                    <!--                    android:backgroundTint="?attr/colorAccent" />-->
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_source"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/switch_all_time"
+                    app:layout_constraintStart_toStartOf="@id/switch_all_time">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/filter_source" />
+
+                    <Spinner
+                        android:id="@+id/spinner_source"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:entries="@array/spinner_source_array" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linear_genre"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    app:layout_constraintEnd_toEndOf="@id/linear_year"
+                    app:layout_constraintStart_toStartOf="@id/linear_year"
+                    app:layout_constraintTop_toBottomOf="@id/linear_year">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/filter_genres" />
+
+                    <Button
+                        android:id="@+id/btn_genre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:background="@android:color/transparent"
+                        android:text="@string/btn_genre"
+                        android:textColor="?attr/colorAccent" />
+
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+</layout>
