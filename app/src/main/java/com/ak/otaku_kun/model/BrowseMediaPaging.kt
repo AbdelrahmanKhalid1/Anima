@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.ak.MediaBrowseQuery
-import com.ak.otaku_kun.model.remote.index.Anime
+import com.ak.otaku_kun.model.remote.details.Anime
 import com.ak.otaku_kun.remote.MediaMapper
 import com.ak.otaku_kun.utils.QueryFilters
 import com.ak.type.MediaSeason
@@ -17,7 +17,7 @@ import java.lang.Exception
 
 private const val TAG = "SetUpUi"
 
-class BrowseAnimePaging(
+class BrowseMediaPaging(
     private val apolloClient: ApolloClient,
     private val animeMapper: MediaMapper.BrowseAnimeMapper,
     private val filters: QueryFilters,

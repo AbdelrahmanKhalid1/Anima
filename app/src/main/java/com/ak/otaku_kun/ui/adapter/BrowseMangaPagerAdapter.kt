@@ -10,7 +10,6 @@ import com.ak.otaku_kun.utils.QueryFilters
 import com.ak.type.MediaSeason
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.ogaclejapan.smarttablayout.SmartTabLayout
 
 private val TAB_TITLES = arrayOf(
     R.string.winter,
@@ -18,7 +17,7 @@ private val TAB_TITLES = arrayOf(
     R.string.summer,
     R.string.fall
 )/*
-class BrowseAnimePagerAdapter(private val context: Context, fa: FragmentActivity, private val queryFilters: QueryFilters) : FragmentStateAdapter(fa) {
+class BrowseMangaPagerAdapter (private val context: Context, fa: FragmentActivity, private val queryFilters: QueryFilters) : FragmentStateAdapter(fa) {
 
     fun connectTabWitPager(viewPager: ViewPager2, tabLayout: TabLayout){
         TabLayoutMediator(tabLayout, viewPager){ tab, position ->

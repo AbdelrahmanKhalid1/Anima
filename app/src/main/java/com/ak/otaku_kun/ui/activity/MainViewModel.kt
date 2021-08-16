@@ -2,6 +2,8 @@ package com.ak.otaku_kun.ui.activity
 
 import androidx.lifecycle.*
 import com.ak.otaku_kun.R
+import com.ak.otaku_kun.utils.QueryFilters
+import com.ak.type.MediaType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -9,6 +11,12 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(): ViewModel(){
 
     var selectedNavItem = R.id.nav_discover
+    var queryFilters = QueryFilters()
+
+    fun getNewSelectedNavAfterFilter(): Int {
+        selectedNavItem = if (queryFilters.type == MediaType.MANGA) R.id.nav_browse_manga else R.id.nav_browse_anime
+        return selectedNavItem
+    }
 
     //private var _dataState = MutableLiveData<PagingData<Anime>>()
     //val dataState : LiveData<PagingData<Anime>> get() = _dataState

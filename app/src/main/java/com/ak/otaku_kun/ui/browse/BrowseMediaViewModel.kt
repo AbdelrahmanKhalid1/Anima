@@ -1,4 +1,4 @@
-package com.ak.otaku_kun.ui.browse.anime
+package com.ak.otaku_kun.ui.browse
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.ak.otaku_kun.model.remote.index.Anime
+import com.ak.otaku_kun.model.remote.index.Media
 import com.ak.otaku_kun.repository.MediaRepository
 import com.ak.otaku_kun.utils.QueryFilters
 import com.ak.otaku_kun.utils.StateEvent
@@ -15,11 +15,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BrowseAnimeViewModel @Inject constructor(private val mediaRepository: MediaRepository,) :
+class BrowseMediaViewModel @Inject constructor(private val mediaRepository: MediaRepository,) :
     ViewModel() {
     var scrollPosition = 0
-    private var _dataState = MutableLiveData<PagingData<Anime>>()
-    val dataState: LiveData<PagingData<Anime>> get() = _dataState
+    private var _dataState = MutableLiveData<PagingData<Media>>()
+    val dataState: LiveData<PagingData<Media>> get() = _dataState
     //TODO make member to know which fragment in viewpager to continue from
     //private val page = MutableLiveData(1)
 
@@ -27,8 +27,8 @@ class BrowseAnimeViewModel @Inject constructor(private val mediaRepository: Medi
         viewModelScope.launch {
             when (stateEvent) {
                 is StateEvent.LoadData -> {
-                    _dataState = mediaRepository.getBrowseAnime(filters)
-                        .cachedIn(viewModelScope) as MutableLiveData<PagingData<Anime>>
+                    _dataState = mediaRepository.getBrowseMedia(filters)
+                        .cachedIn(viewModelScope) as MutableLiveData<PagingData<Media>>
                 }
                 else -> {
 

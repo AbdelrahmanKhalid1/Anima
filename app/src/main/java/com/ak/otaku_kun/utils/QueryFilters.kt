@@ -8,8 +8,11 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 private const val TAG = "QueryFilters"
+
 @Parcelize
 data class QueryFilters(
+    //TODO create filter manga class and check if we can filter anime by
+    //number of episodes or manga by number of volumes and chapters
     var type: MediaType? = null,
     var format: MediaFormat? = null,
     var status: MediaStatus? = null,
@@ -20,8 +23,14 @@ data class QueryFilters(
     var listSort: List<MediaSort>? = null
 ) : Parcelable {
     init {
+        season = when(Calendar.getInstance().get(Calendar.MONTH)){
+            12,1,2 -> MediaSeason.WINTER
+            3,4,5 -> MediaSeason.SPRING
+            6,7,8 -> MediaSeason.SUMMER
+            else -> MediaSeason.FALL //9,10,11
+        }
+
         val listSort = ArrayList<MediaSort>(1)
-//        listSort.add(MediaSort.POPULARITY)
         listSort.add(MediaSort.POPULARITY_DESC)
         Log.d(TAG, "ListSortSize: ${listSort.size}")
         this.listSort = listSort
@@ -41,18 +50,16 @@ class QueryFilterHelper(val queryFilters: QueryFilters) {
     fun getTypeIndex(): Int {
         return when (queryFilters.type) {
             MediaType.ANIME -> 0
-            MediaType.MANGA -> 1
-            else -> 0
+            else -> 1 //MANGA
         }
     }
 
     fun getSeasonIndex(): Int {
         return when (queryFilters.season) {
-            MediaSeason.WINTER -> 1
-            MediaSeason.SPRING -> 2
-            MediaSeason.SUMMER -> 3
-            MediaSeason.FALL -> 4
-            else -> 0
+            MediaSeason.WINTER -> 0
+            MediaSeason.SPRING -> 1
+            MediaSeason.SUMMER -> 2
+            else -> 3 //FALL
         }
     }
 
@@ -66,8 +73,7 @@ class QueryFilterHelper(val queryFilters: QueryFilters) {
             MediaSource.VISUAL_NOVEL -> 6
             MediaSource.VIDEO_GAME -> 7
             MediaSource.DOUJINSHI -> 8
-            MediaSource.OTHER -> 9
-            else -> 0
+            else -> 9 //MediaSource.OTHER -> 9
         }
     }
 
@@ -77,8 +83,7 @@ class QueryFilterHelper(val queryFilters: QueryFilters) {
             MediaStatus.RELEASING -> 2
             MediaStatus.NOT_YET_RELEASED -> 3
             MediaStatus.CANCELLED -> 4
-            MediaStatus.HIATUS -> 5
-            else -> 0
+            else -> 5 //MediaStatus.HIATUS -> 5
         }
     }
 
@@ -93,8 +98,7 @@ class QueryFilterHelper(val queryFilters: QueryFilters) {
             MediaFormat.SPECIAL -> 4
             MediaFormat.OVA -> 5
             MediaFormat.ONA -> 6
-            MediaFormat.MUSIC -> 7
-            else -> 0
+            else -> 7 //MediaFormat.MUSIC -> 7
         }
     }
 
@@ -102,8 +106,7 @@ class QueryFilterHelper(val queryFilters: QueryFilters) {
         return when (queryFilters.format) {
             MediaFormat.MANGA -> 1
             MediaFormat.NOVEL -> 2
-            MediaFormat.ONE_SHOT -> 3
-            else -> 0
+            else -> 3 //MediaFormat.ONE_SHOT -> 3
         }
     }
 
@@ -132,6 +135,15 @@ class QueryFilterHelper(val queryFilters: QueryFilters) {
             3 -> MediaFormat.ONE_SHOT
             else -> null
         }
+
+    fun setSeason(selectedItemPosition: Int){
+        queryFilters.season = when(selectedItemPosition){
+            0 -> MediaSeason.WINTER
+            1 -> MediaSeason.SPRING
+            2 -> MediaSeason.SUMMER
+            else -> MediaSeason.FALL //3
+        }
+    }
 
     fun setSource(selectedItemPosition: Int) {
         queryFilters.source = when (selectedItemPosition) {

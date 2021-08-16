@@ -1,6 +1,6 @@
-package com.ak.otaku_kun.model
+package com.ak.otaku_kun.model.remote.index
 
-abstract class Media(
+open class Media(
     val id: Int,
     val title: String,
     val image: String

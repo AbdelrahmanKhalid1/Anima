@@ -11,7 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 abstract class BaseActivity<V, B : ViewDataBinding>(private val layoutId: Int) : AppCompatActivity() {
 
     internal lateinit var binding : B
-    internal val viewModel : V by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,5 +22,5 @@ abstract class BaseActivity<V, B : ViewDataBinding>(private val layoutId: Int) :
 
     abstract fun setUpUI()
 
-    abstract fun getToolbar() : androidx.appcompat.widget.Toolbar?
+    abstract fun getToolbar() : androidx.appcompat.widget.Toolbar
 }

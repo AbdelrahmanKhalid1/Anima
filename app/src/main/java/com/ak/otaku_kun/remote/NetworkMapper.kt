@@ -1,7 +1,7 @@
 package com.ak.otaku_kun.remote
 
 import com.ak.MediaBrowseQuery
-import com.ak.otaku_kun.model.remote.index.Anime
+import com.ak.otaku_kun.model.remote.details.Anime
 import com.ak.otaku_kun.utils.Mapper
 import javax.inject.Inject
 

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="media"
-            type="com.ak.otaku_kun.model.Media" />
+            type="com.ak.otaku_kun.model.remote.index.Media" />
     </data>
 
     <androidx.cardview.widget.CardView

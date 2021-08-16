@@ -3,7 +3,7 @@ package com.ak.otaku_kun.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.liveData
-import com.ak.otaku_kun.model.BrowseAnimePaging
+import com.ak.otaku_kun.model.BrowseMediaPaging
 import com.ak.otaku_kun.remote.MediaMapper
 import com.ak.otaku_kun.utils.Const
 import com.ak.otaku_kun.utils.QueryFilters
@@ -16,7 +16,7 @@ class MediaRepository @Inject constructor(
     private val mediaMapper: MediaMapper
 ) {
 
-    fun getBrowseAnime(filters: QueryFilters) =
+    fun getBrowseMedia(filters: QueryFilters) =
         Pager(
             config = PagingConfig(
                 pageSize = Const.PAGE_SIZE,
@@ -24,7 +24,7 @@ class MediaRepository @Inject constructor(
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
-                BrowseAnimePaging(
+                BrowseMediaPaging(
                     apolloClient,
                     mediaMapper.browseAnimeMapper,
                     filters,

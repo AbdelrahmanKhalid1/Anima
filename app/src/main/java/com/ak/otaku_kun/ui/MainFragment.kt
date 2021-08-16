@@ -1,20 +1,13 @@
-package com.ak.otaku_kun.ui.browse
+package com.ak.otaku_kun.ui
 
-import android.annotation.SuppressLint
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
 import com.ak.otaku_kun.R
 import com.ak.otaku_kun.databinding.FragmentMainBinding
-import com.ak.otaku_kun.ui.*
-import com.ak.otaku_kun.ui.adapter.BrowsePagerAdapter
 import com.ak.otaku_kun.ui.base.BaseFragment
 import com.ak.otaku_kun.ui.dialog.FilterQueryDialog
 import com.ak.otaku_kun.ui.dialog.SortDialog
@@ -22,7 +15,6 @@ import com.ak.otaku_kun.utils.QueryFilters
 import com.ak.type.MediaSort
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 private const val TAG = "MainFragment"
 
@@ -35,41 +27,41 @@ class MainFragment :
     private val viewModel: MainFragmentViewModel by viewModels()
 
     override fun setUpUI() {
-        val toolbar = binding.appbar.findViewById<Toolbar>(R.id.toolbar)
-        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-
-        val toggle = ActionBarDrawerToggle(
-            requireActivity(), binding.drawerLayout, toolbar,
-            R.string.drawer_open, R.string.drawer_close
-        )
-
-        binding.apply {
-            drawerLayout.addDrawerListener(toggle)
-            navigationView.setNavigationItemSelectedListener(this@MainFragment)
-            navigationView.setCheckedItem(viewModel.selectedNavItem)
-        }
-        toggle.syncState()
-
-        requireActivity()
-            .onBackPressedDispatcher
-            .addCallback(this, object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    Log.d(TAG, "Fragment back pressed invoked")
-                    // Do custom work here
-                    val drawerLayout = binding.drawerLayout
-                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                        drawerLayout.closeDrawer(GravityCompat.START)
-                        return
-                    }
-
-                    // if you want onBackPressed() to be called as normal afterwards
-                    if (isEnabled) {
-                        isEnabled = false
-                        requireActivity().onBackPressed()
-                    }
-                }
-            }
-            )
+//        val toolbar = binding.appbar.findViewById<Toolbar>(R.id.toolbar)
+//        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+//
+//        val toggle = ActionBarDrawerToggle(
+//            requireActivity(), binding.drawerLayout, toolbar,
+//            R.string.drawer_open, R.string.drawer_close
+//        )
+//
+//        binding.apply {
+//            drawerLayout.addDrawerListener(toggle)
+//            navigationView.setNavigationItemSelectedListener(this@MainFragment)
+//            navigationView.setCheckedItem(viewModel.selectedNavItem)
+//        }
+//        toggle.syncState()
+//
+//        requireActivity()
+//            .onBackPressedDispatcher
+//            .addCallback(this, object : OnBackPressedCallback(true) {
+//                override fun handleOnBackPressed() {
+//                    Log.d(TAG, "Fragment back pressed invoked")
+//                    // Do custom work here
+//                    val drawerLayout = binding.drawerLayout
+//                    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+//                        drawerLayout.closeDrawer(GravityCompat.START)
+//                        return
+//                    }
+//
+//                    // if you want onBackPressed() to be called as normal afterwards
+//                    if (isEnabled) {
+//                        isEnabled = false
+//                        requireActivity().onBackPressed()
+//                    }
+//                }
+//            }
+//            )
 
 ////        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(ApolloHelper.API_AUTH_LINK + "?client_id=" + "3265" +"&response_type=token"));
 ////        startActivity(intent);
@@ -112,7 +104,7 @@ class MainFragment :
             viewModel.selectedNavItem = itemID
             onNavigate()
         }
-        binding.drawerLayout.closeDrawer(GravityCompat.START)
+        //binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 
@@ -125,19 +117,25 @@ class MainFragment :
 //                selectedNavItem = itemID;
 //                break;
             R.id.nav_browse_anime -> {
-                val pagerAdapter =
-                    BrowsePagerAdapter(requireContext(), requireActivity(), viewModel.queryFilters)
+               /* val pagerAdapter =
+                    BrowseAnimePagerAdapter(requireContext(), requireActivity(), viewModel.queryFilters)
                 binding.viewPager.adapter = pagerAdapter
                 pagerAdapter.connectTabWitPager(
                     binding.viewPager,
                     binding.appbar.findViewById(R.id.tabs)
-                )
+                )*/
 //                BrowseAnimeFragment.newInstance(currentDate[1].toInt(), currentDate[0]) //month, year
                 //mMenu.setGroupVisible(R.id.browse_menu, true);
                 supportActionBar?.setTitle("Anime")
             }
             R.id.nav_browse_manga -> {
-                navController.popBackStack()
+              /*val pagerAdapter =
+                    BrowseAnimePagerAdapter(requireContext(), requireActivity(), viewModel.queryFilters)
+                binding.viewPager.adapter = pagerAdapter
+                pagerAdapter.connectTabWitPager(
+                    binding.viewPager,
+                    binding.appbar.findViewById(R.id.tabs)
+                )*/
 //                mFragment =
 //                    BrowseFragment.newInstance(currentDate[1].toInt(), currentDate[0]) //month, year
                 //                mMenu.setGroupVisible(R.id.browse_menu, true);
@@ -174,10 +172,9 @@ class MainFragment :
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main_menu, menu)
+        //inflater.inflate(R.menu.main_menu, menu)
     }
 
-    @SuppressLint("RestrictedApi")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             //TODO maybe can hide menu in discover navigate
@@ -199,7 +196,7 @@ class MainFragment :
 
     override fun onSaveClickListener(queryFilters: QueryFilters) {
         viewModel.queryFilters = queryFilters
-        binding.navigationView.setCheckedItem(viewModel.getNewSelectedNavAfterFilter())
+        //binding.navigationView.setCheckedItem(viewModel.getNewSelectedNavAfterFilter())
         onNavigate()
     }
 

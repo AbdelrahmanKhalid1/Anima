@@ -1,6 +1,6 @@
-package com.ak.otaku_kun.model.remote.index
+package com.ak.otaku_kun.model.remote.details
 
-import com.ak.otaku_kun.model.Media
+import com.ak.otaku_kun.model.remote.index.Media
 
 class Anime(
      id : Int = -1,

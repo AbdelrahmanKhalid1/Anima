@@ -1,4 +1,4 @@
-package com.ak.otaku_kun.ui.browse
+package com.ak.otaku_kun.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
