@@ -54,6 +54,7 @@ abstract class BaseListFragment<ViewModel : androidx.lifecycle.ViewModel, V : Vi
 
     fun displayError(error: LoadState.Error) {
         getProgressBar().visibility = View.GONE
+        Log.e(TAG, "displayError: ", error.error)
         when (error.error) {
             is ApolloNetworkException -> {
                 Log.e(TAG, "displayError: ", error.error)

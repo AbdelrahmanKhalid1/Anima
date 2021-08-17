@@ -52,7 +52,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.a
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.apply {
-            //navigationView.setCheckedItem(viewModel.selectedNavItem)
+            navigationView.setCheckedItem(navController.graph.startDestination)
             navigationView.setupWithNavController(navController)
         }
         //toggle.syncState()

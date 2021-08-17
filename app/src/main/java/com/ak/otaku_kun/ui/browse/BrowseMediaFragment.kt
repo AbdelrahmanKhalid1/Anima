@@ -1,5 +1,6 @@
 package com.ak.otaku_kun.ui.browse
 
+import android.util.Log
 import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
@@ -14,7 +15,7 @@ import com.ak.otaku_kun.utils.StateEvent
 import com.ak.type.MediaType
 import dagger.hilt.android.AndroidEntryPoint
 
-const val MEDIA_TYPE = "com.ak.otaku_kun.ui.browse.media_type"
+const val MEDIA_TYPE = "mediaType"
 
 @AndroidEntryPoint
 class BrowseMediaFragment :
@@ -32,8 +33,9 @@ class BrowseMediaFragment :
         mediaAdapter = MediaAdapter()
         super.setUpUI()
         //getRecycler().scrollToPosition(viewModel.scrollPosition)
-
-        viewModel.onTriggerStateEvent(StateEvent.LoadData, queryFilters)
+        val stateEvent =
+            if (queryFilters.type == MediaType.ANIME) StateEvent.LoadAnime else StateEvent.LoadManga
+        viewModel.onTriggerStateEvent(stateEvent, queryFilters)
 
         mediaAdapter.addLoadStateListener {
             when (it.refresh) {
@@ -41,7 +43,7 @@ class BrowseMediaFragment :
                     displayProgressBar()
                 }
                 is LoadState.NotLoading -> displayData(null)
-//
+
                 is LoadState.Error -> {
                     val error = it.refresh as LoadState.Error
                     displayError(error)

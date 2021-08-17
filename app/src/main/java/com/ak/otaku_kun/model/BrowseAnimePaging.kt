@@ -17,7 +17,7 @@ import java.lang.Exception
 
 private const val TAG = "SetUpUi"
 
-class BrowseMediaPaging(
+class BrowseAnimePaging(
     private val apolloClient: ApolloClient,
     private val animeMapper: MediaMapper.BrowseAnimeMapper,
     private val filters: QueryFilters,

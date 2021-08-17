@@ -18,6 +18,7 @@ data class QueryFilters(
     var status: MediaStatus? = null,
     var season: MediaSeason? = null,
     var seasonYear: Int? = Calendar.getInstance().get(Calendar.YEAR),
+    var startDate: String? = "${Calendar.getInstance().get(Calendar.YEAR)}%",
     var source: MediaSource? = null,
     var listGenre: List<String>? = null,
     var listSort: List<MediaSort>? = null

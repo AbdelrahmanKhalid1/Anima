@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data />
+    <data/>
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
@@ -19,7 +19,8 @@
 
             <include
                 android:id="@+id/appbar"
-                layout="@layout/app_toolbar" />
+                layout="@layout/app_toolbar"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <!--            <androidx.viewpager2.widget.ViewPager2-->
             <!--                android:id="@+id/viewPager"-->

@@ -26,10 +26,16 @@ class BrowseMediaViewModel @Inject constructor(private val mediaRepository: Medi
     fun onTriggerStateEvent(stateEvent: StateEvent, filters: QueryFilters) {
         viewModelScope.launch {
             when (stateEvent) {
-                is StateEvent.LoadData -> {
-                    _dataState = mediaRepository.getBrowseMedia(filters)
+                is StateEvent.LoadAnime -> {
+                    _dataState = mediaRepository.getBrowseAnime(filters)
                         .cachedIn(viewModelScope) as MutableLiveData<PagingData<Media>>
                 }
+
+                is StateEvent.LoadManga -> {
+                    _dataState = mediaRepository.getBrowseManga(filters)
+                        .cachedIn(viewModelScope) as MutableLiveData<PagingData<Media>>
+                }
+
                 else -> {
 
                 }
