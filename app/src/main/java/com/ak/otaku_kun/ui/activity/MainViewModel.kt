@@ -10,7 +10,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(): ViewModel(){
 
-    var selectedNavItem = R.id.nav_discover
+    var selectedNavItem = R.id.nav_discover_media
     var queryFilters = QueryFilters()
 
     fun getNewSelectedNavAfterFilter(): Int {
@@ -54,3 +54,15 @@ class MainViewModel @Inject constructor(): ViewModel(){
 //    object GetMedias : StateEvent()
 //    object None : StateEvent()
 }
+
+/*class MainFragmentViewModel @Inject constructor() : ViewModel() {
+
+    var selectedNavItem = R.id.nav_discover
+    var queryFilters = QueryFilters()
+
+    fun getNewSelectedNavAfterFilter(): Int {
+        selectedNavItem = if (queryFilters.type == MediaType.MANGA) R.id.nav_browse_manga else R.id.nav_browse_anime
+        return selectedNavItem
+    }
+
+}*/

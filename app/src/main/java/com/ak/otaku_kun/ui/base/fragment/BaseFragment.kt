@@ -1,4 +1,4 @@
-package com.ak.otaku_kun.ui.base
+package com.ak.otaku_kun.ui.base.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "BaseFragment"
 
-abstract class BaseFragment<v : ViewModel, V : ViewDataBinding>(private val layoutId: Int) :
+abstract class BaseFragment<V : ViewDataBinding>(private val layoutId: Int) :
     Fragment() {
 
     lateinit var navController: NavController

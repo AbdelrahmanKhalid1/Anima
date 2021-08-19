@@ -38,22 +38,22 @@ class SortDialog(private var sort: String, private val listener: SortDialogListe
 
     private fun setRadioGroups() {
         val strArr = sort.split("_")
-        val strSize = strArr.size
-        var strProp = ""
+        val arrSize = strArr.size
         //set ascending or descending
         val radioButtonCheckedIndex =
-            if (strArr[strSize - 1] == "DESC") R.id.radio_descending else R.id.radio_ascending
+            if (strArr[arrSize - 1] == "DESC") R.id.radio_descending else R.id.radio_ascending
         sortInGroup.check(radioButtonCheckedIndex)
 
         //set property
-        if (strSize == 1) sortByGroup.check(
-            getSortByPropIndex(strArr[0].substring(0, strProp.length - 1))
-        ) //Ascending case
+        //Ascending case
+        if (arrSize == 1) sortByGroup.check(getSortByPropIndex(strArr[0]))
         else {
-            for (i in 0..strSize - 2) {
+            //Descending case
+            var strProp = ""
+            for (i in 0..arrSize - 2) {
                 strProp += strArr[i] + " "
             }
-            sortByGroup.check(getSortByPropIndex(strProp.substring(0, strProp.length - 1)))
+            sortByGroup.check(getSortByPropIndex(strProp.substring(0, strArr[0].length)))
         }
     }
 
@@ -74,16 +74,16 @@ class SortDialog(private var sort: String, private val listener: SortDialogListe
         val radioSortIn =
             requireDialog().findViewById<RadioButton>(sortInGroup.checkedRadioButtonId)
 
-        val sortBy = radioSortBy!!.text.toString()
+        var sort = radioSortBy.text.toString()
         val sortIn = radioSortIn.text.toString()
 
-        sort = if (sortIn == resources.getString(R.string.sort_in_descending)) {
-            val str = sortBy + " " + sortIn.substring(0, 4)
-            str.toUpperCase(Locale.getDefault())
-                .replace(' ', '_') //Ex: sort = "Score Desc" => SCORE_DESC
-        } else {
-            sortBy.toUpperCase(Locale.getDefault()) //Ex: sort = "Score" => SCORE
+        if (sortIn == resources.getString(R.string.sort_in_descending)) {
+            sort +=  " ${sortIn.substring(0, 4)}" //Score Desc
         }
+
+        sort = sort.toUpperCase(Locale.getDefault())
+            .replace(' ', '_') //Ex: sort = "Score Desc" => SCORE_DESC
+
         Log.d(TAG, "done: $sort")
         val sortList = ArrayList<MediaSort>(1)
         sortList.add(MediaSort.valueOf(sort))

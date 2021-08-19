@@ -49,7 +49,7 @@ dependencies {
     def graph_ql = "2.5.5"
     def lifecycle_version = "2.3.1"
     def nav_version = "2.3.5"
-    def paging_version = "3.0.0-beta02"
+    def paging_version = "3.0.1"
     def dagger_version = "2.35.1"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

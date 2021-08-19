@@ -17,7 +17,6 @@ import com.ak.type.MediaType
 
 class FilterQueryDialog(
     private var queryFilters: QueryFilters,
-    private val selectedNavIndex: Int,
     private val listener: OnFilterSaveClickListener
 ) : DialogFragment(R.layout.dialog_filter), GenreDialog.GenreDialogListener {
 
@@ -55,13 +54,8 @@ class FilterQueryDialog(
         binding.spinnerSeason.setSelection(queryFiltersHelper.getSeasonIndex())
         binding.spinnerType.setSelection(queryFiltersHelper.getTypeIndex())
 
-        //TODO I can make an option for the user to customize the tabs to be displayed ex: (season, format, genres..)
-        // and the chosen feature will be disabled
-        //if condition here
-        binding.spinnerSeason.isEnabled = false
-
-        if (selectedNavIndex == R.id.nav_browse_anime || selectedNavIndex == R.id.nav_browse_manga)
-            binding.spinnerType.isEnabled = false
+        binding.spinnerType.isEnabled =
+            queryFilters.type != MediaType.MANGA //if type is anime then set it true
 
         binding.spinnerType.onItemSelectedListener = spinnerTypeItemSelectListener
 
@@ -76,7 +70,7 @@ class FilterQueryDialog(
         binding.btnGenre.text = queryFiltersHelper.getGenreCount()
     }
 
-    private val spinnerTypeItemSelectListener = object : AdapterView.OnItemSelectedListener{
+    private val spinnerTypeItemSelectListener = object : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
             if (p2 == 0) {//anime or default ==> anime
                 val adapter = ArrayAdapter.createFromResource(
@@ -140,13 +134,24 @@ class FilterQueryDialog(
     }
 
     private fun confirmChanges() {
-        queryFiltersHelper.queryFilters.seasonYear =
-            if (binding.switchAllTime.isChecked) null else binding.datePicker.year
+        when (queryFilters.type) {
+            MediaType.MANGA -> {
+                queryFiltersHelper.queryFilters.startDate =
+                    if (binding.switchAllTime.isChecked) null else "${binding.datePicker.year}%"
+            }
+            else -> {
+                queryFiltersHelper.queryFilters.seasonYear =
+                    if (binding.switchAllTime.isChecked) null else binding.datePicker.year
+                queryFiltersHelper.setSeason(binding.spinnerSeason.selectedItemPosition)
+            }
+        }
 
-        queryFiltersHelper.setType(binding.spinnerType.selectedItemPosition)
-        queryFiltersHelper.setFormat(binding.spinnerFormat.selectedItemPosition)
-        queryFiltersHelper.setSource(binding.spinnerSource.selectedItemPosition)
-        queryFiltersHelper.setStatus(binding.spinnerStatus.selectedItemPosition)
+        binding.apply {
+            queryFiltersHelper.setType(spinnerType.selectedItemPosition)
+            queryFiltersHelper.setFormat(spinnerFormat.selectedItemPosition)
+            queryFiltersHelper.setSource(spinnerSource.selectedItemPosition)
+            queryFiltersHelper.setStatus(spinnerStatus.selectedItemPosition)
+        }
     }
 
     interface OnFilterSaveClickListener {

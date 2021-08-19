@@ -146,18 +146,6 @@
                         android:id="@+id/date_picker"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <!--change picker to edit text-->
-                    <!--                <it.sephiroth.android.library.numberpicker.NumberPicker-->
-                    <!--                    android:id="@+id/picker_year"-->
-                    <!--                    style="@style/NumberPicker.Outlined"-->
-                    <!--                    app:picker_editTextStyle="@style/NumberPicker.EditTextStyle.Disabled"-->
-                    <!--                    app:picker_min="1550"-->
-                    <!--                    app:picker_orientation="vertical"-->
-                    <!--                    app:picker_stepSize="1"-->
-                    <!--                    android:layout_width="wrap_content"-->
-                    <!--                    android:layout_height="40dp"-->
-                    <!--                    android:background="@android:color/transparent"-->
-                    <!--                    android:backgroundTint="?attr/colorAccent" />-->
                 </LinearLayout>
 
                 <LinearLayout

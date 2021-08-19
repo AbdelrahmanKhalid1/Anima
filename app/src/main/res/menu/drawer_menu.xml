@@ -20,7 +20,7 @@
                     android:icon="@drawable/ic_browse"
                     android:title="@string/browse_manga" />
                 <item
-                    android:id="@+id/nav_discover"
+                    android:id="@+id/nav_discover_media"
                     android:icon="@drawable/ic_discover"
                     android:title="@string/discover" />
                 <item

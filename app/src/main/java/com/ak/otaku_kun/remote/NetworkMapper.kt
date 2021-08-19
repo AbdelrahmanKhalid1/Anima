@@ -3,6 +3,7 @@ package com.ak.otaku_kun.remote
 import com.ak.MediaBrowseQuery
 import com.ak.otaku_kun.model.remote.details.Anime
 import com.ak.otaku_kun.model.remote.details.Manga
+import com.ak.otaku_kun.model.remote.index.MediaListEntry
 import com.ak.otaku_kun.utils.Mapper
 import javax.inject.Inject
 
@@ -13,15 +14,21 @@ class MediaMapper @Inject constructor() {
 
     class BrowseAnimeMapper : Mapper<MediaBrowseQuery.Medium?, Anime> {
         fun mapFromEntityList(entities: List<MediaBrowseQuery.Medium?>?): List<Anime> {
-            return entities!!.mapNotNull { mapFromEntityToModel(it) }
+            return entities?.mapNotNull { mapFromEntityToModel(it) } ?: emptyList()
         }
 
         override fun mapFromEntityToModel(entity: MediaBrowseQuery.Medium?): Anime {
             if (entity != null) {
                 return Anime(
                     entity.id,
-                    entity.title?.userPreferred!!,
-                    entity.coverImage?.extraLarge!!
+                    entity.title?.userPreferred ?: "",
+                    entity.coverImage?.extraLarge ?: "",
+                    entity.format?.rawValue ?: "",
+                    entity.isFavourite,
+                    entity.status?.rawValue ?: "",
+                    entity.averageScore ?: 0,
+                    entity.genres.toString().also { it.substring(1, it.length - 1) },
+                    MediaListEntry.newInstance(entity.mediaListEntry)
                 )
             }
             return Anime()
@@ -35,14 +42,21 @@ class MediaMapper @Inject constructor() {
     class BrowseMangaMapper @Inject constructor() : Mapper<MediaBrowseQuery.Medium?, Manga> {
 
         fun mapFromEntityList(entities: List<MediaBrowseQuery.Medium?>?): List<Manga> {
-            return entities!!.map { mapFromEntityToModel(it) }
+            return entities?.mapNotNull { mapFromEntityToModel(it) } ?: emptyList()
         }
 
         override fun mapFromEntityToModel(entity: MediaBrowseQuery.Medium?): Manga {
             if (entity != null) {
                 return Manga(
-                    entity.id, entity.title!!.userPreferred!!,
-                    entity.coverImage?.extraLarge!!
+                    entity.id,
+                    entity.title!!.userPreferred!!,
+                    entity.coverImage?.extraLarge!!,
+                    entity.format?.rawValue!!,
+                    entity.isFavourite,
+                    entity.status?.rawValue!!,
+                    entity.averageScore!!,
+                    entity.genres.toString(),
+                    MediaListEntry.newInstance(entity.mediaListEntry)
                 )
             }
             return Manga()

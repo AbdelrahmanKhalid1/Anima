@@ -11,38 +11,39 @@
     </data>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
         android:clickable="true"
         android:focusable="true"
         app:cardCornerRadius="5dp"
         app:cardElevation="2dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/media_art"
                 image="@{media.image}"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:adjustViewBounds="true"
+                android:scaleType="fitXY"
                 android:contentDescription="@string/media_art"
-                android:scaleType="centerCrop"
                 android:src="@drawable/sample_img"
+                app:layout_constraintDimensionRatio="3:4"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="1:1.5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@color/transparentBg"
                 android:orientation="vertical"
+                android:gravity="start"
                 android:padding="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -52,7 +53,8 @@
                     android:id="@+id/media_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="2"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:text="@{media.title}"
                     android:textColor="#fff"
                     android:textSize="12sp"
@@ -60,8 +62,7 @@
 
                 <TextView
                     android:id="@+id/media_type"
-                    format="@{media.format}"
-                    status="@{media.status}"
+                    android:text="@{media.format}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
@@ -73,53 +74,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
+                    android:ellipsize="end"
                     android:text="@{media.genre}"
                     android:textColor="#fff"
                     android:textSize="9sp"
                     tools:ignore="SmallSp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/bg_rating_text"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="4dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/rate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginVertical="2dp"
-                    android:layout_marginStart="4dp"
-                    android:textAlignment="center"
-                    android:textColor="#fff"
-                    android:textSize="10sp"
-                    tools:ignore="SmallSp" />
-
-                <ImageView
-                    android:id="@+id/favorite"
-                    isFavorite="@{media.isFavorite}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginVertical="2dp"
-                    android:src="@drawable/ic_star" />
-
-                <ImageView
-                    android:id="@+id/plan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginVertical="2dp"
-                    android:layout_marginEnd="4dp"
-                    android:textAlignment="center"
-                    android:visibility="gone" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.ak.MediaBrowseQuery
-import com.ak.otaku_kun.model.remote.details.Manga
+import com.ak.otaku_kun.model.remote.index.Media
 import com.ak.otaku_kun.remote.MediaMapper
 import com.ak.otaku_kun.utils.QueryFilters
 import com.ak.type.MediaSeason
@@ -19,16 +19,16 @@ private const val TAG = "BrowseMangaPaging"
 
 class BrowseMangaPaging(
     private val apolloClient: ApolloClient,
-    private val animeMapper: MediaMapper.BrowseMangaMapper,
+    private val mangaMapper: MediaMapper.BrowseMangaMapper,
     private val filters: QueryFilters,
     private val mediaSeason: MediaSeason?
-) : PagingSource<Int, Manga>() {
+) : PagingSource<Int, Media>() {
 
-    override fun getRefreshKey(state: PagingState<Int, Manga>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Media>): Int? {
         return state.anchorPosition
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Manga> =
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Media> =
         try {
             val currentPage = if (params.key == null) 1 else params.key
             Log.d(TAG, "load: $currentPage")
@@ -45,7 +45,7 @@ class BrowseMangaPaging(
                 )
             ).await()
             val data = response.data?.page
-            val mangaList = animeMapper.mapFromEntityList(data?.media)
+            val mangaList = mangaMapper.mapFromEntityList(data?.media)
             Log.d(TAG, "load: $mediaSeason  ${mangaList[0].id} ${mangaList[0].title}")
             LoadResult.Page(
                 data = mangaList,

@@ -3,6 +3,7 @@ package com.ak.otaku_kun.di
 import android.content.Context
 import android.content.SharedPreferences
 import com.ak.otaku_kun.R
+import com.ak.otaku_kun.utils.QueryFilters
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,14 +15,9 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-object SharedPreferenceModule {
+object ViewModelModule {
 
     @ViewModelScoped
     @Provides
-    fun provideSharedPreference(@ApplicationContext context: Context): SharedPreferences {
-        return context.getSharedPreferences(
-            context.getString(R.string.app_name),
-            Context.MODE_PRIVATE
-        )
-    }
+    fun provideQueryFilters(): QueryFilters = QueryFilters()
 }

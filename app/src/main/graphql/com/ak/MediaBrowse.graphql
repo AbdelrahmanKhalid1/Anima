@@ -38,11 +38,25 @@ query MediaBrowse(
             }
             mediaListEntry {
                 id
+                userId
+                mediaId
+                progress
                 status
+                score
+                startedAt {
+                    year
+                    month
+                    day
+                }
+                completedAt {
+                    year
+                    month
+                    day
+                }
+                progressVolumes
             }
             isFavourite
             format
-            type
             status
             season
             averageScore

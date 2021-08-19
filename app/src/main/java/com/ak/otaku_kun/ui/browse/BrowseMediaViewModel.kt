@@ -14,45 +14,35 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class BrowseMediaViewModel @Inject constructor(private val mediaRepository: MediaRepository,) :
-    ViewModel() {
-    var scrollPosition = 0
-    private var _dataState = MutableLiveData<PagingData<Media>>()
-    val dataState: LiveData<PagingData<Media>> get() = _dataState
-    //TODO make member to know which fragment in viewpager to continue from
-    //private val page = MutableLiveData(1)
+private const val TAG = "BrowseMediaViewModel"
 
-    fun onTriggerStateEvent(stateEvent: StateEvent, filters: QueryFilters) {
+@HiltViewModel
+class BrowseMediaViewModel @Inject constructor(
+    private val mediaRepository: MediaRepository,
+    var queryFilters: QueryFilters = QueryFilters()
+) :
+    ViewModel() {
+
+    var dataState: LiveData<PagingData<Media>> = MutableLiveData()
+    //TODO make member to know which fragment in viewpager to continue from
+//    private val page = MutableLiveData(1)
+//    var scrollPosition = 0
+
+    fun onTriggerStateEvent(stateEvent: StateEvent) {
         viewModelScope.launch {
             when (stateEvent) {
                 is StateEvent.LoadAnime -> {
-                    _dataState = mediaRepository.getBrowseAnime(filters)
-                        .cachedIn(viewModelScope) as MutableLiveData<PagingData<Media>>
+                    dataState = mediaRepository.requestBrowseAnime(queryFilters)
+                        .cachedIn(viewModelScope)
                 }
-
                 is StateEvent.LoadManga -> {
-                    _dataState = mediaRepository.getBrowseManga(filters)
-                        .cachedIn(viewModelScope) as MutableLiveData<PagingData<Media>>
+                    dataState = mediaRepository.requestBrowseManga(queryFilters)
+                        .cachedIn(viewModelScope)
                 }
-
                 else -> {
 
                 }
             }
         }
     }
-
-//    private fun appendData(data : List<Anime>){
-//
-//    }
-
-//    private fun incrementPage(){
-//        page.value = page.value?.plus(1)
-//    }
-
-//    fun onChangeScrollPosition(position: Int){
-//        scrollPosition = position
-//    }
-//}
 }

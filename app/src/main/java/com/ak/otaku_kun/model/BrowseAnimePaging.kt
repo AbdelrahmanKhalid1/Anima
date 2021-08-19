@@ -5,6 +5,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.ak.MediaBrowseQuery
 import com.ak.otaku_kun.model.remote.details.Anime
+import com.ak.otaku_kun.model.remote.index.Media
 import com.ak.otaku_kun.remote.MediaMapper
 import com.ak.otaku_kun.utils.QueryFilters
 import com.ak.type.MediaSeason
@@ -22,13 +23,13 @@ class BrowseAnimePaging(
     private val animeMapper: MediaMapper.BrowseAnimeMapper,
     private val filters: QueryFilters,
     private val mediaSeason: MediaSeason?
-) : PagingSource<Int, Anime>() {
+) : PagingSource<Int, Media>() {
 
-    override fun getRefreshKey(state: PagingState<Int, Anime>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Media>): Int? {
         return state.anchorPosition
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Anime> = try {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Media> = try {
         val currentPage = if (params.key == null) 1 else params.key
         Log.d(TAG, "load: $currentPage")
         val response = apolloClient.query(

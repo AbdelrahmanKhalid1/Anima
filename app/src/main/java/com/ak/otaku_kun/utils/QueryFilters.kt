@@ -18,17 +18,20 @@ data class QueryFilters(
     var status: MediaStatus? = null,
     var season: MediaSeason? = null,
     var seasonYear: Int? = Calendar.getInstance().get(Calendar.YEAR),
-    var startDate: String? = "${Calendar.getInstance().get(Calendar.YEAR)}%",
+    var startDate: String? = null,
     var source: MediaSource? = null,
     var listGenre: List<String>? = null,
     var listSort: List<MediaSort>? = null
 ) : Parcelable {
+
     init {
+        startDate = "${seasonYear}%"
         season = when(Calendar.getInstance().get(Calendar.MONTH)){
             12,1,2 -> MediaSeason.WINTER
             3,4,5 -> MediaSeason.SPRING
             6,7,8 -> MediaSeason.SUMMER
-            else -> MediaSeason.FALL //9,10,11
+            9,10,11 -> MediaSeason.FALL
+            else -> null
         }
 
         val listSort = ArrayList<MediaSort>(1)
@@ -51,16 +54,18 @@ class QueryFilterHelper(val queryFilters: QueryFilters) {
     fun getTypeIndex(): Int {
         return when (queryFilters.type) {
             MediaType.ANIME -> 0
-            else -> 1 //MANGA
+            MediaType.MANGA -> 1
+            else -> 0
         }
     }
 
     fun getSeasonIndex(): Int {
         return when (queryFilters.season) {
-            MediaSeason.WINTER -> 0
-            MediaSeason.SPRING -> 1
-            MediaSeason.SUMMER -> 2
-            else -> 3 //FALL
+            MediaSeason.WINTER -> 1
+            MediaSeason.SPRING -> 2
+            MediaSeason.SUMMER -> 3
+            MediaSeason.FALL -> 4
+            else -> 0 //ALL
         }
     }
 
@@ -74,7 +79,8 @@ class QueryFilterHelper(val queryFilters: QueryFilters) {
             MediaSource.VISUAL_NOVEL -> 6
             MediaSource.VIDEO_GAME -> 7
             MediaSource.DOUJINSHI -> 8
-            else -> 9 //MediaSource.OTHER -> 9
+            MediaSource.OTHER -> 9
+            else -> 0 //ALL
         }
     }
 
@@ -84,7 +90,8 @@ class QueryFilterHelper(val queryFilters: QueryFilters) {
             MediaStatus.RELEASING -> 2
             MediaStatus.NOT_YET_RELEASED -> 3
             MediaStatus.CANCELLED -> 4
-            else -> 5 //MediaStatus.HIATUS -> 5
+            MediaStatus.HIATUS -> 5
+            else -> 0 //ALL
         }
     }
 
@@ -99,7 +106,8 @@ class QueryFilterHelper(val queryFilters: QueryFilters) {
             MediaFormat.SPECIAL -> 4
             MediaFormat.OVA -> 5
             MediaFormat.ONA -> 6
-            else -> 7 //MediaFormat.MUSIC -> 7
+            MediaFormat.MUSIC -> 7
+            else -> 0 //ALL
         }
     }
 
@@ -107,7 +115,8 @@ class QueryFilterHelper(val queryFilters: QueryFilters) {
         return when (queryFilters.format) {
             MediaFormat.MANGA -> 1
             MediaFormat.NOVEL -> 2
-            else -> 3 //MediaFormat.ONE_SHOT -> 3
+            MediaFormat.ONE_SHOT -> 3
+            else -> 0 //ALL
         }
     }
 
@@ -139,10 +148,11 @@ class QueryFilterHelper(val queryFilters: QueryFilters) {
 
     fun setSeason(selectedItemPosition: Int){
         queryFilters.season = when(selectedItemPosition){
-            0 -> MediaSeason.WINTER
-            1 -> MediaSeason.SPRING
-            2 -> MediaSeason.SUMMER
-            else -> MediaSeason.FALL //3
+            1 -> MediaSeason.WINTER
+            2 -> MediaSeason.SPRING
+            3 -> MediaSeason.SUMMER
+            4 -> MediaSeason.FALL
+            else -> null
         }
     }
 

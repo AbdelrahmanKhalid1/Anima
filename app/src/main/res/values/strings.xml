@@ -150,4 +150,5 @@
     <string name="title_main">Main Fragment</string>
     <string name="reset">Reset</string>
     <string name="save">Save</string>
+    <string name="media_art">Media Art</string>
 </resources>

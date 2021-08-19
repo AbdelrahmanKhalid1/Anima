@@ -1,4 +1,4 @@
-package com.ak.otaku_kun.ui.base
+package com.ak.otaku_kun.ui.base.adapter
 
 import com.ak.otaku_kun.R
 import android.view.View
@@ -6,10 +6,11 @@ import android.view.animation.*
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.ak.otaku_kun.ui.base.custom.BaseViewHolder
 
 
-abstract class BaseAdapter<I : Any>(ITEM_COMPARATOR: DiffUtil.ItemCallback<I>) :
-    PagingDataAdapter<I, BaseAdapter.BaseViewHolder<I>>(ITEM_COMPARATOR) {
+abstract class BasePagingAdapter<I : Any>(ITEM_COMPARATOR: DiffUtil.ItemCallback<I>) :
+    PagingDataAdapter<I, BaseViewHolder<I>>(ITEM_COMPARATOR) {
 
     private var lastPosition = -1
 
@@ -24,6 +25,7 @@ abstract class BaseAdapter<I : Any>(ITEM_COMPARATOR: DiffUtil.ItemCallback<I>) :
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition) {
             val animation: Animation = AnimationUtils.loadAnimation(view.context, R.anim.item_fall_down)
+//            animation.duration =
             view.startAnimation(animation)
             lastPosition = position
         }
@@ -32,10 +34,5 @@ abstract class BaseAdapter<I : Any>(ITEM_COMPARATOR: DiffUtil.ItemCallback<I>) :
     override fun onViewDetachedFromWindow(holder: BaseViewHolder<I>) {
         holder.itemView.clearAnimation()
         super.onViewDetachedFromWindow(holder)
-    }
-
-    abstract class BaseViewHolder<I>(root: View) :
-        RecyclerView.ViewHolder(root) {
-        abstract fun bind(item: I)
     }
 }

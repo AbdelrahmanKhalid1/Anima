@@ -27,4 +27,11 @@
             android:defaultValue="MANGA" />
     </fragment>
 
+    <fragment
+        android:id="@+id/nav_discover_media"
+        android:name="com.ak.otaku_kun.ui.discover.DiscoverFragment"
+        android:label="Discover"
+        tools:layout="@layout/fragment_list_tab"/>
+
+
 </navigation>
