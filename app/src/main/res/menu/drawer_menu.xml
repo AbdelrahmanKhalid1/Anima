@@ -24,7 +24,7 @@
                     android:icon="@drawable/ic_discover"
                     android:title="@string/discover" />
                 <item
-                    android:id="@+id/nav_trending"
+                    android:id="@+id/nav_trending_media"
                     android:icon="@drawable/ic_trending"
                     android:title="@string/what_s_trending"/>
             </group>

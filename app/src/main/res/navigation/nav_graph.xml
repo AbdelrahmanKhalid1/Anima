@@ -2,8 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@+id/nav_browse_manga">
+    android:id="@+id/nav_graph">
 
     <fragment
         android:id="@+id/nav_browse_anime"
@@ -12,8 +11,8 @@
         tools:layout="@layout/fragment_list">
         <argument
             android:name="mediaType"
-            app:argType="com.ak.type.MediaType"
-            android:defaultValue="ANIME" />
+            android:defaultValue="ANIME"
+            app:argType="com.ak.type.MediaType" />
     </fragment>
 
     <fragment
@@ -23,15 +22,19 @@
         tools:layout="@layout/fragment_list">
         <argument
             android:name="mediaType"
-            app:argType="com.ak.type.MediaType"
-            android:defaultValue="MANGA" />
+            android:defaultValue="MANGA"
+            app:argType="com.ak.type.MediaType" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_discover_media"
         android:name="com.ak.otaku_kun.ui.discover.DiscoverFragment"
         android:label="Discover"
-        tools:layout="@layout/fragment_list_tab"/>
+        tools:layout="@layout/fragment_list_tab" />
 
-
+    <fragment
+        android:id="@+id/nav_trending_media"
+        android:name="com.ak.otaku_kun.ui.trending.TrendingFragment"
+        android:label="Trending"
+        tools:layout="@layout/fragment_list_tab" />
 </navigation>

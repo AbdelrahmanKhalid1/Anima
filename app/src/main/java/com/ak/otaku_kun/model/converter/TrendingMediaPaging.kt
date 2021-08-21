@@ -1,13 +1,12 @@
-package com.ak.otaku_kun.model
+package com.ak.otaku_kun.model.converter
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.ak.MediaBrowseQuery
-import com.ak.otaku_kun.model.remote.index.Media
+import com.ak.otaku_kun.model.index.Media
 import com.ak.otaku_kun.remote.MediaMapper
-import com.ak.otaku_kun.utils.QueryFilters
-import com.ak.type.MediaSeason
+import com.ak.type.MediaSort
+import com.ak.type.MediaType
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Input
 import com.apollographql.apollo.coroutines.await
@@ -15,13 +14,10 @@ import retrofit2.HttpException
 import java.io.IOException
 import java.lang.Exception
 
-private const val TAG = "BrowseMangaPaging"
-
-class BrowseMangaPaging(
+class TrendingMediaPaging(
     private val apolloClient: ApolloClient,
-    private val mangaMapper: MediaMapper.BrowseMangaMapper,
-    private val filters: QueryFilters,
-    private val mediaSeason: MediaSeason?
+    private val mediaMapper: MediaMapper,
+    private val mediaType: MediaType
 ) : PagingSource<Int, Media>() {
 
     override fun getRefreshKey(state: PagingState<Int, Media>): Int? {
@@ -31,22 +27,17 @@ class BrowseMangaPaging(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Media> =
         try {
             val currentPage = if (params.key == null) 1 else params.key
-            Log.d(TAG, "load: $currentPage")
+//            Log.d(TAG, "load: $currentPage")
             val response = apolloClient.query(
                 MediaBrowseQuery(
                     page = Input.optional(currentPage),
-                    type = Input.optional(filters.type),
-                    format = Input.optional(filters.format),
-                    startDate = Input.optional(filters.startDate),
-                    status = Input.optional(filters.status),
-                    source = Input.optional(filters.source),
-                    genres = Input.optional(filters.listGenre),
-                    sort = Input.optional(filters.listSort)
+                    type = Input.optional(mediaType),
+                    sort = Input.optional(listOf(MediaSort.TRENDING_DESC))
                 )
             ).await()
+
             val data = response.data?.page
-            val mangaList = mangaMapper.mapFromEntityList(data?.media)
-            Log.d(TAG, "load: $mediaSeason  ${mangaList[0].id} ${mangaList[0].title}")
+            val mangaList = mediaMapper.mapFromEntityList(data?.media)
             LoadResult.Page(
                 data = mangaList,
                 prevKey = if (currentPage != 1) currentPage?.minus(1) else null,

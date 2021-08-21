@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ak.otaku_kun.model.remote.index.Media
+import com.ak.otaku_kun.model.index.Media
 import com.ak.otaku_kun.repository.MediaRepository
 import com.ak.type.MediaSort
 import com.ak.type.MediaStatus
@@ -56,4 +56,5 @@ class DiscoverViewModel @Inject constructor(
             _data.postValue(dataList)
         }
     }
+
 }

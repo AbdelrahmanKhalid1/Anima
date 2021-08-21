@@ -11,7 +11,7 @@ private const val TAG = "QueryFilters"
 
 @Parcelize
 data class QueryFilters(
-    //TODO create filter manga class and check if we can filter anime by
+    //TODO can be converted into sealed class
     //number of episodes or manga by number of volumes and chapters
     var type: MediaType? = null,
     var format: MediaFormat? = null,

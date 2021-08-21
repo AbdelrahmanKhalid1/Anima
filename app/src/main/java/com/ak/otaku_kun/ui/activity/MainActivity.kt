@@ -1,5 +1,6 @@
 package com.ak.otaku_kun.ui.activity
 
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -12,37 +13,45 @@ import androidx.navigation.ui.setupWithNavController
 import com.ak.otaku_kun.R
 import com.ak.otaku_kun.ui.base.activity.BaseActivity
 import com.ak.otaku_kun.databinding.ActivityMainBinding
+import com.ak.otaku_kun.ui.interfaces.TabbedView
+import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 private const val TAG = "MainActivity"
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.activity_main) {
+class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.activity_main),
+    TabbedView {
 
     private val viewModel: MainViewModel by viewModels()
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun setUpUI() {
-
-        /*  val toggle = ActionBarDrawerToggle(
-              this, binding.drawerLayout, getToolbar(),
-              R.string.drawer_open, R.string.drawer_close
-          )
-  */
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
         navController = navHostFragment.navController
 
+        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
+        navGraph.startDestination = R.id.nav_browse_anime
+        navController.graph = navGraph
+
         appBarConfiguration =
-            AppBarConfiguration(setOf(R.id.nav_browse_anime, R.id.nav_browse_manga, R.id.nav_discover_media), binding.drawerLayout)
+            AppBarConfiguration(
+                setOf(
+                    R.id.nav_browse_anime,
+                    R.id.nav_browse_manga,
+                    R.id.nav_discover_media,
+                    R.id.nav_trending_media
+                ), binding.drawerLayout
+            )
         setupActionBarWithNavController(navController, appBarConfiguration)
+
 
         binding.apply {
             navigationView.setCheckedItem(navController.graph.startDestination)
             navigationView.setupWithNavController(navController)
         }
-        //toggle.syncState()
     }
 
     override fun onBackPressed() {
@@ -90,7 +99,7 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.a
 //                mFragment = DiscoverFragment()
                 supportActionBar?.setTitle(R.string.discover)
             }
-            R.id.nav_trending -> {
+            R.id.nav_trending_media -> {
 //                mFragment = MainFragment.newInstance(R.string.trending)
                 supportActionBar?.setTitle(R.string.trending)
             }
@@ -121,4 +130,15 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.a
     }
 
     override fun getToolbar(): Toolbar = binding.appbar.findViewById(R.id.toolbar)
+
+    override fun getTAbLayout(): TabLayout =
+        binding.appbar.findViewById<TabLayout>(R.id.tabs).apply {
+            visibility = View.VISIBLE
+        }
+
+    override fun hideTabLayout() {
+        binding.appbar.findViewById<TabLayout>(R.id.tabs).apply {
+            visibility = View.GONE
+        }
+    }
 }

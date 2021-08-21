@@ -16,8 +16,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 
-private const val TAG = "BaseFragment"
-
 abstract class BaseFragment<V : ViewDataBinding>(private val layoutId: Int) :
     Fragment() {
 

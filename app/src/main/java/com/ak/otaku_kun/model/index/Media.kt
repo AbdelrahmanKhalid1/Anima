@@ -1,19 +1,19 @@
-package com.ak.otaku_kun.model.remote.index
+package com.ak.otaku_kun.model.index
 
 import com.ak.MediaBrowseQuery
 import com.ak.otaku_kun.utils.Date
 
 open class Media(
-    val id: Int,
-    val title: String,
-    val image: String,
-    val format: String,
-    var isFavorite: Boolean,
-    val status: String,
-    val averageScore: Int,
+    val id: Int = -1,
+    val title: String = "",
+    val image: String= "",
+    val format: String= "",
+    var isFavorite: Boolean = false,
+    val status: String= "",
+    val averageScore: Int = 0,
 //    val meanScore: Int,
 //    val popularity: Int,
-    val genre: String,
+    val genre: String = "",
 //    val origin: String,
 //    val source: String,
 //    val year: String,

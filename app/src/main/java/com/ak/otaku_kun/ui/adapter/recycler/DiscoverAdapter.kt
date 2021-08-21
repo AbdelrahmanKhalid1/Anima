@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ak.otaku_kun.databinding.ItemDiscoverBinding
 import com.ak.otaku_kun.databinding.ItemMediaHorizontalBinding
-import com.ak.otaku_kun.model.remote.index.Media
+import com.ak.otaku_kun.model.index.Media
 import com.ak.otaku_kun.ui.base.adapter.BaseAdapter
 import com.ak.otaku_kun.ui.base.custom.BaseViewHolder
 

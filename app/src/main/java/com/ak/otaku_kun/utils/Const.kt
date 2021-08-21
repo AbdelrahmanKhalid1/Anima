@@ -6,4 +6,8 @@ object Const {
     const val MAX_PAGE_SIZE = 150
     const val MEDIA_TYPE_PARAMETERS = "mediaType"
 
+    val TRENDING_TAB_TITLES = arrayOf(
+        "Anime",
+        "Manga"
+    )
 }

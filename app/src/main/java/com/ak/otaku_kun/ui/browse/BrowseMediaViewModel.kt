@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.ak.otaku_kun.model.remote.index.Media
+import com.ak.otaku_kun.model.index.Media
 import com.ak.otaku_kun.repository.MediaRepository
 import com.ak.otaku_kun.utils.QueryFilters
 import com.ak.otaku_kun.utils.StateEvent

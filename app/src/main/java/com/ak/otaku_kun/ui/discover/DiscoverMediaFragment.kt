@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ak.otaku_kun.R
 import com.ak.otaku_kun.databinding.FragmentListBinding
-import com.ak.otaku_kun.model.remote.index.Media
+import com.ak.otaku_kun.model.index.Media
 import com.ak.otaku_kun.ui.adapter.recycler.DiscoverAdapter
 import com.ak.otaku_kun.ui.base.adapter.BaseAdapter
 import com.ak.otaku_kun.ui.base.fragment.BaseListFragment

@@ -16,9 +16,12 @@
         android:layout_height="?actionBarSize"
         android:layout_gravity="center"
         android:background="?attr/colorPrimary"
+        android:paddingBottom="2dp"
         android:visibility="gone"
+        app:tabGravity="fill"
         app:tabIndicatorColor="?attr/colorAccent"
-        app:tabSelectedTextColor="?attr/colorAccent"
+        app:tabIndicatorHeight="2dp"
+        app:tabSelectedTextColor="?colorAccent"
         app:tabTextColor="@color/white" />
 
     <!--    <com.ogaclejapan.smarttablayout.SmartTabLayout-->

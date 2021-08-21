@@ -1,14 +1,12 @@
-package com.ak.otaku_kun.model
+package com.ak.otaku_kun.model.converter
 
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.ak.MediaBrowseQuery
-import com.ak.otaku_kun.model.remote.details.Anime
-import com.ak.otaku_kun.model.remote.index.Media
+import com.ak.otaku_kun.model.index.Media
 import com.ak.otaku_kun.remote.MediaMapper
 import com.ak.otaku_kun.utils.QueryFilters
-import com.ak.type.MediaSeason
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Input
 import com.apollographql.apollo.coroutines.await
@@ -20,9 +18,8 @@ private const val TAG = "SetUpUi"
 
 class BrowseAnimePaging(
     private val apolloClient: ApolloClient,
-    private val animeMapper: MediaMapper.BrowseAnimeMapper,
-    private val filters: QueryFilters,
-    private val mediaSeason: MediaSeason?
+    private val animeMapper: MediaMapper,
+    private val filters: QueryFilters
 ) : PagingSource<Int, Media>() {
 
     override fun getRefreshKey(state: PagingState<Int, Media>): Int? {
@@ -38,7 +35,7 @@ class BrowseAnimePaging(
                 type = Input.optional(filters.type),
                 format = Input.optional(filters.format),
                 status = Input.optional(filters.status),
-                season = Input.optional(mediaSeason),
+                season = Input.optional(filters.season),
                 seasonYear = Input.optional(filters.seasonYear),
                 source = Input.optional(filters.source),
                 genres = Input.optional(filters.listGenre),
@@ -47,7 +44,6 @@ class BrowseAnimePaging(
         ).await()
         val data = response.data?.page
         val animeList = animeMapper.mapFromEntityList(data?.media)
-        Log.d(TAG, "load: $mediaSeason  ${animeList[0].id} ${animeList[0].title}")
         LoadResult.Page(
             data = animeList,
             prevKey = if (currentPage != 1) currentPage?.minus(1) else null,
