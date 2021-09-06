@@ -13,7 +13,7 @@
             app:showAsAction="ifRoom" />
 
         <item
-            android:id="@+id/action_filter"
+            android:id="@+id/nav_filter"
             android:icon="@drawable/ic_filter_list"
             android:title="@string/filter"
             app:showAsAction="ifRoom" />

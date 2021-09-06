@@ -3,10 +3,10 @@ package com.ak.otaku_kun.model.converter
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.ak.MediaBrowseQuery
-import com.ak.otaku_kun.model.index.Media
-import com.ak.otaku_kun.remote.MediaMapper
-import com.ak.otaku_kun.utils.QueryFilters
+import com.ak.otaku_kun.model.index.Character
+import com.ak.otaku_kun.remote.mapper.CharacterSearchMapper
+import com.ak.quries.character.CharacterSearchQuery
+import com.ak.quries.media.MediaBrowseQuery
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Input
 import com.apollographql.apollo.coroutines.await
@@ -14,36 +14,27 @@ import retrofit2.HttpException
 import java.io.IOException
 import java.lang.Exception
 
-private const val TAG = "BrowseMangaPaging"
-
-class BrowseMangaPaging(
+class SearchCharacterPaging(
     private val apolloClient: ApolloClient,
-    private val mangaMapper: MediaMapper,
-    private val filters: QueryFilters
-) : PagingSource<Int, Media>() {
+    private val query: String,
+    private val characterSearchMapper: CharacterSearchMapper
+) : PagingSource<Int, Character>() {
 
-    override fun getRefreshKey(state: PagingState<Int, Media>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Character>): Int? {
         return state.anchorPosition
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Media> =
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> =
         try {
             val currentPage = if (params.key == null) 1 else params.key
-            Log.d(TAG, "load: $currentPage")
             val response = apolloClient.query(
-                MediaBrowseQuery(
+                CharacterSearchQuery(
                     page = Input.optional(currentPage),
-                    type = Input.optional(filters.type),
-                    format = Input.optional(filters.format),
-                    startDate = Input.optional(filters.startDate),
-                    status = Input.optional(filters.status),
-                    source = Input.optional(filters.source),
-                    genres = Input.optional(filters.listGenre),
-                    sort = Input.optional(filters.listSort)
+                    query = Input.optional(query)
                 )
             ).await()
             val data = response.data?.page
-            val mangaList = mangaMapper.mapFromEntityList(data?.media)
+            val mangaList = characterSearchMapper.mapFromEntityList(data?.characters)
             LoadResult.Page(
                 data = mangaList,
                 prevKey = if (currentPage != 1) currentPage?.minus(1) else null,

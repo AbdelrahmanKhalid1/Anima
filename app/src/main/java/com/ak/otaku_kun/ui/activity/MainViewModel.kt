@@ -11,11 +11,22 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(): ViewModel(){
 
     var selectedNavItem = R.id.nav_discover_media
-    var queryFilters = QueryFilters()
+//    var queryFilters = QueryFilters()
+
+    private val _searchQuery = MutableLiveData<String?>()
+    val searchQuery : LiveData<String?> get() = _searchQuery
 
     fun getNewSelectedNavAfterFilter(): Int {
-        selectedNavItem = if (queryFilters.type == MediaType.MANGA) R.id.nav_browse_manga else R.id.nav_browse_anime
+//        selectedNavItem = if (queryFilters.type == MediaType.MANGA) R.id.nav_browse_manga else R.id.nav_browse_anime
         return selectedNavItem
+    }
+
+    fun performSearch(query: String){
+        _searchQuery.value = query
+    }
+
+    fun resetQuery(){
+        _searchQuery.value = null
     }
 
     //private var _dataState = MutableLiveData<PagingData<Anime>>()

@@ -1,0 +1,37 @@
+query MediaTrending(
+    $page: Int,
+    $type: MediaType = ANIME, #TODO mmkn hna a5lyh yb3t anime aw mnga
+    $sort: [MediaSort] = [TRENDING_DESC],
+    $status: MediaStatus,
+) {
+    Page (page: $page) {
+        pageInfo {
+            hasNextPage
+            currentPage
+        }
+        media(sort: $sort, status: $status, type: $type){
+            id
+            title {
+                userPreferred
+            }
+            coverImage {
+                large
+                extraLarge
+            }
+            format
+            type
+            status
+            season
+            isLocked
+            isFavourite
+            averageScore
+            genres
+            synonyms #mol5asa ya3ni msln Attack on Titans => AoT
+            nextAiringEpisode {
+                airingAt
+                timeUntilAiring
+                episode
+            }
+        }
+    }
+}

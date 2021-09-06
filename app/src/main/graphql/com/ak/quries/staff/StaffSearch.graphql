@@ -1,0 +1,18 @@
+query StaffSearch ($page: Int, $query: String) {
+    Page(page: $page) {
+        pageInfo{
+            hasNextPage
+            currentPage
+        }
+        staff(search: $query) {
+            id
+            name {
+                full
+            }
+            image {
+                large
+            }
+            languageV2
+        }
+    }
+}

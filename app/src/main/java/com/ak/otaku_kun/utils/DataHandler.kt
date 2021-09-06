@@ -14,7 +14,7 @@ import com.apollographql.apollo.exception.ApolloNetworkException
 
 private const val TAG = "DataHandler"
 
-abstract class DataHandler{
+abstract class DataHandler {
 
     fun displayProgressBar(progressBar: ProgressBar) {
         progressBar.visibility = View.VISIBLE
@@ -46,13 +46,14 @@ abstract class DataHandler{
             progressBar.visibility = View.GONE
             data?.let {
                 adapter.submitData(lifecycle, it)
-                Log.d(TAG, "displayData: $it")
+                adapter.retry()
             }
+            Log.d(TAG, "displayData: ${adapter.itemCount}")
             Log.d(TAG, "displayData: $data")
         }
     }
 
-    class DataHandlerNotPaging<I: Any>: DataHandler(){
+    class DataHandlerNotPaging<I : Any> : DataHandler() {
         fun displayData(data: List<I>, progressBar: ProgressBar, adapter: BaseAdapter<I>) {
             progressBar.visibility = View.GONE
             adapter.setItems(data)

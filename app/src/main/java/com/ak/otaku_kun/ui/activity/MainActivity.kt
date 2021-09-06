@@ -1,5 +1,9 @@
 package com.ak.otaku_kun.ui.activity
 
+import android.app.SearchManager
+import android.content.Intent
+import android.util.Log
+import android.view.Menu
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
@@ -13,6 +17,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.ak.otaku_kun.R
 import com.ak.otaku_kun.ui.base.activity.BaseActivity
 import com.ak.otaku_kun.databinding.ActivityMainBinding
+import com.ak.otaku_kun.ui.interfaces.SearchView
 import com.ak.otaku_kun.ui.interfaces.TabbedView
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +26,7 @@ private const val TAG = "MainActivity"
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.activity_main),
-    TabbedView {
+    TabbedView, SearchView {
 
     private val viewModel: MainViewModel by viewModels()
     private lateinit var navController: NavController
@@ -52,6 +57,29 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.a
             navigationView.setCheckedItem(navController.graph.startDestination)
             navigationView.setupWithNavController(navController)
         }
+
+        binding.btnSearch.setOnClickListener { performSearch() }
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.appbar.findViewById<TabLayout>(R.id.tabs).apply {
+                visibility = when (destination.id) {
+                    R.id.nav_trending_media, R.id.nav_discover_media -> View.VISIBLE
+                    else -> View.GONE
+                }
+            }
+        }
+    }
+
+    private fun performSearch() {
+        navController.navigate(R.id.nav_search)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        val query = intent?.getStringExtra(SearchManager.QUERY)
+        query?.let {
+            viewModel.performSearch(it)
+            supportActionBar?.title = query
+        }
+        super.onNewIntent(intent)
     }
 
     override fun onBackPressed() {
@@ -129,16 +157,16 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.a
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    override fun getToolbar(): Toolbar = binding.appbar.findViewById(R.id.toolbar)
+    override fun getToolbar(): Toolbar = binding.toolbar
 
-    override fun getTAbLayout(): TabLayout =
-        binding.appbar.findViewById<TabLayout>(R.id.tabs).apply {
-            visibility = View.VISIBLE
-        }
+    override fun getTabLayout(): TabLayout =
+        binding.appbar.findViewById(R.id.tabs)
 
-    override fun hideTabLayout() {
-        binding.appbar.findViewById<TabLayout>(R.id.tabs).apply {
-            visibility = View.GONE
-        }
+    override fun showSearchBtn() {
+        binding.btnSearch.visibility = View.VISIBLE
+    }
+
+    override fun hideSearchBtn() {
+        binding.btnSearch.visibility = View.GONE
     }
 }

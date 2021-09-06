@@ -2,9 +2,9 @@ package com.ak.otaku_kun.model.converter
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.ak.MediaBrowseQuery
 import com.ak.otaku_kun.model.index.Media
-import com.ak.otaku_kun.remote.MediaMapper
+import com.ak.otaku_kun.remote.mapper.MediaBrowseMapper
+import com.ak.quries.media.MediaBrowseQuery
 import com.ak.type.MediaSort
 import com.ak.type.MediaType
 import com.apollographql.apollo.ApolloClient
@@ -16,7 +16,7 @@ import java.lang.Exception
 
 class TrendingMediaPaging(
     private val apolloClient: ApolloClient,
-    private val mediaMapper: MediaMapper,
+    private val mediaMapper: MediaBrowseMapper,
     private val mediaType: MediaType
 ) : PagingSource<Int, Media>() {
 

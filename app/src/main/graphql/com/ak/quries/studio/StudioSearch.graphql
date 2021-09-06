@@ -1,0 +1,12 @@
+query StudioSearch($page: Int, $query: String) {
+    Page(page: $page) {
+        pageInfo{
+            hasNextPage
+            currentPage
+        }
+        studios(search: $query) {
+            id
+            name
+        }
+    }
+}

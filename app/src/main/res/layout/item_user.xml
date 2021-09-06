@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.ak.otaku_kun.model.index.User" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <!--        <com.mikhaellopez.circularimageview.CircularImageView-->
+            <!--            android:id="@+id/user_avatar"-->
+            <!--            android:layout_width="70dp"-->
+            <!--            android:layout_height="70dp"-->
+            <!--            android:src="@drawable/sample_avatar"-->
+            <!--            app:civ_shadow_radius="10dp"/>-->
+
+            <!--        <ImageView-->
+            <!--            android:id="@+id/user_avatar"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="match_parent"-->
+            <!--            android:adjustViewBounds="true"-->
+            <!--            android:elevation="2dp"-->
+            <!--            android:src="@drawable/sample_avatar"-->
+            <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--            app:layout_constraintEnd_toEndOf="parent"-->
+            <!--            app:layout_constraintStart_toStartOf="parent"-->
+            <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:padding="4dp"
+                android:text="@{user.name}"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_follow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Follow" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

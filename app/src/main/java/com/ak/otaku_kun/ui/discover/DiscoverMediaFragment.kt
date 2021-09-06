@@ -21,13 +21,15 @@ private const val TAG = "DiscoverMediaFragment"
 @AndroidEntryPoint
 class DiscoverMediaFragment : BaseListFragment<FragmentListBinding, List<Media>>(R.layout.fragment_list) {
 
+    //TODO handle horizontal orientation
     private val viewModel : DiscoverViewModel by viewModels()
     private lateinit var discoverAdapter : DiscoverAdapter
     private lateinit var mediaType: MediaType
     override fun setUpUI() {
         arguments?.let {
-            mediaType = it.get(Const.MEDIA_TYPE_PARAMETERS) as MediaType
+            mediaType = it.get(Const.KEY_MEDIA_TYPE) as MediaType
             dataHandler.displayProgressBar(getProgressBar())
+            if(viewModel.data.value == null)
             viewModel.getDiscoverMediaData(mediaType)
         }
         discoverAdapter = DiscoverAdapter(mediaType.rawValue)
@@ -51,7 +53,7 @@ class DiscoverMediaFragment : BaseListFragment<FragmentListBinding, List<Media>>
             DiscoverMediaFragment().apply {
                 arguments = Bundle().apply {
                     Log.d(TAG, "newInstance: $mediaType")
-                    putSerializable(Const.MEDIA_TYPE_PARAMETERS, mediaType)
+                    putSerializable(Const.KEY_MEDIA_TYPE, mediaType)
                 }
             }
     }

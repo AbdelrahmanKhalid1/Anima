@@ -4,7 +4,9 @@ object Const {
     const val DATE_FORMAT = "yyyy-MM-dd"
     const val PAGE_SIZE = 50
     const val MAX_PAGE_SIZE = 150
-    const val MEDIA_TYPE_PARAMETERS = "mediaType"
+    const val KEY_MEDIA_TYPE = "mediaType"
+    const val KEY_QUERY = "query"
+    const val KEY_FILTER = "filter"
 
     val TRENDING_TAB_TITLES = arrayOf(
         "Anime",

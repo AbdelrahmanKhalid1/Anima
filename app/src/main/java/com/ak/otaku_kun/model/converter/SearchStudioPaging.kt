@@ -1,12 +1,10 @@
 package com.ak.otaku_kun.model.converter
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.ak.MediaBrowseQuery
-import com.ak.otaku_kun.model.index.Media
-import com.ak.otaku_kun.remote.MediaMapper
-import com.ak.otaku_kun.utils.QueryFilters
+import com.ak.otaku_kun.model.index.Studio
+import com.ak.otaku_kun.remote.mapper.StudioSearchMapper
+import com.ak.quries.studio.StudioSearchQuery
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Input
 import com.apollographql.apollo.coroutines.await
@@ -14,38 +12,25 @@ import retrofit2.HttpException
 import java.io.IOException
 import java.lang.Exception
 
-private const val TAG = "SetUpUi"
-
-class BrowseAnimePaging(
+class SearchStudioPaging(
     private val apolloClient: ApolloClient,
-    private val animeMapper: MediaMapper,
-    private val filters: QueryFilters
-) : PagingSource<Int, Media>() {
+    private val query: String,
+    private val studioMapper: StudioSearchMapper
+) : PagingSource<Int, Studio>() {
+    override fun getRefreshKey(state: PagingState<Int, Studio>): Int? = state.anchorPosition
 
-    override fun getRefreshKey(state: PagingState<Int, Media>): Int? {
-        return state.anchorPosition
-    }
-
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Media> = try {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Studio> = try {
         val currentPage = if (params.key == null) 1 else params.key
-        Log.d(TAG, "load: $currentPage")
         val response = apolloClient.query(
-            MediaBrowseQuery(
+            StudioSearchQuery(
                 page = Input.optional(currentPage),
-                type = Input.optional(filters.type),
-                format = Input.optional(filters.format),
-                status = Input.optional(filters.status),
-                season = Input.optional(filters.season),
-                seasonYear = Input.optional(filters.seasonYear),
-                source = Input.optional(filters.source),
-                genres = Input.optional(filters.listGenre),
-                sort = Input.optional(filters.listSort)
+                query = Input.optional(query)
             )
         ).await()
         val data = response.data?.page
-        val animeList = animeMapper.mapFromEntityList(data?.media)
+        val mangaList = studioMapper.mapFromEntityList(data?.studios)
         LoadResult.Page(
-            data = animeList,
+            data = mangaList,
             prevKey = if (currentPage != 1) currentPage?.minus(1) else null,
             nextKey = if (data?.pageInfo?.hasNextPage!!) currentPage?.plus(1) else null
         )

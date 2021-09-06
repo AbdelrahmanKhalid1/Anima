@@ -2,11 +2,9 @@ package com.ak.otaku_kun.ui.dialog
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.*
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.ak.otaku_kun.R
@@ -15,6 +13,7 @@ import com.ak.otaku_kun.utils.QueryFilterHelper
 import com.ak.otaku_kun.utils.QueryFilters
 import com.ak.type.MediaType
 
+private const val TAG = "FilterQueryDialog"
 class FilterQueryDialog(
     private var queryFilters: QueryFilters,
     private val listener: OnFilterSaveClickListener
@@ -27,100 +26,80 @@ class FilterQueryDialog(
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         setStyle(STYLE_NORMAL, Window.FEATURE_NO_TITLE)
-        return super.onCreateDialog(savedInstanceState)
+        val dialog =super.onCreateDialog(savedInstanceState)
+        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        return dialog
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         _binding = DataBindingUtil.bind(view)
 
-        val toolbar: Toolbar = binding.toolbar as Toolbar
-        val activity = (requireActivity() as AppCompatActivity)
-        activity.setSupportActionBar(toolbar)
-        activity.supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setDisplayShowTitleEnabled(false)
-            setHomeAsUpIndicator(R.drawable.ic_close)
-        }
         binding.btnGenre.setOnClickListener {
             val genreDialog = GenreDialog(queryFiltersHelper.queryFilters.listGenre, this)
             genreDialog.show(parentFragmentManager, "GenreDialog")
         }
+
+        binding.btnClose.setOnClickListener {
+            dismiss()
+        }
+
+        binding.btnReset.setOnClickListener {
+            setUpUi()
+        }
+
+        binding.btnSave.setOnClickListener {
+            confirmChanges()
+            listener.onSaveClickListener(queryFiltersHelper.queryFilters)
+            dismiss()
+        }
+
         setUpUi()
     }
 
     private fun setUpUi() {
         queryFiltersHelper = QueryFilterHelper(queryFilters.copy())
-        binding.spinnerSeason.setSelection(queryFiltersHelper.getSeasonIndex())
-        binding.spinnerType.setSelection(queryFiltersHelper.getTypeIndex())
-
-        binding.spinnerType.isEnabled =
-            queryFilters.type != MediaType.MANGA //if type is anime then set it true
-
-        binding.spinnerType.onItemSelectedListener = spinnerTypeItemSelectListener
-
-        binding.spinnerStatus.setSelection(queryFiltersHelper.getStatusIndex())
-        binding.spinnerSource.setSelection(queryFiltersHelper.getSourceIndex())
-        binding.datePicker.setCurrentYear(queryFiltersHelper.queryFilters.seasonYear)
-
-        binding.switchAllTime.setOnCheckedChangeListener { _, isChecked ->
-            binding.datePicker.isEnabled = !isChecked
-        }
-        binding.switchAllTime.isChecked = queryFiltersHelper.queryFilters.seasonYear == null
-        binding.btnGenre.text = queryFiltersHelper.getGenreCount()
-    }
-
-    private val spinnerTypeItemSelectListener = object : AdapterView.OnItemSelectedListener {
-        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-            if (p2 == 0) {//anime or default ==> anime
-                val adapter = ArrayAdapter.createFromResource(
-                    requireContext(),
-                    R.array.spinner_format_anime_array,
-                    android.R.layout.simple_spinner_item
-                )
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                binding.spinnerFormat.adapter = adapter
-                binding.spinnerFormat.setSelection(queryFiltersHelper.getFormatAnimeIndex())
-            } else { //manga
-                val adapter = ArrayAdapter.createFromResource(
-                    requireContext(),
-                    R.array.spinner_format_manga_array,
-                    android.R.layout.simple_spinner_item
-                )
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                binding.spinnerFormat.adapter = adapter
-                binding.spinnerFormat.setSelection(queryFiltersHelper.getFormatMangaIndex())
+        binding.apply {
+            spinnerType.apply {
+                setSelection(queryFiltersHelper.getTypeIndex())
+                isEnabled = false
             }
-        }
 
-        override fun onNothingSelected(p0: AdapterView<*>?) {
+            setSpinnerFormat()
+
+            spinnerSeason.apply {
+                setSelection(queryFiltersHelper.getSeasonIndex())
+                isEnabled =
+                    queryFilters.type == MediaType.ANIME //false if manga as manga dose not have seasons
+            }
+
+            spinnerStatus.setSelection(queryFiltersHelper.getStatusIndex())
+            spinnerSource.setSelection(queryFiltersHelper.getSourceIndex())
+            datePicker.setCurrentYear(queryFiltersHelper.getYear())
+
+            switchAllTime.apply {
+                setOnCheckedChangeListener { _, isChecked ->
+                    datePicker.isEnabled = !isChecked
+                }
+                isChecked = queryFiltersHelper.getYear() == null
+            }
+
+            btnGenre.text = queryFiltersHelper.getGenreCount()
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.filter_menu, menu)
-        menu.setGroupVisible(R.id.main_group, false)
-    }
+    private fun setSpinnerFormat() {
+        val adapterArrayId =
+            if (binding.spinnerType.selectedItemPosition == 0) R.array.spinner_format_anime_array else R.array.spinner_format_manga_array
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                dismiss()
-                true
-            }
-            R.id.action_filter_ok -> {
-                confirmChanges()
-                listener.onSaveClickListener(queryFiltersHelper.queryFilters)
-                dismiss()
-                true
-            }
-            R.id.action_filter_reset -> {
-                setUpUi()
-                true
-            }
-            else ->
-                return super.onOptionsItemSelected(item)
-        }
+        val adapter = ArrayAdapter.createFromResource(
+            requireContext(),
+            adapterArrayId,
+            android.R.layout.simple_spinner_item
+        ).also { it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+
+        binding.spinnerFormat.adapter = adapter
+        binding.spinnerFormat.setSelection(queryFiltersHelper.getFormatIndex())
     }
 
     override fun onGenreOkClicked(genres: List<String>) {
@@ -134,23 +113,15 @@ class FilterQueryDialog(
     }
 
     private fun confirmChanges() {
-        when (queryFilters.type) {
-            MediaType.MANGA -> {
-                queryFiltersHelper.queryFilters.startDate =
-                    if (binding.switchAllTime.isChecked) null else "${binding.datePicker.year}%"
-            }
-            else -> {
-                queryFiltersHelper.queryFilters.seasonYear =
-                    if (binding.switchAllTime.isChecked) null else binding.datePicker.year
-                queryFiltersHelper.setSeason(binding.spinnerSeason.selectedItemPosition)
-            }
-        }
-
-        binding.apply {
-            queryFiltersHelper.setType(spinnerType.selectedItemPosition)
-            queryFiltersHelper.setFormat(spinnerFormat.selectedItemPosition)
-            queryFiltersHelper.setSource(spinnerSource.selectedItemPosition)
-            queryFiltersHelper.setStatus(spinnerStatus.selectedItemPosition)
+        Log.d(TAG, "Before confirmChanges: ${queryFilters.printData()}")
+        queryFiltersHelper.apply {
+            setFormat(binding.spinnerFormat.selectedItemPosition)
+            setStatus(binding.spinnerStatus.selectedItemPosition)
+            setSeason(binding.spinnerSeason.selectedItemPosition)
+            setYear(binding.datePicker.year, binding.switchAllTime.isChecked)
+            setSource(binding.spinnerSource.selectedItemPosition)
+            //genre is updated at function onGenreOkClicked()
+            Log.d(TAG, "After confirmChanges: ${queryFilters.printData()}")
         }
     }
 

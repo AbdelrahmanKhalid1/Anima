@@ -1,6 +1,7 @@
 package com.ak.otaku_kun.ui.adapter.recycler
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.ak.otaku_kun.databinding.ItemMediaBinding
@@ -8,15 +9,18 @@ import com.ak.otaku_kun.model.index.Media
 import com.ak.otaku_kun.ui.base.adapter.BasePagingAdapter
 import com.ak.otaku_kun.ui.base.custom.BaseViewHolder
 
-class MediaAdapter : BasePagingAdapter<Media>(PHOTO_COMPARATOR) {
+class MediaAdapter(private var isSearch: Boolean = false) : BasePagingAdapter<Media>(PHOTO_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MediaViewHolder {
         val binding = ItemMediaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MediaViewHolder(binding)
+        return MediaViewHolder(binding, isSearch)
     }
 
-    class MediaViewHolder(private val binding: ItemMediaBinding) :
+    class MediaViewHolder(private val binding: ItemMediaBinding, isSearch: Boolean = false) :
         BaseViewHolder<Media>(binding.root) {
+        init {
+            binding.mediaGenre.visibility = if (isSearch) View.GONE else View.VISIBLE
+        }
         override fun bind(item: Media) {
             binding.media = item
             //TODO in settings we can add option on how to view rating rather by 7.7 or 77% or 0.77

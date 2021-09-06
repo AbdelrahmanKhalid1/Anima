@@ -1,0 +1,17 @@
+query UserSearch ($page: Int, $query: String) {
+    Page(page: $page) {
+        pageInfo{
+            hasNextPage
+            currentPage
+        }
+        users(search: $query) {
+            id
+            name
+            avatar {
+                medium
+                large
+            }
+            isFollowing
+        }
+    }
+}

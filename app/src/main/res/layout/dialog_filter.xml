@@ -17,9 +17,42 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include
-                android:id="@+id/toolbar"
-                layout="@layout/app_toolbar" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                layout="@layout/app_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="?colorPrimary">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/btn_save"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_done"
+                    app:layout_constraintDimensionRatio="0.9:1"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/btn_reset"
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Menu"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/reset"
+                    android:textAllCaps="true"
+                    android:textColor="#fff"
+                    app:layout_constraintDimensionRatio="1.1:1"
+                    app:layout_constraintEnd_toStartOf="@id/btn_save" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/btn_close"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_close"
+                    app:layout_constraintDimensionRatio="0.9:1"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

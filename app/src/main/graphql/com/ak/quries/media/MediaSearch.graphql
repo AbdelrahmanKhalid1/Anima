@@ -1,0 +1,29 @@
+query MediaSearch ($page: Int, $query: String, $type: MediaType,
+    $sort: [MediaSort] = [SCORE_DESC]) {
+    Page(page: $page) {
+        pageInfo{
+            hasNextPage
+            currentPage
+        }
+        media(search: $query, type: $type, isAdult: false,
+            sort: $sort) {
+            id
+            title {
+                userPreferred
+            }
+            coverImage {
+                large
+            }
+            mediaListEntry {
+                id
+                status
+            }
+            startDate{
+                year
+            }
+            isFavourite
+            format
+            averageScore
+        }
+    }
+}

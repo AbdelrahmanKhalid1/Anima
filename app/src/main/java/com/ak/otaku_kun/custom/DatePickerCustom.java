@@ -47,11 +47,11 @@ public class DatePickerCustom extends LinearLayout {
         onCreateView();
     }
 
-    private void onCreateView(){
+    private void onCreateView() {
         setOrientation(LinearLayout.HORIZONTAL);
         setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         setGravity(Gravity.CENTER);
-        setPadding(8,8,8,8);
+        setPadding(8, 8, 8, 8);
 
         //to prevent editText from auto focusing and opening keyboard
         setFocusableInTouchMode(true);
@@ -72,33 +72,37 @@ public class DatePickerCustom extends LinearLayout {
 
         increment = new ImageView(getContext());
         increment.setImageResource(R.drawable.ic_up);
-        increment.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,0.3f));
+        increment.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 0.3f));
         increment.setOnClickListener(onIncrementClickListener);
         addView(increment);
     }
 
     private final OnClickListener onIncrementClickListener = view -> {
         if (currentYear < minYear) setCurrentYear(minYear);
-        else if(currentYear < maxYear) setCurrentYear(currentYear + 1);
-        else Toast.makeText(getContext(), "Out of Range 1970 - " + maxYear, Toast.LENGTH_SHORT).show();
+        else if (currentYear < maxYear) setCurrentYear(currentYear + 1);
+        else
+            Toast.makeText(getContext(), "Out of Range 1970 - " + maxYear, Toast.LENGTH_SHORT).show();
     };
 
     private final OnClickListener onDecrementClickListener = view -> {
-        if(currentYear > maxYear) setCurrentYear(maxYear);
-        else if(currentYear > minYear) setCurrentYear(currentYear - 1);
-        else Toast.makeText(getContext(), "Out of Range 1970 - " + maxYear, Toast.LENGTH_SHORT).show();
+        if (currentYear > maxYear) setCurrentYear(maxYear);
+        else if (currentYear > minYear) setCurrentYear(currentYear - 1);
+        else
+            Toast.makeText(getContext(), "Out of Range 1970 - " + maxYear, Toast.LENGTH_SHORT).show();
     };
 
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
 
         @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
 
         @Override
         public void afterTextChanged(Editable editable) {
-            if(!editable.toString().isEmpty())
+            if (!editable.toString().isEmpty())
                 currentYear = Integer.parseInt(editable.toString());
         }
     };
@@ -112,13 +116,12 @@ public class DatePickerCustom extends LinearLayout {
     }
 
     public void setCurrentYear(Integer currentYear) {
-        if(currentYear == null)
-            return;
         this.currentYear = currentYear;
-        editText.setText(String.valueOf(currentYear));
+        if (currentYear != null)
+            editText.setText(String.valueOf(currentYear));
     }
 
-    public int getYear(){
+    public int getYear() {
         return currentYear;
     }
 }

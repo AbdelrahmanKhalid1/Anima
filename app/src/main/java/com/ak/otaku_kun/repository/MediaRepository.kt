@@ -5,14 +5,14 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
-import com.ak.MediaBrowseQuery
-import com.ak.otaku_kun.model.converter.BrowseAnimePaging
-import com.ak.otaku_kun.model.converter.BrowseMangaPaging
+import com.ak.otaku_kun.model.converter.BrowseMediaPaging
+import com.ak.otaku_kun.model.converter.SearchMediaPaging
 import com.ak.otaku_kun.model.index.Media
-import com.ak.otaku_kun.remote.MediaMapper
 import com.ak.otaku_kun.model.converter.TrendingMediaPaging
+import com.ak.otaku_kun.remote.mapper.MediaMapper
 import com.ak.otaku_kun.utils.Const
 import com.ak.otaku_kun.utils.QueryFilters
+import com.ak.quries.media.MediaBrowseQuery
 import com.ak.type.MediaSort
 import com.ak.type.MediaStatus
 import com.ak.type.MediaType
@@ -27,7 +27,7 @@ class MediaRepository @Inject constructor(
     private val mediaMapper: MediaMapper
 ) {
 
-    fun requestBrowseAnime(filters: QueryFilters): LiveData<PagingData<Media>> =
+    fun requestBrowseMedia(filters: QueryFilters): LiveData<PagingData<Media>> =
         Pager(
             config = PagingConfig(
                 pageSize = Const.PAGE_SIZE,
@@ -35,25 +35,9 @@ class MediaRepository @Inject constructor(
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
-                BrowseAnimePaging(
+                BrowseMediaPaging(
                     apolloClient,
-                    mediaMapper,
-                    filters
-                )
-            }
-        ).liveData
-
-    fun requestBrowseManga(filters: QueryFilters) =
-        Pager(
-            config = PagingConfig(
-                pageSize = Const.PAGE_SIZE,
-                maxSize = Const.MAX_PAGE_SIZE,
-                enablePlaceholders = false
-            ),
-            pagingSourceFactory = {
-                BrowseMangaPaging(
-                    apolloClient,
-                    mediaMapper,
+                    mediaMapper.mediaBrowseMapper,
                     filters
                 )
             }
@@ -72,7 +56,7 @@ class MediaRepository @Inject constructor(
             )
         ).await()
         val page = response.data?.page
-        return mediaMapper.mapFromEntityList(page?.media)
+        return mediaMapper.mediaBrowseMapper.mapFromEntityList(page?.media)
     }
 
     fun requestTrendingMedia(mediaType: MediaType): LiveData<PagingData<Media>> =
@@ -85,8 +69,25 @@ class MediaRepository @Inject constructor(
             pagingSourceFactory = {
                 TrendingMediaPaging(
                     apolloClient,
-                    mediaMapper,
+                    mediaMapper.mediaBrowseMapper,
                     mediaType
+                )
+            }
+        ).liveData
+
+    fun searchMedia(mediaType: MediaType, query: String): LiveData<PagingData<Media>> =
+        Pager(
+            config = PagingConfig(
+                pageSize = Const.PAGE_SIZE,
+                maxSize = Const.MAX_PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                SearchMediaPaging(
+                    apolloClient,
+                    mediaMapper.mediaSearchMapper,
+                    mediaType,
+                    query
                 )
             }
         ).liveData

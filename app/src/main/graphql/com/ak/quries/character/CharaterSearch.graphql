@@ -1,0 +1,20 @@
+query CharacterSearch($page: Int, $query: String, $sort: [CharacterSort] = [FAVOURITES_DESC]) {
+    Page(page: $page) {
+        pageInfo {
+            hasNextPage
+            currentPage
+        }
+        characters(search: $query, sort: $sort) {
+            id
+            name {
+                first
+                last
+            }
+            image {
+                large
+            }
+            isFavourite
+            favourites
+        }
+    }
+}

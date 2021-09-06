@@ -22,17 +22,16 @@ class TrendingFragment :  BaseFragment<FragmentListTabBinding>(R.layout.fragment
         pagingAdapter = TrendingPagingAdapter(requireActivity())
         binding.apply {
             viewPager.adapter = pagingAdapter
-            pagingAdapter.connectTabWithPager(viewPager, tabbedView.getTAbLayout())
-            viewPager.isUserInputEnabled = false
+            pagingAdapter.connectTabWithPager(viewPager, tabbedView.getTabLayout())
         }
     }
 
     override fun setObservers() {}
 
-    override fun onDestroyView() {
-        tabbedView.hideTabLayout()
-        super.onDestroyView()
-    }
+//    override fun onDestroyView() {
+//        tabbedView.hideTabLayout()
+//        super.onDestroyView()
+//    }
 
     class TrendingPagingAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
 

@@ -10,6 +10,8 @@ import com.ak.otaku_kun.model.index.Media
 import com.ak.otaku_kun.repository.MediaRepository
 import com.ak.otaku_kun.utils.QueryFilters
 import com.ak.otaku_kun.utils.StateEvent
+import com.ak.type.MediaSort
+import com.ak.type.MediaType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,11 +21,13 @@ private const val TAG = "BrowseMediaViewModel"
 @HiltViewModel
 class BrowseMediaViewModel @Inject constructor(
     private val mediaRepository: MediaRepository,
-    var queryFilters: QueryFilters = QueryFilters()
 ) :
     ViewModel() {
 
-    var dataState: LiveData<PagingData<Media>> = MutableLiveData()
+    var mediaData: LiveData<PagingData<Media>> = MutableLiveData()
+    private val _queryFilters: MutableLiveData<QueryFilters> = MutableLiveData()
+    val queryFilters: LiveData<QueryFilters> get() = _queryFilters
+
     //TODO make member to know which fragment in viewpager to continue from
 //    private val page = MutableLiveData(1)
 //    var scrollPosition = 0
@@ -31,18 +35,32 @@ class BrowseMediaViewModel @Inject constructor(
     fun onTriggerStateEvent(stateEvent: StateEvent) {
         viewModelScope.launch {
             when (stateEvent) {
-                is StateEvent.LoadAnime -> {
-                    dataState = mediaRepository.requestBrowseAnime(queryFilters)
-                        .cachedIn(viewModelScope)
+                is StateEvent.LoadMedia -> {
+                    mediaData = mediaRepository.requestBrowseMedia(queryFilters.value!!)
+//                        .cachedIn(viewModelScope)
                 }
-                is StateEvent.LoadManga -> {
-                    dataState = mediaRepository.requestBrowseManga(queryFilters)
-                        .cachedIn(viewModelScope)
-                }
-                else -> {
+                is StateEvent.Refresh -> {
 
                 }
             }
         }
     }
+
+    fun setQueryFilters(mediaType: MediaType) {
+        _queryFilters.value = QueryFilters.newInstance(mediaType)
+    }
+
+    fun setQueryFilters(queryFilters: QueryFilters) {
+        _queryFilters.value = queryFilters
+    }
+
+    fun updateQueryFilters(sort: List<MediaSort>) {
+        val filters = _queryFilters.value
+        filters?.apply {
+            listSort = sort
+        }
+        _queryFilters.value = filters
+    }
+
+    fun getQueryFilters() = _queryFilters.value!!
 }

@@ -1,7 +1,7 @@
 package com.ak.otaku_kun.model.index
 
-import com.ak.MediaBrowseQuery
 import com.ak.otaku_kun.utils.Date
+import com.ak.quries.media.MediaBrowseQuery
 
 open class Media(
     val id: Int = -1,

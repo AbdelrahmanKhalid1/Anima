@@ -1,0 +1,183 @@
+query Media(
+    $mediaId: Int
+    $pageCharacter: Int,
+    $pageStaff: Int,
+    $pageReview: Int,
+    $pageRecommendation: Int,
+) {
+    Page {
+        media(id: $mediaId){
+            id
+            title {
+                romaji
+                english
+                native
+            }
+            coverImage{
+                extraLarge
+            }
+            bannerImage
+            format
+            status
+            description
+            startDate {
+                year
+                month
+                day
+            }
+            endDate {
+                year
+                month
+                day
+            }
+
+            episodes
+            duration
+            season
+
+            chapters
+            volumes
+
+            isFavourite
+
+            mediaListEntry{
+                status
+                score
+                progress
+                progressVolumes
+                repeat
+                notes
+                startedAt {
+                    year
+                    month
+                    day
+                }
+                completedAt {
+                    year
+                    month
+                    day
+                }
+            }
+
+            nextAiringEpisode {
+                episode
+                timeUntilAiring
+            }
+
+            siteUrl
+
+            genres
+            tags {
+                name
+            }
+            meanScore
+            averageScore
+            popularity
+            trailer {
+                id
+                thumbnail
+                site
+            }
+
+            characters(page: $pageCharacter, sort: [ROLE]) {
+                pageInfo{
+                    currentPage
+                    hasNextPage
+                }
+                edges{
+                    role
+                    node{
+                        id
+                        name {
+                            full
+                        }
+                        image {
+                            large
+                        }
+                    }
+                }
+            }
+
+
+            stats{
+                statusDistribution {
+                    status
+                    amount
+                }
+                scoreDistribution {
+                    score
+                    amount
+                }
+
+            }
+
+            reviews(page: $pageReview) {
+                pageInfo{
+                    currentPage
+                    hasNextPage
+                }
+                edges {
+                    node {
+                        id
+
+                    }
+                }
+            }
+
+            relations{
+                edges{
+                    relationType
+                    node{
+                        id
+                        title{
+                            userPreferred
+                        }
+                    }
+                }
+            }
+
+            staff(page: $pageStaff){
+                pageInfo{
+                    currentPage
+                    hasNextPage
+                }
+                edges{
+                    node{
+                        id
+                        name {
+                            full
+                        }
+                        image {
+                            large
+                        }
+                    }
+                }
+            }
+
+            recommendations(page: $pageRecommendation) {
+                pageInfo{
+                    total
+                    hasNextPage
+                    currentPage
+                }
+                edges {
+                    node {
+                        mediaRecommendation{
+                            id
+                            title {
+                                userPreferred
+                            }
+                            coverImage{
+                                extraLarge
+                            }
+                            format
+                            genres
+                            averageScore
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}
