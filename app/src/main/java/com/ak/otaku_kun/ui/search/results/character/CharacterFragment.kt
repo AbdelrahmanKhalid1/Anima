@@ -1,6 +1,7 @@
 package com.ak.otaku_kun.ui.search.results.character
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,6 +13,7 @@ import com.ak.otaku_kun.ui.adapter.recycler.CharacterAdapter
 import com.ak.otaku_kun.ui.base.adapter.BasePagingAdapter
 import com.ak.otaku_kun.ui.base.fragment.BasePagingListFragment
 import com.ak.otaku_kun.utils.Const
+import com.ak.otaku_kun.utils.Keys
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,8 +24,9 @@ class CharacterFragment : BasePagingListFragment<FragmentListBinding, Character>
 
     override fun setUpUI() {
         arguments?.let {
-            val query = it.getString(Const.KEY_QUERY)
+            val query = it.getString(Keys.KEY_QUERY)
             query?.let {
+                if (viewModel.searchResult.value == null)
                 viewModel.getCharactersByName(query)
             }
         }
@@ -40,15 +43,17 @@ class CharacterFragment : BasePagingListFragment<FragmentListBinding, Character>
 
     override fun getRecyclerAdapter(): BasePagingAdapter<Character> = characterAdapter
 
-    override fun getProgressBar(): ProgressBar = binding.progressBar
+    override fun getRecyclerLayoutManager(): RecyclerView.LayoutManager = GridLayoutManager(requireContext(), Const.RECYCLER_GRID_SEARCH_SPAN_COUNT)
 
-    override fun getRecyclerLayoutManager(): RecyclerView.LayoutManager = GridLayoutManager(requireContext(), 3)
+    override fun getProgressBar(): View = binding.progressBar
+
+    override fun getErrorView(): View = binding.viewError
 
     companion object{
         @JvmStatic
         fun newInstance(query: String): CharacterFragment = CharacterFragment().apply {
             val args = Bundle()
-            args.putString(Const.KEY_QUERY, query)
+            args.putString(Keys.KEY_QUERY, query)
             arguments = args
         }
     }

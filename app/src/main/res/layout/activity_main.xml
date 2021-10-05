@@ -31,20 +31,21 @@
                     android:background="?attr/colorPrimary"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                     app:layout_scrollFlags="scroll|enterAlways"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabs"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:layout_gravity="center"
-                    android:background="?attr/colorPrimary"
+                    android:background="?colorPrimary"
                     android:paddingBottom="2dp"
                     android:visibility="gone"
                     app:tabGravity="fill"
-                    app:tabIndicatorColor="?attr/colorAccent"
-                    app:tabIndicatorHeight="2dp"
-                    app:tabSelectedTextColor="?colorAccent"
+                    app:tabMinWidth="120dp"
+                    app:tabIndicatorColor="?colorSecondary"
+                    app:tabIndicatorHeight="3dp"
+                    app:tabSelectedTextColor="?colorSecondary"
                     app:tabTextColor="@color/white" />
             </com.google.android.material.appbar.AppBarLayout>
 
@@ -65,20 +66,16 @@
                 android:layout_gravity="end|bottom"
                 android:layout_margin="20dp"
                 android:src="@drawable/ic_search"
-                app:backgroundTint="?attr/colorPrimary"
-                app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
+                app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+                android:contentDescription="perform search" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigation_view"
+            style="@style/NavigationViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
             app:headerLayout="@layout/header_nav"
-            app:insetForeground="@android:color/transparent"
-            app:itemBackground="@drawable/bg_nav"
             app:menu="@menu/drawer_menu" />
-        <!--        app:itemTextColor="@color/colorTextDrawer"-->
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

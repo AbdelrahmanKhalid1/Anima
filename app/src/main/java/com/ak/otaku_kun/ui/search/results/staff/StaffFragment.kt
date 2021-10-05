@@ -1,6 +1,7 @@
 package com.ak.otaku_kun.ui.search.results.staff
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,6 +14,7 @@ import com.ak.otaku_kun.ui.adapter.recycler.StaffAdapter
 import com.ak.otaku_kun.ui.base.adapter.BasePagingAdapter
 import com.ak.otaku_kun.ui.base.fragment.BasePagingListFragment
 import com.ak.otaku_kun.utils.Const
+import com.ak.otaku_kun.utils.Keys
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +25,7 @@ class StaffFragment : BasePagingListFragment<FragmentListBinding, Staff>(R.layou
 
     override fun setUpUI() {
         arguments?.let {
-            val query = it.getString(Const.KEY_QUERY)
+            val query = it.getString(Keys.KEY_QUERY)
             query?.let {
                 viewModel.searchStaff(query)
             }
@@ -41,15 +43,16 @@ class StaffFragment : BasePagingListFragment<FragmentListBinding, Staff>(R.layou
 
     override fun getRecyclerAdapter(): BasePagingAdapter<Staff> = staffAdapter
 
-    override fun getProgressBar(): ProgressBar = binding.progressBar
+    override fun getRecyclerLayoutManager(): RecyclerView.LayoutManager = GridLayoutManager(requireContext(), Const.RECYCLER_GRID_SEARCH_SPAN_COUNT)
 
-    override fun getRecyclerLayoutManager(): RecyclerView.LayoutManager = GridLayoutManager(requireContext(), 3)
+    override fun getProgressBar(): View = binding.progressBar
+    override fun getErrorView(): View = binding.viewError
 
     companion object{
         @JvmStatic
         fun newInstance(query: String): StaffFragment = StaffFragment().apply {
             val args = Bundle()
-            args.putString(Const.KEY_QUERY, query)
+            args.putString(Keys.KEY_QUERY, query)
             arguments = args
         }
     }

@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="colorPrimary"> #c0392b </color>
-    <color name="colorPrimaryDark"> #a93226 </color>
-    <color name="colorAccent">#BBE96F</color>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--Light mode colors-->
+    <color name="primaryColorDefault">#2CABA7</color>
+    <color name="primaryDarkColorDefault">#007b78</color>
+    <color name="primaryLightColorDefault">#69ddd8</color>
+    <color name="secondaryColorDefault">#aa7828</color>
+    <color name="secondaryDarkColorDefault">#774c00</color>
+    <color name="secondaryLightColorDefault">#dfa756</color>
+    <color name="bgNavigationColorDefault">#1FAA7828</color>
+
+    <!--FF9F1C-->
+    <!--Dark (night) mode colors-->
+<!--    <color name="primaryColorNight">#252e39</color>-->
+    <color name="primaryColorNight">#ff252e39</color>
+    <color name="primaryDarkColorNight">#182128</color>
+    <color name="primaryLightColorNight">#4e5763</color>
+    <color name="secondaryColorNight">#03DAC5</color>
+    <color name="secondaryDarkColorNight">#00a895</color>
+    <color name="secondaryLightColorNight">#66fff8</color>
+    <color name="bgNavigationColorNight">#1F03DAC5</color>
+
+<!--    <color name="colorOnSecondaryDefault">#66dd95</color>-->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparentBg">#99000000</color>

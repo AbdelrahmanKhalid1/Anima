@@ -1,6 +1,7 @@
 package com.ak.otaku_kun.ui.search.results.media
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,6 +13,7 @@ import com.ak.otaku_kun.ui.adapter.recycler.MediaAdapter
 import com.ak.otaku_kun.ui.base.adapter.BasePagingAdapter
 import com.ak.otaku_kun.ui.base.fragment.BasePagingListFragment
 import com.ak.otaku_kun.utils.Const
+import com.ak.otaku_kun.utils.Keys
 import com.ak.type.MediaType
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,8 +25,8 @@ class MediaFragment : BasePagingListFragment<FragmentListBinding, Media>(R.layou
 
     override fun setUpUI() {
         arguments?.let {
-            val mediaType = it.getSerializable(Const.KEY_MEDIA_TYPE) as MediaType
-            val query = it.getString(Const.KEY_QUERY)
+            val mediaType = it.getSerializable(Keys.KEY_MEDIA_TYPE) as MediaType
+            val query = it.getString(Keys.KEY_QUERY)
             query?.let {
                 viewModel.findMediaByName(mediaType, query)
             }
@@ -42,18 +44,19 @@ class MediaFragment : BasePagingListFragment<FragmentListBinding, Media>(R.layou
 
     override fun getRecyclerAdapter(): BasePagingAdapter<Media> = mediaAdapter
 
-    override fun getProgressBar(): ProgressBar = binding.progressBar
-
     override fun getRecyclerLayoutManager(): RecyclerView.LayoutManager =
-        GridLayoutManager(requireContext(), 3)
+        GridLayoutManager(requireContext(), Const.RECYCLER_GRID_SEARCH_SPAN_COUNT)
+
+    override fun getProgressBar(): View = binding.progressBar
+    override fun getErrorView(): View = binding.viewError
 
     companion object {
         @JvmStatic
         fun newInstance(mediaType: MediaType, query: String): MediaFragment =
             MediaFragment().apply {
                 val bundle = Bundle()
-                bundle.putSerializable(Const.KEY_MEDIA_TYPE, mediaType)
-                bundle.putString(Const.KEY_QUERY, query)
+                bundle.putSerializable(Keys.KEY_MEDIA_TYPE, mediaType)
+                bundle.putString(Keys.KEY_QUERY, query)
                 arguments = bundle
             }
     }

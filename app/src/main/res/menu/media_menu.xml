@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AlwaysShowAction">
+
+    <item
+        android:id="@+id/action_favourite"
+        android:icon="@drawable/ic_favorite"
+        android:orderInCategory="100"
+        android:title="@string/favorite_this"
+        app:actionViewClass="com.mxt.anitrend.base.custom.view.widget.FavouriteToolbarWidget"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_manage"
+        android:icon="@drawable/ic_bookmark"
+        android:orderInCategory="101"
+        android:title="@string/add_to_list"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_share"
+        android:icon="@drawable/ic_share"
+        android:orderInCategory="102"
+        android:title="@string/share"
+        app:showAsAction="always" />
+
+</menu>

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.ak.otaku_kun.model.index.Staff
+import com.ak.otaku_kun.utils.EmptyDataException
 import com.ak.quries.staff.StaffSearchQuery
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Input
@@ -30,7 +31,13 @@ class SearchStaffPaging(
         ).await()
         val data = response.data?.page
         val staffList = staffMapper.mapFromEntityList(data?.staff)
-        Log.d(TAG, "load: ${staffList.size}")
+
+        if (staffList.isEmpty())
+            throw EmptyDataException(
+                "No staff founded",
+                EmptyDataException.SearchResultThrowable(query)
+            )
+
         LoadResult.Page(
             data = staffList,
             prevKey = if (currentPage != 1) currentPage.minus(1) else null,

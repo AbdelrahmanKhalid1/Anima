@@ -31,7 +31,7 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:contentDescription="@string/media_art"
-                android:src="@drawable/sample_img"
+                android:src="@drawable/sample_cover"
                 app:layout_constraintDimensionRatio="3:4"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

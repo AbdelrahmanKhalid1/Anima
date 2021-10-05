@@ -2,10 +2,9 @@ package com.ak.otaku_kun.model.converter
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.ak.otaku_kun.model.index.Staff
 import com.ak.otaku_kun.model.index.User
 import com.ak.otaku_kun.remote.mapper.UserSearchMapper
-import com.ak.quries.staff.StaffSearchQuery
+import com.ak.otaku_kun.utils.EmptyDataException
 import com.ak.quries.user.UserSearchQuery
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Input
@@ -30,9 +29,13 @@ class SearchUserPaging(
             )
         ).await()
         val data = response.data?.page
-        val mangaList = userMapper.mapFromEntityList(data?.users)
+        val userList = userMapper.mapFromEntityList(data?.users)
+
+        if(userList.isEmpty())
+            throw EmptyDataException("No users founded", EmptyDataException.SearchResultThrowable(query))
+
         LoadResult.Page(
-            data = mangaList,
+            data = userList,
             prevKey = if (currentPage != 1) currentPage.minus(1) else null,
             nextKey = if (data?.pageInfo?.hasNextPage!!) currentPage.plus(1) else null
         )

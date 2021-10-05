@@ -1,6 +1,7 @@
 package com.ak.otaku_kun.ui.search.results.studio
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,6 +13,7 @@ import com.ak.otaku_kun.ui.adapter.recycler.StudioAdapter
 import com.ak.otaku_kun.ui.base.adapter.BasePagingAdapter
 import com.ak.otaku_kun.ui.base.fragment.BasePagingListFragment
 import com.ak.otaku_kun.utils.Const
+import com.ak.otaku_kun.utils.Keys
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +24,7 @@ class StudioFragment : BasePagingListFragment<FragmentListBinding, Studio>(R.lay
 
     override fun setUpUI() {
         arguments?.let {
-            val query = it.getString(Const.KEY_QUERY)
+            val query = it.getString(Keys.KEY_QUERY)
             query?.let {
                 viewModel.searchStudio(query)
             }
@@ -40,15 +42,17 @@ class StudioFragment : BasePagingListFragment<FragmentListBinding, Studio>(R.lay
 
     override fun getRecyclerAdapter(): BasePagingAdapter<Studio> = studioAdapter
 
-    override fun getProgressBar(): ProgressBar = binding.progressBar
 
-    override fun getRecyclerLayoutManager(): RecyclerView.LayoutManager = GridLayoutManager(requireContext(), 2)
+    override fun getRecyclerLayoutManager(): RecyclerView.LayoutManager = GridLayoutManager(requireContext(), Const.RECYCLER_GRID_SEARCH_SPAN_COUNT)
+
+    override fun getProgressBar(): View = binding.progressBar
+    override fun getErrorView(): View = binding.viewError
 
     companion object{
         @JvmStatic
         fun newInstance(query: String): StudioFragment = StudioFragment().apply {
             val args = Bundle()
-            args.putString(Const.KEY_QUERY, query)
+            args.putString(Keys.KEY_QUERY, query)
             arguments = args
         }
     }

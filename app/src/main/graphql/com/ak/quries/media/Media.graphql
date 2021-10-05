@@ -1,23 +1,24 @@
-query Media(
-    $mediaId: Int
+query Media(#110277
+    $mediaId: Int,
     $pageCharacter: Int,
     $pageStaff: Int,
-    $pageReview: Int,
-    $pageRecommendation: Int,
-) {
+#    $pageReview: Int,
+    $isMain: Boolean = true) {
     Page {
-        media(id: $mediaId){
+        media(id: $mediaId) {
             id
+            type
             title {
                 romaji
                 english
+                userPreferred
                 native
             }
-            coverImage{
+            format
+            coverImage {
                 extraLarge
             }
             bannerImage
-            format
             status
             description
             startDate {
@@ -30,17 +31,29 @@ query Media(
                 month
                 day
             }
-
             episodes
             duration
             season
-
+            seasonYear
+            source
+            studios(isMain: $isMain) {
+                edges {
+                    id
+                    isMain
+                }
+                nodes {
+                    id
+                    name
+                }
+            }
+            nextAiringEpisode {
+                episode
+                timeUntilAiring
+            }
             chapters
             volumes
-
             isFavourite
-
-            mediaListEntry{
+            mediaListEntry {
                 status
                 score
                 progress
@@ -58,17 +71,13 @@ query Media(
                     day
                 }
             }
-
-            nextAiringEpisode {
-                episode
-                timeUntilAiring
-            }
-
             siteUrl
-
             genres
             tags {
+                id
                 name
+                rank
+                description
             }
             meanScore
             averageScore
@@ -78,15 +87,14 @@ query Media(
                 thumbnail
                 site
             }
-
             characters(page: $pageCharacter, sort: [ROLE]) {
-                pageInfo{
+                pageInfo {
                     currentPage
                     hasNextPage
                 }
-                edges{
+                edges {
                     role
-                    node{
+                    node {
                         id
                         name {
                             full
@@ -97,52 +105,45 @@ query Media(
                     }
                 }
             }
-
-
-            stats{
-                statusDistribution {
-                    status
-                    amount
-                }
-                scoreDistribution {
-                    score
-                    amount
-                }
-
-            }
-
-            reviews(page: $pageReview) {
-                pageInfo{
-                    currentPage
-                    hasNextPage
-                }
+#            stats {
+#                statusDistribution {
+#                    status
+#                    amount
+#                }
+#                scoreDistribution {
+#                    score
+#                    amount
+#                }
+#            }
+#            reviews(page: $pageReview) {
+#                pageInfo {
+#                    currentPage
+#                    hasNextPage
+#                }
+#                edges {
+#                    node {
+#                        id
+#                    }
+#                }
+#            }
+            relations {
                 edges {
+                    relationType
                     node {
                         id
-
-                    }
-                }
-            }
-
-            relations{
-                edges{
-                    relationType
-                    node{
-                        id
-                        title{
+                        title {
                             userPreferred
                         }
                     }
                 }
             }
-
-            staff(page: $pageStaff){
-                pageInfo{
+            staff(page: $pageStaff) {
+                pageInfo {
                     currentPage
                     hasNextPage
                 }
-                edges{
-                    node{
+                edges {
+                    node {
                         id
                         name {
                             full
@@ -153,31 +154,6 @@ query Media(
                     }
                 }
             }
-
-            recommendations(page: $pageRecommendation) {
-                pageInfo{
-                    total
-                    hasNextPage
-                    currentPage
-                }
-                edges {
-                    node {
-                        mediaRecommendation{
-                            id
-                            title {
-                                userPreferred
-                            }
-                            coverImage{
-                                extraLarge
-                            }
-                            format
-                            genres
-                            averageScore
-                        }
-                    }
-                }
-            }
-
         }
     }
 }

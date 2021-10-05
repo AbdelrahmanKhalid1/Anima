@@ -2,8 +2,10 @@ package com.ak.otaku_kun.ui.discover
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.ProgressBar
+import android.view.View
+import android.widget.Button
 import androidx.fragment.app.viewModels
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ak.otaku_kun.R
@@ -13,6 +15,8 @@ import com.ak.otaku_kun.ui.adapter.recycler.DiscoverAdapter
 import com.ak.otaku_kun.ui.base.adapter.BaseAdapter
 import com.ak.otaku_kun.ui.base.fragment.BaseListFragment
 import com.ak.otaku_kun.utils.Const
+import com.ak.otaku_kun.utils.DataState
+import com.ak.otaku_kun.utils.Keys
 import com.ak.type.MediaType
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,27 +29,42 @@ class DiscoverMediaFragment : BaseListFragment<FragmentListBinding, List<Media>>
     private val viewModel : DiscoverViewModel by viewModels()
     private lateinit var discoverAdapter : DiscoverAdapter
     private lateinit var mediaType: MediaType
+
     override fun setUpUI() {
         arguments?.let {
-            mediaType = it.get(Const.KEY_MEDIA_TYPE) as MediaType
-            dataHandler.displayProgressBar(getProgressBar())
-            if(viewModel.data.value == null)
-            viewModel.getDiscoverMediaData(mediaType)
+            mediaType = it.get(Keys.KEY_MEDIA_TYPE) as MediaType
+            if(viewModel.mediaLiveData.value == null)
+                viewModel.getDiscoverMediaData(mediaType)
         }
         discoverAdapter = DiscoverAdapter(mediaType.rawValue)
+
+        getErrorView().findViewById<Button>(R.id.btn_error).setOnClickListener {
+            viewModel.getDiscoverMediaData(mediaType)
+        }
         super.setUpUI()
     }
 
     override fun setObservers() {
-        viewModel.data.observe(viewLifecycleOwner, {discover -> displayData(discover)})
+        viewModel.mediaLiveData.observe(viewLifecycleOwner, { dataState ->
+            when(dataState){
+                is DataState.Loading -> {
+                    getProgressBar().visibility = View.VISIBLE
+                    getErrorView().visibility = View.GONE
+                }
+                is DataState.Success -> displayData(dataState.data)
+                is DataState.Error -> handleError(LoadState.Error(dataState.exception))
+            }})
     }
 
     override fun getRecycler(): RecyclerView  = binding.recycler
 
     override fun getRecyclerAdapter(): BaseAdapter<List<Media>> = discoverAdapter
 
-    override fun getProgressBar(): ProgressBar = binding.progressBar
     override fun getRecyclerLayoutManager(): RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
+
+    override fun getProgressBar(): View = binding.progressBar
+
+    override fun getErrorView(): View = binding.viewError
 
     companion object{
         @JvmStatic
@@ -53,7 +72,7 @@ class DiscoverMediaFragment : BaseListFragment<FragmentListBinding, List<Media>>
             DiscoverMediaFragment().apply {
                 arguments = Bundle().apply {
                     Log.d(TAG, "newInstance: $mediaType")
-                    putSerializable(Const.KEY_MEDIA_TYPE, mediaType)
+                    putSerializable(Keys.KEY_MEDIA_TYPE, mediaType)
                 }
             }
     }

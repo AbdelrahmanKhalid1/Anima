@@ -16,14 +16,14 @@
             android:layout_height="match_parent"
             android:scrollbars="vertical"/>
 
-        <ProgressBar
+        <include
             android:id="@+id/progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            layout="@layout/custom_view_load" />
+
+        <include
+            android:id="@+id/view_error"
+            android:visibility="gone"
+            layout="@layout/custom_view_error"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

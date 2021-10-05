@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.activity.detail.MediaActivity">
+
+    <data>
+
+        <variable
+            name="media"
+            type="com.ak.otaku_kun.model.details.Media" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <com.ak.otaku_kun.ui.view.CardViewBase
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/md_margin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:text="@string/title_series_description" />
+
+                    <androidx.legacy.widget.Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/md_margin" />
+
+                    <com.borjabravo.readmoretextview.ReadMoreTextView
+                        android:id="@+id/desc"
+                        desc="@{media.description}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:fontFamily="sans-serif-light"
+                        app:showTrimExpandedText="false"
+                        app:trimExpandedText="show more"
+                        app:colorClickableText="?colorSecondary"
+                        app:trimMode="trimModeLength"
+                        tools:text="The Amanto, aliens from outer space, have invaded Earth and taken over feudal Japan." />
+                </LinearLayout>
+            </com.ak.otaku_kun.ui.view.CardViewBase>
+
+            <FrameLayout
+                android:id="@+id/youtube_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/md_margin"
+                tools:visibility="gone" />
+
+            <!--            <androidx.recyclerview.widget.RecyclerView-->
+            <!--                android:id="@+id/genre_recycler"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content" />-->
+
+            <include
+                android:id="@+id/media_info"
+                layout="@layout/section_media_details"
+                mediaInfo="@{media}" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tags_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/md_margin"
+                tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/item_tag"
+                tools:spanCount="2" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

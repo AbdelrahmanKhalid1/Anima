@@ -36,12 +36,11 @@ abstract class BaseFragment<V : ViewDataBinding>(private val layoutId: Int) :
         super.onViewCreated(view, savedInstanceState)
 //        if (savedInstanceState != null)
 //            _binding = DataBindingUtil.bind(view)
+        try {
             navController = findNavController()
-//        try {
-//        } catch (ignore: Exception) {
-//            Log.e(TAG, "onViewCreated: Fragment Does not have NavController", ignore)
-//            navController = findNavController()
-//        }
+        } catch (ignore: Exception) {
+            
+        }
         binding.lifecycleOwner = this
         setHasOptionsMenu(true)
         setUpUI()

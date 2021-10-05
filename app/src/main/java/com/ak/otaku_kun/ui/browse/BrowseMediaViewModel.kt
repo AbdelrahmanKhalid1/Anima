@@ -35,19 +35,18 @@ class BrowseMediaViewModel @Inject constructor(
     fun onTriggerStateEvent(stateEvent: StateEvent) {
         viewModelScope.launch {
             when (stateEvent) {
-                is StateEvent.LoadMedia -> {
+                is StateEvent.LoadData -> {
                     mediaData = mediaRepository.requestBrowseMedia(queryFilters.value!!)
-//                        .cachedIn(viewModelScope)
+                        .cachedIn(viewModelScope)
                 }
                 is StateEvent.Refresh -> {
 
                 }
+                is StateEvent.InitQueryFilters ->{
+                    _queryFilters.value = QueryFilters.newInstance(stateEvent.mediaType)
+                }
             }
         }
-    }
-
-    fun setQueryFilters(mediaType: MediaType) {
-        _queryFilters.value = QueryFilters.newInstance(mediaType)
     }
 
     fun setQueryFilters(queryFilters: QueryFilters) {

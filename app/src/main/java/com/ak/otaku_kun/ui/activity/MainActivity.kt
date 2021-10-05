@@ -2,8 +2,8 @@ package com.ak.otaku_kun.ui.activity
 
 import android.app.SearchManager
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
@@ -25,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 private const val TAG = "MainActivity"
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.activity_main),
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main),
     TabbedView, SearchView {
 
     private val viewModel: MainViewModel by viewModels()
@@ -51,14 +51,14 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.a
                 ), binding.drawerLayout
             )
         setupActionBarWithNavController(navController, appBarConfiguration)
-
-
+        
         binding.apply {
             navigationView.setCheckedItem(navController.graph.startDestination)
             navigationView.setupWithNavController(navController)
         }
 
-        binding.btnSearch.setOnClickListener { performSearch() }
+        binding.btnSearch.setOnClickListener { navController.navigate(R.id.nav_search) }
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.appbar.findViewById<TabLayout>(R.id.tabs).apply {
                 visibility = when (destination.id) {
@@ -69,8 +69,15 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.a
         }
     }
 
-    private fun performSearch() {
-        navController.navigate(R.id.nav_search)
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        with(savedInstanceState) {
+            val destinationId = getInt(STATE_NAV_ITEM)
+            if (destinationId == R.id.nav_search) {
+                val searchQuery = getString(STATE_SEARCH_QUERY)
+                viewModel.performSearch(searchQuery!!)
+            }
+        }
+        super.onRestoreInstanceState(savedInstanceState)
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -91,6 +98,31 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.a
         super.onBackPressed()
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.run {
+            putInt(STATE_NAV_ITEM, navController.currentDestination!!.id)
+            putString(STATE_SEARCH_QUERY, viewModel.searchQuery.value)
+        }
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun getToolbar(): Toolbar = binding.toolbar
+
+    override fun getTabLayout(): TabLayout =
+        binding.appbar.findViewById(R.id.tabs)
+
+    override fun showSearchBtn() {
+        binding.btnSearch.visibility = View.VISIBLE
+    }
+
+    override fun hideSearchBtn() {
+        binding.btnSearch.visibility = View.GONE
+    }
+/*
     private fun onNavigate() {
         when (viewModel.selectedNavItem) {
 //            case R.id.nav_home_feed:
@@ -152,21 +184,12 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>(R.layout.a
               */
         }
     }
+*/
+    companion object {
+        @JvmStatic
+        val STATE_NAV_ITEM = "selectedNavItem"
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
-
-    override fun getToolbar(): Toolbar = binding.toolbar
-
-    override fun getTabLayout(): TabLayout =
-        binding.appbar.findViewById(R.id.tabs)
-
-    override fun showSearchBtn() {
-        binding.btnSearch.visibility = View.VISIBLE
-    }
-
-    override fun hideSearchBtn() {
-        binding.btnSearch.visibility = View.GONE
+        @JvmStatic
+        val STATE_SEARCH_QUERY = "searchQuery"
     }
 }

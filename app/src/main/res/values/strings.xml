@@ -1,23 +1,9 @@
 <resources>
     <string name="app_name">Otaku-Kun</string>
-    <string name="the_best_anime_of_all_time">The Best Anime of all Time</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="tab_series_overview">Overview</string>
-    <string name="tab_series_relation">Relation</string>
-    <string name="tab_characters">Characters</string>
-    <string name="tab_staff">Staff</string>
-
-    <!--  Filter Activity Section  -->
-    <string name="title_activity_filter">Filter Series</string>
-    <!--  Filter by season -->
-    <string name="winter">Winter</string>
-    <string name="spring">Spring</string>
-    <string name="summer">Summer</string>
-    <string name="fall">Fall</string>
-
+    <!--  Filter Section  -->
     <string-array name="spinner_type_array">
         <item>Anime</item>
         <item>Manga</item>
@@ -120,17 +106,11 @@
     <string name="sort_in_ascending">Ascending</string>
     <string name="sort_in_descending">Descending</string>
 
-    <!--    -->
+    <!-- Navigation menu titles   -->
     <string name="browse_anime">Browse Anime</string>
     <string name="browse_manga">Browse Manga</string>
     <string name="discover">Discover</string>
-    <string name="trending">Trending</string>
-
-    <string name="trending_watched">Being Watch</string>
-    <string name="trending_finished">Finished</string>
-    <string name="trending_airing_now">Airing Now</string>
-    <string name="hello_blank_fragment">Hello</string>
-    <string name="activity_feed">Activity Feed</string>
+    <string name="trending">Trending</string> <!-- fragment trending title -->
     <string name="what_s_trending">What\'s Trending</string>
     <string name="manage">Manage</string>
     <string name="my_anime_list">My Anime List</string>
@@ -138,17 +118,63 @@
     <string name="sign_out">Sign Out</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
-    <string name="title_activity_search">Search</string>
+
+    <!-- Tab Search titles constants  -->
     <string name="searchHint">Search.....</string>
     <string name="tab_anime">Anime</string>
     <string name="tab_manga">Manga</string>
     <string name="tab_studio">Studio</string>
     <string name="tab_user">User</string>
+    <string name="tab_characters">Characters</string>
+    <string name="tab_staff">Staff</string>
+
+    <!--  Tab details titles constants  -->
+    <string name="tab_series_overview">Overview</string>
+    <string name="tab_series_relation">Relation</string>
+
+    <!--   Tab Media Details titles constants -->
+    <string name="overview">Overview</string> <!--<item>Stats</item>-->
+    <string name="relation">Relations</string>
+    <string name="character">Characters</string>
+    <string name="episodes">Episodes</string>
+    <string name="staff">Staff</string>
+    <string name="reviews">Reviews</string>
+
+    <!--    Media Menu titles constants-->
+    <string name="favorite_this">Favorite this</string>
+    <string name="add_to_list">Add to list</string>
+    <string name="share">Share</string>
+
     <string name="character_main">Main</string>
     <string name="character_support">Supporting</string>
-    <string name="character_background">Backgrond</string>
+    <string name="character_background">background</string>
+    <string name="the_best_anime_of_all_time">The Best Anime of all Time</string>
     <string name="title_main">Main Fragment</string>
     <string name="reset">Reset</string>
     <string name="save">Save</string>
     <string name="media_art">Media Art</string>
+
+    <!-- Error String constants   -->
+    <string name="content_disc_error_image">image error</string>
+    <string name="error_connection">Not connected to Internet!\nPlease check internet connection.</string>
+
+    <string name="title_series_description">Series Description</string>
+    <string name="title_series_status">Series Status</string>
+    <string name="title_series_season">Series Season</string>
+    <string name="title_series_score">Series Score</string>
+    <string name="title_series_source">Series Source</string>
+
+    <string name="title_total_chapters">Total Chapters</string>
+    <string name="title_total_volumes">Total Volumes</string>
+
+    <string name="title_total_episodes">Total Episodes</string>
+    <string name="title_episode_duration">Episode Duration</string>
+    <string name="title_next_episode">Next Episode</string>
+
+    <string name="title_hash_tag">Hash Tag</string>
+    <string name="title_main_studio">Main Studio</string>
+
+    <string name="init_youtube_missing">Consider installing the YouTube App if you want to watch trailers!</string>
+    <string name="title_ended_at">Series Ended At</string>
+    <string name="title_started_at">Series Started At</string>
 </resources>

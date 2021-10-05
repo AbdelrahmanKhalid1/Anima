@@ -7,7 +7,7 @@ import com.ak.quries.character.CharacterSearchQuery
 import com.ak.quries.media.MediaBrowseQuery
 import javax.inject.Inject
 
-class CharacterMapper @Inject constructor(){
+class CharacterMapper @Inject constructor() {
     val characterSearchMapper = CharacterSearchMapper()
 }
 
@@ -17,7 +17,7 @@ class CharacterSearchMapper : Mapper<CharacterSearchQuery.Character?, Character>
         return entity?.let {
             Character(
                 it.id,
-                "${it.name?.first} ${it.name?.last}",
+                it.name?.run { "${first ?: ""} ${last ?: ""}" } ?: "",
                 "${it.image?.large}",
                 it.isFavourite,
                 it.favourites ?: 0

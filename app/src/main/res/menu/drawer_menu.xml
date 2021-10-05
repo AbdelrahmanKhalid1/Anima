@@ -8,7 +8,7 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_home_feed"
-                    android:title="@string/activity_feed"
+                    android:title=""
                     android:icon="@drawable/ic_home"
                     android:visible="false" />
                 <item

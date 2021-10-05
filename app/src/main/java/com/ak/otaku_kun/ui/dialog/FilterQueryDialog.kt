@@ -5,29 +5,38 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.ak.otaku_kun.R
 import com.ak.otaku_kun.databinding.DialogFilterBinding
+import com.ak.otaku_kun.utils.Const
+import com.ak.otaku_kun.utils.Keys
 import com.ak.otaku_kun.utils.QueryFilterHelper
 import com.ak.otaku_kun.utils.QueryFilters
 import com.ak.type.MediaType
+import com.google.android.material.snackbar.Snackbar
+import java.io.Serializable
 
 private const val TAG = "FilterQueryDialog"
+
 class FilterQueryDialog(
-    private var queryFilters: QueryFilters,
-    private val listener: OnFilterSaveClickListener
+    private var queryFilters: QueryFilters? = null,
+    private var listener: OnFilterSaveClickListener? = null
 ) : DialogFragment(R.layout.dialog_filter), GenreDialog.GenreDialogListener {
+
+    constructor() : this(null, null)
 
     //TODO Add advanced filter methods
     private lateinit var queryFiltersHelper: QueryFilterHelper
+    private val _queryFilters get() = queryFilters!!
     private var _binding: DialogFilterBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         setStyle(STYLE_NORMAL, Window.FEATURE_NO_TITLE)
-        val dialog =super.onCreateDialog(savedInstanceState)
-        dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
+        val dialog = super.onCreateDialog(savedInstanceState)
+        dialog.window?.attributes?.windowAnimations = R.style.DialogFilterAnimation
         return dialog
     }
 
@@ -35,30 +44,36 @@ class FilterQueryDialog(
         setHasOptionsMenu(true)
         _binding = DataBindingUtil.bind(view)
 
-        binding.btnGenre.setOnClickListener {
-            val genreDialog = GenreDialog(queryFiltersHelper.queryFilters.listGenre, this)
-            genreDialog.show(parentFragmentManager, "GenreDialog")
+        binding.apply {
+            btnGenre.setOnClickListener {
+                val genreDialog =
+                    GenreDialog(queryFiltersHelper.queryFilters.listGenre, this@FilterQueryDialog)
+                genreDialog.show(parentFragmentManager, "GenreDialog")
+            }
+            btnClose.setOnClickListener {
+                dismiss()
+            }
+            btnReset.setOnClickListener {
+                queryFiltersHelper = QueryFilterHelper(_queryFilters.copy())
+                setUpUi()
+            }
+            btnSave.setOnClickListener {
+                updateQueryFilters()
+            }
         }
-
-        binding.btnClose.setOnClickListener {
-            dismiss()
-        }
-
-        binding.btnReset.setOnClickListener {
-            setUpUi()
-        }
-
-        binding.btnSave.setOnClickListener {
-            confirmChanges()
-            listener.onSaveClickListener(queryFiltersHelper.queryFilters)
-            dismiss()
-        }
+        if (savedInstanceState != null) {
+            savedInstanceState.run {
+                queryFilters = getParcelable(Keys.STATE_QUERY_FILTERS_BEFORE)
+                queryFiltersHelper = QueryFilterHelper(getParcelable(Keys.STATE_QUERY_FILTERS_AFTER)!!)
+                listener = getSerializable(Keys.STATE_PARENT_FRAGMENT_LISTENER) as OnFilterSaveClickListener?
+            }
+        } else queryFiltersHelper = QueryFilterHelper(queryFilters!!)
 
         setUpUi()
     }
 
     private fun setUpUi() {
-        queryFiltersHelper = QueryFilterHelper(queryFilters.copy())
+        Log.d(TAG, "setUpUi: copy of filterquery ${queryFiltersHelper.queryFilters.printData()}")
         binding.apply {
             spinnerType.apply {
                 setSelection(queryFiltersHelper.getTypeIndex())
@@ -70,7 +85,7 @@ class FilterQueryDialog(
             spinnerSeason.apply {
                 setSelection(queryFiltersHelper.getSeasonIndex())
                 isEnabled =
-                    queryFilters.type == MediaType.ANIME //false if manga as manga dose not have seasons
+                    _queryFilters.type == MediaType.ANIME //false if manga as manga dose not have seasons
             }
 
             spinnerStatus.setSelection(queryFiltersHelper.getStatusIndex())
@@ -105,15 +120,28 @@ class FilterQueryDialog(
     override fun onGenreOkClicked(genres: List<String>) {
         queryFiltersHelper.setGenres(genres)
         binding.btnGenre.text = queryFiltersHelper.getGenreCount()
+        //in case user changes theme text does not changes
     }
 
     override fun onGenreResetClicked() {
-        queryFiltersHelper.setGenres(ArrayList(queryFilters.getGenre()))
+        queryFiltersHelper.setGenres(_queryFilters.getGenre())
         binding.btnGenre.text = queryFiltersHelper.getGenreCount()
     }
 
+
+    private fun updateQueryFilters() {
+        confirmChanges()
+        listener?.onSaveClickListener(queryFiltersHelper.queryFilters) ?: Snackbar.make(
+            requireContext(),
+            binding.btnSave,
+            "Failed to update filters",
+            Snackbar.LENGTH_SHORT
+        )
+        dismiss()
+    }
+
     private fun confirmChanges() {
-        Log.d(TAG, "Before confirmChanges: ${queryFilters.printData()}")
+        Log.d(TAG, "Before confirmChanges: ${_queryFilters.printData()}")
         queryFiltersHelper.apply {
             setFormat(binding.spinnerFormat.selectedItemPosition)
             setStatus(binding.spinnerStatus.selectedItemPosition)
@@ -125,7 +153,17 @@ class FilterQueryDialog(
         }
     }
 
-    interface OnFilterSaveClickListener {
+    override fun onSaveInstanceState(outState: Bundle) {
+        confirmChanges()
+        outState.apply {
+            putParcelable(Keys.STATE_QUERY_FILTERS_BEFORE, queryFilters)
+            putParcelable(Keys.STATE_QUERY_FILTERS_AFTER, queryFiltersHelper.queryFilters)
+            putSerializable(Keys.STATE_PARENT_FRAGMENT_LISTENER, listener)
+        }
+        super.onSaveInstanceState(outState)
+    }
+
+    interface OnFilterSaveClickListener : Serializable {
         fun onSaveClickListener(queryFilters: QueryFilters)
     }
 }

@@ -1,6 +1,7 @@
 package com.ak.otaku_kun.ui.trending
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,6 +13,7 @@ import com.ak.otaku_kun.ui.adapter.recycler.MediaAdapter
 import com.ak.otaku_kun.ui.base.adapter.BasePagingAdapter
 import com.ak.otaku_kun.ui.base.fragment.BasePagingListFragment
 import com.ak.otaku_kun.utils.Const
+import com.ak.otaku_kun.utils.Keys
 import com.ak.type.MediaType
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,8 +28,8 @@ class TrendingMediaFragment :
 
     override fun setUpUI() {
         arguments?.let {
-            mediaType = it.get(Const.KEY_MEDIA_TYPE) as MediaType
-            dataHandler.displayProgressBar(getProgressBar())
+            mediaType = it.get(Keys.KEY_MEDIA_TYPE) as MediaType
+            //dataHandler.displayProgressBar(getProgressBar())
             if (viewModel.data.value == null)
                 viewModel.getTrendingMedias(mediaType)
         }
@@ -43,16 +45,18 @@ class TrendingMediaFragment :
 
     override fun getRecyclerAdapter(): BasePagingAdapter<Media> = mediaAdapter
 
-    override fun getProgressBar(): ProgressBar = binding.progressBar
     override fun getRecyclerLayoutManager(): RecyclerView.LayoutManager =
-        GridLayoutManager(requireContext(), 2)
+        GridLayoutManager(requireContext(), Const.RECYCLER_GRID_SPAN_COUNT)
+
+    override fun getProgressBar(): View = binding.progressBar
+    override fun getErrorView(): View = binding.viewError
 
     companion object {
         @JvmStatic
         fun newInstance(mediaType: MediaType): TrendingMediaFragment =
             TrendingMediaFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(Const.KEY_MEDIA_TYPE, mediaType)
+                    putSerializable(Keys.KEY_MEDIA_TYPE, mediaType)
                 }
             }
     }

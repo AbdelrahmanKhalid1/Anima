@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.ak.otaku_kun.model.index.Media
 import com.ak.otaku_kun.remote.mapper.MediaBrowseMapper
+import com.ak.otaku_kun.utils.EmptyDataException
 import com.ak.quries.media.MediaBrowseQuery
 import com.ak.type.MediaSort
 import com.ak.type.MediaType
@@ -37,9 +38,13 @@ class TrendingMediaPaging(
             ).await()
 
             val data = response.data?.page
-            val mangaList = mediaMapper.mapFromEntityList(data?.media)
+            val mediaList = mediaMapper.mapFromEntityList(data?.media)
+
+            if(mediaList.isEmpty())
+                throw EmptyDataException("No trending medias founded", null)
+
             LoadResult.Page(
-                data = mangaList,
+                data = mediaList,
                 prevKey = if (currentPage != 1) currentPage?.minus(1) else null,
                 nextKey = if (data?.pageInfo?.hasNextPage!!) currentPage?.plus(1) else null
             )

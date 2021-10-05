@@ -51,11 +51,4 @@
         android:label=""
         tools:layout="@layout/fragment_list_tab" />
 
-    <action
-        android:id="@+id/action_filter"
-        app:destination="@+id/nav_filter" >
-        <argument
-            android:name="filterQuery"
-            app:argType="com.ak.otaku_kun.utils.QueryFilters" />
-    </action>
 </navigation>

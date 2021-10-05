@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.ak.otaku_kun.model.index.Studio
 import com.ak.otaku_kun.remote.mapper.StudioSearchMapper
+import com.ak.otaku_kun.utils.EmptyDataException
 import com.ak.quries.studio.StudioSearchQuery
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Input
@@ -28,9 +29,13 @@ class SearchStudioPaging(
             )
         ).await()
         val data = response.data?.page
-        val mangaList = studioMapper.mapFromEntityList(data?.studios)
+        val studioList = studioMapper.mapFromEntityList(data?.studios)
+
+        if(studioList.isEmpty())
+            throw EmptyDataException("No studios founded", EmptyDataException.SearchResultThrowable(query))
+
         LoadResult.Page(
-            data = mangaList,
+            data = studioList,
             prevKey = if (currentPage != 1) currentPage?.minus(1) else null,
             nextKey = if (data?.pageInfo?.hasNextPage!!) currentPage?.plus(1) else null
         )

@@ -2,7 +2,6 @@ package com.ak.otaku_kun.utils
 
 import android.os.Parcelable
 import android.util.Log
-import com.ak.otaku_kun.model.details.Anime
 import com.ak.type.*
 import kotlinx.android.parcel.Parcelize
 import java.util.*
@@ -24,18 +23,6 @@ data class QueryFilters(
     var listGenre: List<String>? = null,
     var listSort: List<MediaSort>? = null
 ) : Parcelable {
-    /*
-        @Parcelize
-        class AnimeFilters(episodes) : QueryFilters(type = MediaType.ANIME, seasonYear = Calendar.getInstance().get(Calendar.YEAR))
-        @Parcelize
-        class MangaFilters(chapters, volumes) : QueryFilters(type = MediaType.MANGA, startDate = "${Calendar.getInstance().get(Calendar.YEAR)}%")
-    */
-    init {
-        val listSort = ArrayList<MediaSort>(1)
-        listSort.add(MediaSort.POPULARITY_DESC)
-        Log.d(TAG, "ListSortSize: ${listSort.size}, seasonYear = $season")
-        this.listSort = listSort
-    }
 
     fun getGenre(): List<String> = if (listGenre == null) emptyList() else listGenre!!
 
@@ -46,8 +33,9 @@ data class QueryFilters(
 
     companion object {
         @JvmStatic
-        fun newInstance(mediaType: MediaType): QueryFilters =
-            when (mediaType) {
+        fun newInstance(mediaType: MediaType): QueryFilters {
+
+            val queryFilters = when (mediaType) {
                 MediaType.MANGA -> QueryFilters(
                     type = MediaType.MANGA,
                     startDate = "${Calendar.getInstance().get(Calendar.YEAR)}%"
@@ -56,7 +44,7 @@ data class QueryFilters(
                     type = MediaType.ANIME,
                     seasonYear = Calendar.getInstance().get(Calendar.YEAR)
                 ).apply {
-                    season = when (Calendar.getInstance().get(Calendar.MONTH)) {
+                    season = when (Calendar.getInstance().get(Calendar.MONTH)+1) {//+1 as months are zero based
                         12, 1, 2 -> MediaSeason.WINTER
                         3, 4, 5 -> MediaSeason.SPRING
                         6, 7, 8 -> MediaSeason.SUMMER
@@ -65,6 +53,15 @@ data class QueryFilters(
                     }
                 }
             }
+
+            queryFilters.apply {
+                val listSort = ArrayList<MediaSort>(1)
+                listSort.add(MediaSort.POPULARITY_DESC)
+                Log.d(TAG, "ListSortSize: ${listSort.size}, seasonYear = $season")
+                this.listSort = listSort
+            }
+            return queryFilters
+        }
     }
 }
 
@@ -136,7 +133,10 @@ class QueryFilterHelper(val queryFilters: QueryFilters) {
     }
 
     fun getYear(): Int? =
-        if (queryFilters.type == MediaType.ANIME) queryFilters.seasonYear else queryFilters.startDate!!.substring(0,4).toInt()
+        if (queryFilters.type == MediaType.ANIME) queryFilters.seasonYear else queryFilters.startDate!!.substring(
+            0,
+            4
+        ).toInt()
 
     fun getGenreCount(): String =
         if (queryFilters.listGenre != null) "${queryFilters.listGenre?.size} Selected" else "0 Selected"
@@ -220,6 +220,6 @@ class QueryFilterHelper(val queryFilters: QueryFilters) {
         if (listGenre.isEmpty())
             queryFilters.listGenre = null
         else
-            queryFilters.listGenre = ArrayList(listGenre)
+            queryFilters.listGenre = listGenre
     }
 }

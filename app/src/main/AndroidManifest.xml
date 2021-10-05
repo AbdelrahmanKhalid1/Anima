@@ -26,6 +26,9 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/search" />
         </activity>
+        <activity android:name=".ui.details.media.MediaActivity"
+            android:parentActivityName=".ui.activity.MainActivity"/>
+
     </application>
 
 </manifest>

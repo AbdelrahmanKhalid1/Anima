@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="tag"
+            type="com.ak.otaku_kun.model.details.Media.Tag" />
+    </data>
+
+    <com.ak.otaku_kun.ui.view.CardViewBase
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?selectableItemBackground">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_tag"
+                app:tint="?colorAccent" />
+
+            <androidx.legacy.widget.Space
+                android:layout_width="@dimen/xl_margin"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:singleLine="true"
+                    android:text="@{tag.name}"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                    tools:text="High School" />
+
+                <androidx.legacy.widget.Space
+                    android:layout_width="@dimen/lg_margin"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@{tag.rank+`%`}"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
+                    android:textColor="?colorAccent"
+                    tools:text="80%" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </com.ak.otaku_kun.ui.view.CardViewBase>
+</layout>

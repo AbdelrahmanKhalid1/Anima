@@ -1,7 +1,6 @@
 package com.ak.otaku_kun.model.index
 
-import com.ak.otaku_kun.utils.Date
-import com.ak.quries.media.MediaBrowseQuery
+import com.ak.otaku_kun.model.details.Media
 
 open class Media(
     val id: Int = -1,
@@ -10,7 +9,7 @@ open class Media(
     val format: String= "",
     var isFavorite: Boolean = false,
     val status: String= "",
-    val averageScore: Int = 0,
+    val averageScore: String = "0",
 //    val meanScore: Int,
 //    val popularity: Int,
     val genre: String = "",
@@ -19,46 +18,6 @@ open class Media(
 //    val year: String,
 //    val startDate: String,
 //    val endDate: String,
-    var mediaListEntry: MediaListEntry? = null
+    var mediaListEntry: Media.MediaListEntry? = null
 )
-
-data class MediaListEntry(
-    val id: Int,
-    val userId: Int,
-    val mediaId: Int,
-    var progress: Int,
-    var status: String,
-    var score: Double,
-    var startedAt: Date?,
-    var completedAt: Date?,
-    var progressVolume: Int = -1
-) {
-
-    companion object {
-        @JvmStatic
-        fun newInstance(mediaListEntry: MediaBrowseQuery.MediaListEntry?): MediaListEntry? {
-            return if (mediaListEntry == null) null else MediaListEntry(
-                mediaListEntry.id,
-                mediaListEntry.userId,
-                mediaListEntry.mediaId,
-                mediaListEntry.progress ?: 0,
-                mediaListEntry.status?.rawValue ?: "Planning",
-                mediaListEntry.score ?: 0.0,
-                if (mediaListEntry.startedAt == null) null else
-                    Date(
-                        mediaListEntry.startedAt.day!!,
-                        mediaListEntry.startedAt.month!!,
-                        mediaListEntry.startedAt.year!!
-                    ),
-                if (mediaListEntry.completedAt == null) null else
-                    Date(
-                        mediaListEntry.completedAt.day!!,
-                        mediaListEntry.completedAt.month!!,
-                        mediaListEntry.completedAt.year!!
-                    ),
-                mediaListEntry.progressVolumes ?: 0
-            )
-        }
-    }
-}
 

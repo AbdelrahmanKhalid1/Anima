@@ -1,12 +1,11 @@
 package com.ak.otaku_kun.model.converter
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.ak.otaku_kun.model.index.Character
 import com.ak.otaku_kun.remote.mapper.CharacterSearchMapper
+import com.ak.otaku_kun.utils.EmptyDataException
 import com.ak.quries.character.CharacterSearchQuery
-import com.ak.quries.media.MediaBrowseQuery
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Input
 import com.apollographql.apollo.coroutines.await
@@ -34,9 +33,16 @@ class SearchCharacterPaging(
                 )
             ).await()
             val data = response.data?.page
-            val mangaList = characterSearchMapper.mapFromEntityList(data?.characters)
+            val characterList = characterSearchMapper.mapFromEntityList(data?.characters)
+
+            if (characterList.isEmpty())
+                throw EmptyDataException(
+                    "No characters founded",
+                    EmptyDataException.SearchResultThrowable(query)
+                )
+
             LoadResult.Page(
-                data = mangaList,
+                data = characterList,
                 prevKey = if (currentPage != 1) currentPage?.minus(1) else null,
                 nextKey = if (data?.pageInfo?.hasNextPage!!) currentPage?.plus(1) else null
             )

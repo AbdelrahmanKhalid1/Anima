@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-    </data>
+    <data/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -175,7 +173,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/filter_start_year" />
 
-                    <com.ak.otaku_kun.custom.DatePickerCustom
+                    <com.ak.otaku_kun.ui.view.DatePickerCustom
                         android:id="@+id/date_picker"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />

@@ -16,58 +16,49 @@
 
             <RadioButton
                 android:id="@+id/radio_popularity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/sort_by_popularity" />
+                style="@style/RadioButtonStyle"
+                android:text="@string/sort_by_popularity"/>
 
             <RadioButton
                 android:id="@+id/radio_score"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/RadioButtonStyle"
                 android:text="@string/sort_by_score" />
 
             <RadioButton
                 android:id="@+id/radio_start_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/RadioButtonStyle"
                 android:text="@string/sort_by_start_date" />
 
             <RadioButton
                 android:id="@+id/radio_episodes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/RadioButtonStyle"
                 android:text="@string/sort_by_episodes" />
 
             <RadioButton
                 android:id="@+id/radio_chapters"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/RadioButtonStyle"
                 android:text="@string/sort_by_chapters" />
 
             <RadioButton
                 android:id="@+id/radio_volumes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/RadioButtonStyle"
                 android:text="@string/sort_by_volumes" />
-
         </RadioGroup>
 
         <RadioGroup
             android:id="@+id/group_sort_in"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="16dp">
 
             <RadioButton
                 android:id="@+id/radio_ascending"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/RadioButtonStyle"
                 android:text="@string/sort_in_ascending" />
 
             <RadioButton
                 android:id="@+id/radio_descending"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/RadioButtonStyle"
                 android:text="@string/sort_in_descending" />
         </RadioGroup>
     </LinearLayout>

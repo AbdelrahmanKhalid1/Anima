@@ -1,4 +1,4 @@
-package com.ak.otaku_kun.custom;
+package com.ak.otaku_kun.ui.view;
 
 import android.content.Context;
 import android.os.Build;
@@ -116,9 +116,11 @@ public class DatePickerCustom extends LinearLayout {
     }
 
     public void setCurrentYear(Integer currentYear) {
+        if (currentYear == null)
+            return;
+
         this.currentYear = currentYear;
-        if (currentYear != null)
-            editText.setText(String.valueOf(currentYear));
+        editText.setText(String.valueOf(currentYear));
     }
 
     public int getYear() {

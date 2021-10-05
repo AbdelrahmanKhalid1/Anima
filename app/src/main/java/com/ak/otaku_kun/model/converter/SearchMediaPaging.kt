@@ -6,6 +6,7 @@ import androidx.paging.PagingState
 import com.ak.otaku_kun.model.index.Media
 import com.ak.otaku_kun.remote.mapper.MediaBrowseMapper
 import com.ak.otaku_kun.remote.mapper.MediaSearchMapper
+import com.ak.otaku_kun.utils.EmptyDataException
 import com.ak.quries.media.MediaBrowseQuery
 import com.ak.quries.media.MediaSearchQuery
 import com.ak.type.MediaSort
@@ -40,6 +41,13 @@ class SearchMediaPaging(
 
             val data = response.data?.page
             val mediaList = mediaMapper.mapFromEntityList(data?.media)
+
+            if (mediaList.isEmpty())
+                throw EmptyDataException(
+                    "No medias founded",
+                    EmptyDataException.SearchResultThrowable(query)
+                )
+
             LoadResult.Page(
                 data = mediaList,
                 prevKey = if (currentPage != 1) currentPage?.minus(1) else null,

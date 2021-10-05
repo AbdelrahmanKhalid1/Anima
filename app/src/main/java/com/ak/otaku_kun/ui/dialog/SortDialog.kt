@@ -1,29 +1,42 @@
 package com.ak.otaku_kun.ui.dialog
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
 import com.ak.otaku_kun.R
+import com.ak.otaku_kun.ui.browse.BrowseMediaViewModel
 import com.ak.type.MediaSort
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.io.Serializable
 import java.util.*
 import kotlin.collections.ArrayList
 
 private const val TAG = "SortDialog"
 
-class SortDialog(private var sort: String, private val listener: SortDialogListener) :
+class SortDialog(private var sort: String ="", private var listener : SortDialogListener?= null) :
     DialogFragment() {
+
+    constructor() : this("", null)
+
     private lateinit var sortByGroup: RadioGroup
     private lateinit var sortInGroup: RadioGroup
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        savedInstanceState?.run {
+            //restore data in case of process killed or user changes system theme
+            sort = getString("sort", "")
+            listener = getSerializable("listener") as SortDialogListener?
+        }
         val view = layoutInflater.inflate(R.layout.dialog_sort, null)
         sortByGroup = view.findViewById(R.id.group_sort_by)
         sortInGroup = view.findViewById(R.id.group_sort_in)
-
         setRadioGroups()
 
         val alertBuilder = MaterialAlertDialogBuilder(requireContext())
@@ -38,23 +51,22 @@ class SortDialog(private var sort: String, private val listener: SortDialogListe
 
     private fun setRadioGroups() {
         val strArr = sort.split("_")
-        val arrSize = strArr.size
+        var arrSize = strArr.size -1 //-1 to be zero based
         //set ascending or descending
         val radioButtonCheckedIndex =
-            if (strArr[arrSize - 1] == "DESC") R.id.radio_descending else R.id.radio_ascending
+            if (strArr[arrSize] == "DESC"){
+                arrSize-- //-1 to remove index of 'DESC'
+                R.id.radio_descending
+            } else{
+                R.id.radio_ascending
+            }
         sortInGroup.check(radioButtonCheckedIndex)
 
-        //set property
-        //Ascending case
-        if (arrSize == 1) sortByGroup.check(getSortByPropIndex(strArr[0]))
-        else {
-            //Descending case
-            var strProp = ""
-            for (i in 0..arrSize - 2) {
-                strProp += strArr[i] + " "
-            }
-            sortByGroup.check(getSortByPropIndex(strProp.substring(0, strArr[0].length)))
+        var strProp = ""
+        for (i in 0..arrSize) {
+            strProp += strArr[i] + " "
         }
+        sortByGroup.check(getSortByPropIndex(strProp.substring(0, strProp.length-1))) //-1 to remove last ' '
     }
 
     private fun getSortByPropIndex(strProp: String): Int =
@@ -78,7 +90,7 @@ class SortDialog(private var sort: String, private val listener: SortDialogListe
         val sortIn = radioSortIn.text.toString()
 
         if (sortIn == resources.getString(R.string.sort_in_descending)) {
-            sort +=  " ${sortIn.substring(0, 4)}" //Score Desc
+            sort += " ${sortIn.substring(0, 4)}" //Score Desc
         }
 
         sort = sort.toUpperCase(Locale.getDefault())
@@ -87,10 +99,18 @@ class SortDialog(private var sort: String, private val listener: SortDialogListe
         Log.d(TAG, "done: $sort")
         val sortList = ArrayList<MediaSort>(1)
         sortList.add(MediaSort.valueOf(sort))
-        listener.onSortOkClickListener(sortList)
+        listener?.onSortOkClickListener(sortList) ?: Toast.makeText(requireContext(), "Failed to load data", Toast.LENGTH_SHORT).show()
     }
 
-    interface SortDialogListener {
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.run {
+            putString("sort", sort)
+            putSerializable("listener", listener)
+        }
+        super.onSaveInstanceState(outState)
+    }
+
+    interface SortDialogListener : Serializable{
         fun onSortOkClickListener(sort: List<MediaSort>)
     }
 }
