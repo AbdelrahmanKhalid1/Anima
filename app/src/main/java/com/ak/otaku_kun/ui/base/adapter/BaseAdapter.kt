@@ -4,8 +4,11 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.ak.otaku_kun.R
+import com.ak.otaku_kun.model.index.Character
 import com.ak.otaku_kun.ui.base.custom.BaseViewHolder
+import com.ak.otaku_kun.utils.Keys
 
 abstract class BaseAdapter<data: Any> : RecyclerView.Adapter<BaseViewHolder<data>>(){
 
@@ -25,7 +28,7 @@ abstract class BaseAdapter<data: Any> : RecyclerView.Adapter<BaseViewHolder<data
         notifyDataSetChanged()
     }
 
-    fun addItems(items: List<data>){
+    open fun addItems(items: List<data>){
         _items.addAll(items)
         notifyDataSetChanged()
     }
@@ -37,6 +40,19 @@ abstract class BaseAdapter<data: Any> : RecyclerView.Adapter<BaseViewHolder<data
 //            animation.duration =
             view.startAnimation(animation)
             lastPosition = position
+        }
+    }
+
+    /**
+     * This function will operate only in grouped adapters
+     * it makes header layouts takes whole width of the screen
+     * **/
+    override fun onViewAttachedToWindow(holder: BaseViewHolder<data>) {
+        super.onViewAttachedToWindow(holder)
+        if (getItemViewType(holder.layoutPosition) == Keys.RECYCLER_TYPE_HEADER) {
+            val layoutParams =
+                holder.itemView.layoutParams as StaggeredGridLayoutManager.LayoutParams
+            layoutParams.isFullSpan = true
         }
     }
 

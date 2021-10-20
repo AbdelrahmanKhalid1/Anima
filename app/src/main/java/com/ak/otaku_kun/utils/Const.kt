@@ -5,7 +5,6 @@ object Const {
     const val RECYCLER_GRID_SPAN_COUNT = 2
     const val RECYCLER_GRID_SEARCH_SPAN_COUNT = 3
     const val PAGE_SIZE = 50
-    const val MAX_PAGE_SIZE = 150
     const val MAX_PAGE_OFF_SCREEN_LIMIT = 3
     const val NO_VALUE = "TBA"
     const val YOUTUBE = "https://www.youtube.com/watch?v="

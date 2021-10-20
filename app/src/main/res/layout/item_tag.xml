@@ -27,7 +27,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_tag"
-                app:tint="?colorAccent" />
+                app:tint="?colorAccent"
+                tools:ignore="ContentDescription" />
 
             <androidx.legacy.widget.Space
                 android:layout_width="@dimen/xl_margin"
@@ -46,7 +47,7 @@
                     android:singleLine="true"
                     android:text="@{tag.name}"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-                    tools:text="High School" />
+                    tools:text="War" />
 
                 <androidx.legacy.widget.Space
                     android:layout_width="@dimen/lg_margin"
@@ -60,7 +61,7 @@
                     android:text="@{tag.rank+`%`}"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
                     android:textColor="?colorAccent"
-                    tools:text="80%" />
+                    tools:text="97%" />
 
             </LinearLayout>
         </LinearLayout>

@@ -15,28 +15,29 @@ import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 
 import com.ak.otaku_kun.model.details.Media;
+import com.ak.otaku_kun.utils.Utils;
 
-public class MediaFullDetailsCustomView extends LinearLayout {
+public class MediaInfoCustomView extends LinearLayout {
 
     private TextView title, genre, format, status, score;
 
-    public MediaFullDetailsCustomView(Context context) {
+    public MediaInfoCustomView(Context context) {
         super(context);
         onCreateView();
     }
 
-    public MediaFullDetailsCustomView(Context context, @Nullable AttributeSet attrs) {
+    public MediaInfoCustomView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         onCreateView();
     }
 
-    public MediaFullDetailsCustomView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public MediaInfoCustomView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         onCreateView();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public MediaFullDetailsCustomView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public MediaInfoCustomView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         onCreateView();
     }
@@ -49,7 +50,7 @@ public class MediaFullDetailsCustomView extends LinearLayout {
 
         title = new TextView(getContext());
         params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        params.setMargins(0,0,0,  (int) getDpValue(3f, getContext()));
+        params.setMargins(0,0,0,  (int) Utils.getDpValue(3f, getContext()));
         title.setLayoutParams(params);
         title.setTextColor(Color.WHITE);
         title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
@@ -58,7 +59,7 @@ public class MediaFullDetailsCustomView extends LinearLayout {
 
         genre = new TextView(getContext());
         params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        params.setMargins(0,0,0,  (int) getDpValue(4f, getContext()));
+        params.setMargins(0,0,0,  (int) Utils.getDpValue(4f, getContext()));
         genre.setLayoutParams(params);
         genre.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f);
         genre.setTextColor(Color.WHITE);
@@ -76,7 +77,7 @@ public class MediaFullDetailsCustomView extends LinearLayout {
         cardView.setLayoutParams(params);
         cardView.setCardBackgroundColor(Color.WHITE);
         cardView.setCardElevation(1f);
-        cardView.setRadius(getDpValue(18f, getContext()));
+        cardView.setRadius(Utils.getDpValue(18f, getContext()));
         linearLayout.addView(cardView);
 
         format = new TextView(getContext());
@@ -99,10 +100,10 @@ public class MediaFullDetailsCustomView extends LinearLayout {
 
         cardView = new CardView(getContext());
         params = new LayoutParams(0, LayoutParams.WRAP_CONTENT);
-        params.setMarginEnd((int) getDpValue(2f, getContext()));
+        params.setMarginEnd((int) Utils.getDpValue(2f, getContext()));
         params.weight = 0.16f;
         cardView.setLayoutParams(params);
-        cardView.setRadius(getDpValue(4f, getContext()));
+        cardView.setRadius(Utils.getDpValue(4f, getContext()));
         cardView.setCardElevation(2);
         cardView.setCardBackgroundColor(Color.YELLOW);
         linearLayout.addView(cardView);
@@ -121,10 +122,6 @@ public class MediaFullDetailsCustomView extends LinearLayout {
 //        format.setText("Tv");
 //        status.setText("13 Ep 24 Min");
 //        score.setText("8.8");
-    }
-
-    private static float getDpValue(float value, Context context){
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, context.getResources().getDisplayMetrics());
     }
 
     public void setMedia(Media media){

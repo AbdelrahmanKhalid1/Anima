@@ -1,9 +1,8 @@
 package com.ak.otaku_kun.model.converter
 
 import com.ak.otaku_kun.model.index.Staff
-import com.ak.otaku_kun.model.index.Studio
 import com.ak.otaku_kun.utils.Mapper
-import com.ak.quries.staff.StaffSearchQuery
+import com.ak.queries.staff.StaffSearchQuery
 import javax.inject.Inject
 
 class StaffMapper @Inject constructor(){

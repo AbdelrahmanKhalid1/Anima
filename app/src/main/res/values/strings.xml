@@ -152,11 +152,6 @@
     <string name="title_main">Main Fragment</string>
     <string name="reset">Reset</string>
     <string name="save">Save</string>
-    <string name="media_art">Media Art</string>
-
-    <!-- Error String constants   -->
-    <string name="content_disc_error_image">image error</string>
-    <string name="error_connection">Not connected to Internet!\nPlease check internet connection.</string>
 
     <string name="title_series_description">Series Description</string>
     <string name="title_series_status">Series Status</string>
@@ -177,4 +172,10 @@
     <string name="init_youtube_missing">Consider installing the YouTube App if you want to watch trailers!</string>
     <string name="title_ended_at">Series Ended At</string>
     <string name="title_started_at">Series Started At</string>
+
+    <string name="content_media_trailer_thumbnail">Media Trailer Thumbnail</string>
+    <string name="content_desc_media_cover">Media Cover</string>
+    <string name="content_disc_error_image">image error</string>
+
+    <string name="error_connection">Not connected to Internet!\nPlease check internet connection.</string>
 </resources>

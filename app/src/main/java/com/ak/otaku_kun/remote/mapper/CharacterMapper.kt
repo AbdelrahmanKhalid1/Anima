@@ -1,10 +1,8 @@
 package com.ak.otaku_kun.remote.mapper
 
 import com.ak.otaku_kun.model.index.Character
-import com.ak.otaku_kun.model.index.Media
 import com.ak.otaku_kun.utils.Mapper
-import com.ak.quries.character.CharacterSearchQuery
-import com.ak.quries.media.MediaBrowseQuery
+import com.ak.queries.character.CharacterSearchQuery
 import javax.inject.Inject
 
 class CharacterMapper @Inject constructor() {

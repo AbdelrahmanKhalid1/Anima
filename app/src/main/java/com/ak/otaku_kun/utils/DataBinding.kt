@@ -4,6 +4,7 @@ import android.os.Build
 import android.text.Html
 import android.view.View
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
@@ -11,12 +12,14 @@ import com.ak.otaku_kun.R
 import com.ak.otaku_kun.databinding.SectionMediaDetailsBinding
 import com.ak.otaku_kun.model.details.Anime
 import com.ak.otaku_kun.model.details.Manga
-import com.ak.otaku_kun.model.details.Media as MediaDetails
-import com.ak.otaku_kun.ui.view.MediaFullDetailsCustomView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.ak.otaku_kun.ui.view.MediaDetailsCustomView
+import com.ak.otaku_kun.ui.view.MediaInfoCustomView
+import com.ak.otaku_kun.ui.view.RatingCustomView
 import com.ak.type.MediaType.*
 import com.borjabravo.readmoretextview.ReadMoreTextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.ak.otaku_kun.model.details.Media as MediaDetails
 
 class DataBinding {
 
@@ -31,19 +34,6 @@ class DataBinding {
 //                .placeholder(R.drawable)
 //                .error()
                 .into(view)
-        }
-
-        @JvmStatic
-        @BindingAdapter("isFavorite")
-        fun setImage(view: ImageView, isFavorite: Boolean) {
-            val imageResource = if (isFavorite) R.drawable.ic_stared else R.drawable.ic_star
-            view.setImageResource(imageResource)
-        }
-
-        @JvmStatic
-        @BindingAdapter("format", "status", requireAll = true)
-        fun setDesc(view: TextView, format: String, status: String) {
-            "$format - $status".also { view.text = it }
         }
 
         @JvmStatic
@@ -66,26 +56,44 @@ class DataBinding {
                     }
                 }
             }
-
         }
 
         @JvmStatic
-        @BindingAdapter("score", "mediaListEntry", requireAll = true)
-        fun setRating(view: TextView, score: String, mediaListEntry: MediaDetails.MediaListEntry?) {
-            view.text = mediaListEntry?.score?.toString() ?: score
+        @BindingAdapter("title", "format", "status", "genre", requireAll = true)
+        fun setDetails(
+            view: MediaDetailsCustomView,
+            title: String,
+            format: String,
+            status: String,
+            genre: String,
+        ) {
+            view.setTitle(title)
+            //if condition as if in media details activity -> relation fragment
+            //status is empty so this condition to handle '-' character
+            val formatText = if (status.isNotEmpty()) "$format - $status" else format
+            view.setFormat(formatText)
+            view.setGenre(genre)
         }
 
         @JvmStatic
-        @BindingAdapter("mediaListEntry")
-        fun setPlan(view: ImageView, mediaListEntry: MediaDetails.MediaListEntry?) {
-            mediaListEntry?.let {
-                view.visibility = View.VISIBLE
-                //TODO set plan icon
-//                val imageId = when(mediaListEntry.status){
-//
-//                }
-//                view.setImageResource()
-            }
+        @BindingAdapter("score", "isFavorite", "mediaListEntry", requireAll = true)
+        fun setRating(
+            view: RatingCustomView,
+            score: String,
+            isFavorite: Boolean,
+            mediaListEntry: MediaDetails.MediaListEntry?,
+        ) {
+            //TODO in settings we can add option on how to view rating rather by 7.7 or 77% or 0.77
+            view.setRate(mediaListEntry?.score?.toString() ?: score)
+            view.setFavorite(isFavorite)
+            view.setPlan(mediaListEntry)
+        }
+
+        @JvmStatic
+        @BindingAdapter("isFavorite")
+        fun setFavorite(view: ImageView, isFavorite: Boolean) {
+            val imageResource: Int = if (isFavorite) R.drawable.ic_stared else R.drawable.ic_star
+            view.setImageResource(imageResource)
         }
 
         /**
@@ -98,7 +106,7 @@ class DataBinding {
          * */
         @JvmStatic
         @BindingAdapter("mediaDetails")
-        fun setMediaDetails(view: MediaFullDetailsCustomView, media: MediaDetails?) {
+        fun setMediaDetails(view: MediaInfoCustomView, media: MediaDetails?) {
             view.setMedia(media)
         }
 
@@ -107,11 +115,12 @@ class DataBinding {
         fun setDesc(view: ReadMoreTextView, desc: String?) {
             if (desc == null)
                 return
-            view.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                Html.fromHtml(desc, Html.FROM_HTML_MODE_COMPACT)
-            } else {
-                Html.fromHtml(desc)
-            }
+            view.text =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    Html.fromHtml(desc, Html.FROM_HTML_MODE_COMPACT)
+                } else {
+                    Html.fromHtml(desc)
+                }
             view.setTrimLength(view.text.length * 3 / 4)
         }
 
@@ -192,11 +201,53 @@ class DataBinding {
         @JvmStatic
         @BindingAdapter("duration")
         fun setEpisodeDuration(view: TextView, media: MediaDetails?) {
-            view.text = when(media){
+            view.text = when (media) {
                 is Anime -> "${media.duration} Minutes"
                 is Manga -> "${media.volumes} Volumes"
                 else -> Const.NO_VALUE
             }
         }
+
+        /**
+         * sets studio and time until airing section in media details
+         * section
+         *
+         * @param media Media Details
+         * @param view View
+         * */
+        @JvmStatic
+        @BindingAdapter("visibility")
+        fun sectionVisibility(view: View, media: MediaDetails?) {
+            view.visibility = if (media is Anime) View.VISIBLE else View.GONE
+        }
+
+        /**
+         * sets timeUntilAiring text for anime media
+         *
+         * @param media Media Details
+         * @param view TextView
+         * */
+        @JvmStatic
+        @BindingAdapter("timeUntilAiring")
+        fun setTimeUntilAiring(view: TextView, media: MediaDetails?) {
+            if (media == null || media is Manga)
+                return
+            val anime = media as Anime
+            view.text = if (anime.status == "Finished") "Finished" else anime.timeUntilAiring
+        }
+
+        @JvmStatic
+        @BindingAdapter("averageScore")
+        fun setAverageScore(view: RatingBar, score: Int) {
+            val rating =score * view.max/100f;
+            view.rating = rating;
+        }
+
+//        @JvmStatic
+//        @BindingAdapter("votes")
+//        fun setAverageScore(view: TextView, votes: Int) {
+//            val rating =score * view.max/100f;
+//            view.rating = rating;
+//        }
     }
 }

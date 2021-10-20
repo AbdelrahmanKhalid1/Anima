@@ -2,8 +2,14 @@ package com.ak.otaku_kun.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.ak.otaku_kun.model.details.Media
+import  com.ak.otaku_kun.model.details.Media.Tag
+import  com.ak.otaku_kun.model.details.Media.Trailer
+import  com.ak.otaku_kun.model.details.Media.Title
+import  com.ak.otaku_kun.model.details.Media.MediaListEntry
+import com.ak.otaku_kun.model.index.Media as MediaIndex
+import com.ak.otaku_kun.model.index.Character
 
 @Entity(tableName = "song")
 data class MediaCacheEntity(
@@ -15,7 +21,7 @@ data class MediaCacheEntity(
     var type: String,
 
     @ColumnInfo(name = "media_title")
-    val title: Media.Title,
+    val title: Title,
 
     @ColumnInfo(name = "format")
     val format: String,
@@ -35,9 +41,6 @@ data class MediaCacheEntity(
     @ColumnInfo(name = "if_favorite")
     var isFavorite: Boolean,
 
-//    @ColumnInfo(name = "media_id")
-//    val year: String,
-
     @ColumnInfo(name = "genre")
     val genre: String,
 
@@ -53,8 +56,9 @@ data class MediaCacheEntity(
     @ColumnInfo(name = "desc")
     val description: String,
 
-    @ColumnInfo(name = "studio")
-    val studio: String,
+//    @ColumnInfo(name = "studio")
+    @Ignore
+    val studio: Pair<Int, String>,
 
     @ColumnInfo(name = "season")
     val season: String,
@@ -69,19 +73,21 @@ data class MediaCacheEntity(
     val popularity: Int,
 
     @ColumnInfo(name = "list_entry")
-    var mediaListEntry: Media.MediaListEntry? = null,
+    var mediaListEntry: MediaListEntry? = null,
 
     @ColumnInfo(name = "url")
     val siteUrl: String,
 
     @ColumnInfo(name = "tags")
-    val tags: List<Media.Tag>,
+    val tags: List<Tag>,
 
     @ColumnInfo(name = "trailer")
-    val trailer: Media.Trailer?,
-//    val relations
+    val trailer: Trailer?,
 
-//    @ColumnInfo(name = "characters")
+    @Ignore
+    val relations: Map<String, List<MediaIndex>>,
+
+//    @Ignore
 //    val characters: List<Character>,
 //    val stats
 
@@ -104,4 +110,7 @@ data class MediaCacheEntity(
 
     @ColumnInfo(name = "volumes")
     val volumes: String,
+
+    @ColumnInfo(name = "time_until_airing")
+    val timeUntilAiring: String,
 )

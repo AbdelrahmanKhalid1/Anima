@@ -2,7 +2,7 @@ package com.ak.otaku_kun.remote.mapper
 
 import com.ak.otaku_kun.model.index.Studio
 import com.ak.otaku_kun.utils.Mapper
-import com.ak.quries.studio.StudioSearchQuery
+import com.ak.queries.studio.StudioSearchQuery
 import javax.inject.Inject
 
 class StudioMapper @Inject constructor() {

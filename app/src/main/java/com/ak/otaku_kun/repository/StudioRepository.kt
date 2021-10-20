@@ -25,7 +25,7 @@ class StudioRepository @Inject constructor(
         Pager(
             config = PagingConfig(
                 pageSize = Const.PAGE_SIZE,
-                maxSize = Const.MAX_PAGE_SIZE,
+                maxSize = PagingConfig.MAX_SIZE_UNBOUNDED,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {

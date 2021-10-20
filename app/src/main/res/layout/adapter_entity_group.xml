@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="count"
+            type="java.lang.Integer" />
+
+        <variable
+            name="title"
+            type="java.lang.String" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/lg_margin">
+
+        <TextView
+            android:id="@+id/catalog_header_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|start"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@{title}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            tools:text="Adaptations" />
+
+        <TextView
+            android:id="@+id/catalog_header_count"
+            android:layout_width="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:text="@{count.toString()}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            tools:text="20" />
+    </FrameLayout>
+
+</layout>

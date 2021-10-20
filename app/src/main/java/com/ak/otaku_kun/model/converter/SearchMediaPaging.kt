@@ -1,15 +1,11 @@
 package com.ak.otaku_kun.model.converter
 
-import android.provider.MediaStore
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.ak.otaku_kun.model.index.Media
-import com.ak.otaku_kun.remote.mapper.MediaBrowseMapper
 import com.ak.otaku_kun.remote.mapper.MediaSearchMapper
 import com.ak.otaku_kun.utils.EmptyDataException
-import com.ak.quries.media.MediaBrowseQuery
-import com.ak.quries.media.MediaSearchQuery
-import com.ak.type.MediaSort
+import com.ak.queries.media.MediaSearchQuery
 import com.ak.type.MediaType
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Input

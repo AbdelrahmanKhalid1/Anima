@@ -13,7 +13,9 @@ import com.ak.otaku_kun.ui.adapter.recycler.MediaAdapter
 import com.ak.otaku_kun.ui.base.adapter.BasePagingAdapter
 import com.ak.otaku_kun.ui.base.fragment.BasePagingListFragment
 import com.ak.otaku_kun.utils.Const
+import com.ak.otaku_kun.utils.ItemClickHandler
 import com.ak.otaku_kun.utils.Keys
+import com.ak.otaku_kun.utils.OnMediaClick
 import com.ak.type.MediaType
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,7 +34,9 @@ class MediaFragment : BasePagingListFragment<FragmentListBinding, Media>(R.layou
             }
         }
 
-        mediaAdapter = MediaAdapter(true)
+        val mediaClick = OnMediaClick(parentFragmentManager)
+        val mediaClickHandler = ItemClickHandler(requireContext(),mediaClick, mediaClick)
+        mediaAdapter = MediaAdapter(true, mediaClickHandler)
         super.setUpUI()
     }
 

@@ -45,6 +45,7 @@ class BrowseMediaViewModel @Inject constructor(
                 is StateEvent.InitQueryFilters ->{
                     _queryFilters.value = QueryFilters.newInstance(stateEvent.mediaType)
                 }
+                else ->{}
             }
         }
     }

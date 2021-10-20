@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.ak.otaku_kun.BlankFragment
 import com.ak.otaku_kun.R
-import com.ak.otaku_kun.ui.details.media.fragment.MediaOverviewFragment
+import com.ak.otaku_kun.ui.details.media.fragment.*
 
 class MediaPagerAdapter(
     fm: FragmentManager,
@@ -19,7 +19,12 @@ class MediaPagerAdapter(
     override fun getItem(position: Int): Fragment =
         when (position) {
             0 -> MediaOverviewFragment()
-            else -> BlankFragment.newInstance(mediaId)
+            1 -> MediaRelationFragment()
+            2-> MediaCharacterFragment()
+//            3 -> MediaEpisodeFragment()
+            3-> MediaStaffFragment()
+            else -> MediaReviewsFragment()
+//            else -> BlankFragment.newInstance(mediaId)
         }
 
 
@@ -32,7 +37,7 @@ class MediaPagerAdapter(
             R.string.overview,
             R.string.relation,
             R.string.character,
-            R.string.episodes,
+//            R.string.episodes,
             R.string.staff,
             R.string.reviews,
         )

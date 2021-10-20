@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.ak.otaku_kun.R
-import com.ak.otaku_kun.utils.Const
 import com.ak.otaku_kun.utils.Keys
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.io.Serializable

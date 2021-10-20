@@ -2,7 +2,7 @@ query Media(#110277
     $mediaId: Int,
     $pageCharacter: Int,
     $pageStaff: Int,
-#    $pageReview: Int,
+    $pageReview: Int,
     $isMain: Boolean = true) {
     Page {
         media(id: $mediaId) {
@@ -33,6 +33,10 @@ query Media(#110277
             }
             episodes
             duration
+            nextAiringEpisode {
+                timeUntilAiring
+                episode
+            }
             season
             seasonYear
             source
@@ -97,35 +101,27 @@ query Media(#110277
                     node {
                         id
                         name {
-                            full
+                            first
+                            last
                         }
                         image {
                             large
                         }
+                        isFavourite
+                        favourites
                     }
                 }
             }
-#            stats {
-#                statusDistribution {
-#                    status
-#                    amount
-#                }
-#                scoreDistribution {
-#                    score
-#                    amount
-#                }
-#            }
-#            reviews(page: $pageReview) {
-#                pageInfo {
-#                    currentPage
-#                    hasNextPage
-#                }
-#                edges {
-#                    node {
-#                        id
-#                    }
-#                }
-#            }
+            #            stats {
+            #                statusDistribution {
+            #                    status
+            #                    amount
+            #                }
+            #                scoreDistribution {
+            #                    score
+            #                    amount
+            #                }
+            #            }
             relations {
                 edges {
                     relationType
@@ -133,6 +129,17 @@ query Media(#110277
                         id
                         title {
                             userPreferred
+                        }
+                        format
+                        coverImage{
+                            extraLarge
+                            large
+                        }
+                        averageScore
+                        isFavourite
+                        mediaListEntry{
+                            id
+                            status
                         }
                     }
                 }
@@ -143,13 +150,41 @@ query Media(#110277
                     hasNextPage
                 }
                 edges {
+                    role
                     node {
                         id
                         name {
-                            full
+                            first
+                            last
                         }
                         image {
                             large
+                            medium
+                        }
+                        languageV2
+                    }
+                }
+            }
+            reviews(page: $pageReview) {
+                pageInfo {
+                    currentPage
+                    hasNextPage
+                }
+                edges {
+                    node {
+                        id
+                        summary
+                        score
+                        rating
+                        ratingAmount
+                        userRating
+                        createdAt
+                        user{
+                            name
+                            avatar {
+                                large
+                                medium
+                            }
                         }
                     }
                 }

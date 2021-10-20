@@ -60,7 +60,7 @@ abstract class DataHandler {
     class DataHandlerNotPaging<I : Any> : DataHandler() {
         fun displayData(data: List<I>, progressBar: View, adapter: BaseAdapter<I>) {
             progressBar.visibility = View.GONE
-            adapter.setItems(data)
+            adapter.addItems(data)
             Log.d(TAG, "displayData: ${data.size}")
         }
     }

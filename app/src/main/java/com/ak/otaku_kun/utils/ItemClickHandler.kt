@@ -36,7 +36,7 @@ interface ItemLongClickBehavior {
     fun onItemLongClick(itemId: Int, view: View, context: Context)
 }
 
-class OnMediaClick(private val fm: FragmentManager) : ItemClickBehavior, ItemLongClickBehavior {
+class OnMediaClick(private val fm: FragmentManager? = null) : ItemClickBehavior, ItemLongClickBehavior {
     override fun onItemClick(itemId: Int, view: View, context: Context) {
         val intent = Intent(context, MediaActivity()::class.java)
         intent.putExtra(Keys.KEY_ITEM_ID, itemId)

@@ -1,12 +1,10 @@
 package com.ak.otaku_kun.ui.base.adapter
 
-import android.util.Log
 import com.ak.otaku_kun.R
 import android.view.View
 import android.view.animation.*
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import com.ak.otaku_kun.ui.base.custom.BaseViewHolder
 
 abstract class BasePagingAdapter<I : Any>(ITEM_COMPARATOR: DiffUtil.ItemCallback<I>) :

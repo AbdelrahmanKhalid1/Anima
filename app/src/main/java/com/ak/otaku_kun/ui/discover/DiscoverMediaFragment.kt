@@ -14,9 +14,7 @@ import com.ak.otaku_kun.model.index.Media
 import com.ak.otaku_kun.ui.adapter.recycler.DiscoverAdapter
 import com.ak.otaku_kun.ui.base.adapter.BaseAdapter
 import com.ak.otaku_kun.ui.base.fragment.BaseListFragment
-import com.ak.otaku_kun.utils.Const
-import com.ak.otaku_kun.utils.DataState
-import com.ak.otaku_kun.utils.Keys
+import com.ak.otaku_kun.utils.*
 import com.ak.type.MediaType
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,6 +25,7 @@ class DiscoverMediaFragment : BaseListFragment<FragmentListBinding, List<Media>>
 
     //TODO handle horizontal orientation
     private val viewModel : DiscoverViewModel by viewModels()
+    private lateinit var layoutManager : LinearLayoutManager
     private lateinit var discoverAdapter : DiscoverAdapter
     private lateinit var mediaType: MediaType
 
@@ -36,12 +35,15 @@ class DiscoverMediaFragment : BaseListFragment<FragmentListBinding, List<Media>>
             if(viewModel.mediaLiveData.value == null)
                 viewModel.getDiscoverMediaData(mediaType)
         }
-        discoverAdapter = DiscoverAdapter(mediaType.rawValue)
+        //init recycler arguments
+        val mediaClickBehavior = OnMediaClick()
+        val mediaClickHandler = ItemClickHandler(requireContext(), mediaClickBehavior)
+        discoverAdapter = DiscoverAdapter(mediaType.rawValue, mediaClickHandler)
+        layoutManager = LinearLayoutManager(requireContext())
 
         getErrorView().findViewById<Button>(R.id.btn_error).setOnClickListener {
             viewModel.getDiscoverMediaData(mediaType)
         }
-        super.setUpUI()
     }
 
     override fun setObservers() {
@@ -55,15 +57,13 @@ class DiscoverMediaFragment : BaseListFragment<FragmentListBinding, List<Media>>
                 is DataState.Error -> handleError(LoadState.Error(dataState.exception))
             }})
     }
+    override fun loadMoreItems() {}
 
     override fun getRecycler(): RecyclerView  = binding.recycler
-
     override fun getRecyclerAdapter(): BaseAdapter<List<Media>> = discoverAdapter
-
-    override fun getRecyclerLayoutManager(): RecyclerView.LayoutManager = LinearLayoutManager(requireContext())
-
+    override fun getRecyclerLayoutManager(): RecyclerView.LayoutManager = layoutManager
+    override fun getRecyclerFirstVisibleItem(): Int = layoutManager.findLastCompletelyVisibleItemPosition()
     override fun getProgressBar(): View = binding.progressBar
-
     override fun getErrorView(): View = binding.viewError
 
     companion object{

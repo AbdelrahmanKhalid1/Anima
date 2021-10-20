@@ -1,10 +1,8 @@
 package com.ak.otaku_kun.remote.mapper
 
-import com.ak.otaku_kun.model.index.Staff
 import com.ak.otaku_kun.model.index.User
 import com.ak.otaku_kun.utils.Mapper
-import com.ak.quries.staff.StaffSearchQuery
-import com.ak.quries.user.UserSearchQuery
+import com.ak.queries.user.UserSearchQuery
 import javax.inject.Inject
 
 class UserMapper @Inject constructor() {

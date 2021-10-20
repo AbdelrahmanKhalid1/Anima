@@ -3,8 +3,8 @@ package com.ak.otaku_kun.model.details
 import com.ak.otaku_kun.model.index.Character
 import com.ak.otaku_kun.model.index.Staff
 import com.ak.otaku_kun.utils.Const
-import com.ak.quries.media.MediaBrowseQuery
-import java.io.Serializable
+import com.ak.otaku_kun.model.index.Media as MediaIndex
+import com.ak.queries.media.MediaBrowseQuery
 
 open class Media(
     val id: Int = -1,
@@ -23,17 +23,17 @@ open class Media(
     val endDate: String,
     val source: String,
     val description: String,
-    val studio: String,
+    val studio: Pair<Int, String>,
     val season: String,
     val seasonYear: String,
 
-    val averageScore: String = "0",
+    val averageScore: String,
     val popularity: Int,
     var mediaListEntry: MediaListEntry? = null,
     val siteUrl: String,
     val tags: List<Tag>,
     val trailer: Trailer?,
-//    val relations
+    val relations:List<Pair<String, List<MediaIndex>>>,
     val characters: List<Character>,
 //    val stats
     val staff: List<Staff>,

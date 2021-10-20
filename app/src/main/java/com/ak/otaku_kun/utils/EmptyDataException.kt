@@ -7,7 +7,7 @@ package com.ak.otaku_kun.utils
  * @param message the detail message string.
  * @param cause the cause of this throwable.
  * **/
-class EmptyDataException(message: String = "No data to be displayed", cause: Throwable?) : Exception(message, cause) {
+class EmptyDataException(message: String = "No data to be displayed", cause: Throwable? = null) : Exception(message, cause) {
 
     /**
      * Throwable Class for empty search response result.

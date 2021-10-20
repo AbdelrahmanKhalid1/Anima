@@ -3,43 +3,55 @@ package com.ak.otaku_kun.ui.base.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ProgressBar
-import android.widget.Toast
+import androidx.core.view.size
 import androidx.databinding.ViewDataBinding
 import androidx.paging.LoadState
-import androidx.paging.PagingData
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ak.otaku_kun.ui.adapter.DataLoadStateAdapter
 import com.ak.otaku_kun.ui.base.adapter.BaseAdapter
-import com.ak.otaku_kun.ui.base.adapter.BasePagingAdapter
 import com.ak.otaku_kun.utils.Const
 import com.ak.otaku_kun.utils.DataHandler
-import com.apollographql.apollo.exception.ApolloNetworkException
-import kotlin.properties.Delegates
+import com.ak.otaku_kun.utils.Keys
 
+private const val TAG = "BaseListFragment"
 
 abstract class BaseListFragment<V : ViewDataBinding, I : Any>(
-    layoutId: Int
+    layoutId: Int,
 ) : BaseFragment<V>(layoutId) {
 
     private val dataHandler = DataHandler.DataHandlerNotPaging<I>()
-  /*  private var recyclerItemPosition by Delegates.notNull<Int>()
+    private var recyclerPosition = -1
+    private var isLoading = true
+    internal var isPager = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        savedInstanceState?.run {
-            recyclerItemPosition = getInt(Const.STATE_RECYCLER_POSITION, RecyclerView.NO_POSITION)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        savedInstanceState?.let {
+            recyclerPosition = it.getInt(Keys.STATE_RECYCLER_POSITION, Const.NO_ITEM)
         }
-    }
-*/
-    override fun setUpUI() {
 //        val layoutAnimationController =
 //            AnimationUtils.loadLayoutAnimation(requireContext(), R.anim.layout_animation)
         getRecycler().apply {
             adapter = getRecyclerAdapter()
             layoutManager = getRecyclerLayoutManager()
             setHasFixedSize(true)
+            if (isPager)
+                addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        super.onScrolled(recyclerView, dx, dy)
+//                        Log.d(TAG, "onScrolled: $dx")
+
+                        val totalItems = getRecyclerAdapter().itemCount
+                        val visibleItems = recyclerView.childCount
+                        val firstVisibleItem = getRecyclerFirstVisibleItem()
+                        val visibleThreshold =
+                            9 // minimum allowed threshold before next page reload request
+                        if (!isLoading && totalItems - visibleItems <= firstVisibleItem + visibleThreshold) {
+                            isLoading = true
+                            loadMoreItems()
+                        }
+                    }
+                })
+            scrollToPosition(recyclerPosition)
 //            layoutAnimation = layoutAnimationController
 //            scheduleLayoutAnimation()
         }
@@ -47,20 +59,23 @@ abstract class BaseListFragment<V : ViewDataBinding, I : Any>(
 
     fun displayData(data: List<I>) {
         dataHandler.displayData(data, getProgressBar(), getRecyclerAdapter())
+        isLoading = false
     }
 
     fun handleError(error: LoadState.Error) {
         getProgressBar().visibility = View.GONE
-        dataHandler.displayError(error, getErrorView(),requireContext())
+        dataHandler.displayError(error, getErrorView(), requireContext())
+        isLoading = false
     }
-/*
+
+    abstract fun loadMoreItems()
+
     override fun onSaveInstanceState(outState: Bundle) {
         outState.run {
-            val layoutManager = getRecyclerLayoutManager() as LinearLayoutManager
-            putInt(Const.STATE_RECYCLER_POSITION, layoutManager.findFirstCompletelyVisibleItemPosition())
+            putInt(Keys.STATE_RECYCLER_POSITION, getRecyclerFirstVisibleItem())
         }
         super.onSaveInstanceState(outState)
-    }*/
+    }
 
     override fun onDestroyView() {
         getRecycler().adapter = null
@@ -69,7 +84,8 @@ abstract class BaseListFragment<V : ViewDataBinding, I : Any>(
 
     abstract fun getRecycler(): RecyclerView
     abstract fun getRecyclerAdapter(): BaseAdapter<I>
+    abstract fun getRecyclerFirstVisibleItem(): Int
     abstract fun getProgressBar(): View
     abstract fun getRecyclerLayoutManager(): RecyclerView.LayoutManager
-    abstract fun getErrorView() : View
+    abstract fun getErrorView(): View
 }

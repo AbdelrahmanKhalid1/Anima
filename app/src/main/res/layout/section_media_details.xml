@@ -159,7 +159,7 @@
                         android:fontFamily="sans-serif-condensed-light"
                         android:text="@{media.seasonYear + ` `+ media.season}"
                         android:textIsSelectable="true"
-                        tools:text="2015 Fall" />
+                        tools:text="2021 Winter" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -206,6 +206,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
+                        visibility="@{media}"
                         android:text="@string/title_main_studio" />
 
                     <TextView
@@ -213,10 +214,10 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:fontFamily="sans-serif-condensed-light"
-                        android:text="@{media.studio}"
+                        android:text="@{media.studio.second}"
                         android:textColor="?colorAccent"
                         android:textIsSelectable="true"
-                        tools:text="MADHOUSE" />
+                        tools:text="MAPPA" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -224,8 +225,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:visibility="gone">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -237,6 +237,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
+                        timeUntilAiring="@{media}"
                         android:fontFamily="sans-serif-condensed-light"
                         android:textIsSelectable="true"
                         tools:text="EP 3 Airing In 2 days" />

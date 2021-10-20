@@ -3,6 +3,7 @@ package com.ak.otaku_kun.ui.details.media
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
@@ -44,6 +45,9 @@ class MediaActivity : BaseDetailActivity<ActivityMediaBinding>(R.layout.activity
                 binding.media = this
                 binding.collapsingToolbar.title = title.userPreferred
                 DataBinding.setImage(binding.customCover.findViewById(R.id.media_cover), cover)
+               /* media.relations.forEach {
+                    Log.d(TAG, "setObservers: relation = ${it.key}, mediaList = ${it.value.size} ${it.value.map { media-> "${media.title} " }}")
+                }*/
             }
         })
     }

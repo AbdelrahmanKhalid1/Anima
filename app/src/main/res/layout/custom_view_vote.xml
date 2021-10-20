@@ -1,0 +1,44 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="review"
+            type="com.ak.otaku_kun.model.index.Review" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/widget_thumb_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:background="?selectableItemBackground"
+            android:padding="5dp"
+            android:text="@{String.valueOf(review.upVotes)}"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/ic_thumb_up"
+            app:drawableTint="@color/bg_textview_icon_color"
+            tools:text=" 5" />
+
+        <TextView
+            android:id="@+id/widget_thumb_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
+            android:padding="5dp"
+            android:text="@{String.valueOf(review.downVotes)}"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/ic_thumb_down"
+            app:drawableTint="@color/bg_textview_icon_color"
+            tools:text=" 5" />
+    </LinearLayout>
+</layout>

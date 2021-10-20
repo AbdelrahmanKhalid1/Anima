@@ -1,7 +1,10 @@
 package com.ak.otaku_kun.model.details
 
+import com.ak.otaku_kun.db.entity.MediaCacheEntity
 import com.ak.otaku_kun.model.index.Character
 import com.ak.otaku_kun.model.index.Staff
+import com.ak.otaku_kun.model.index.Media as MediaIndex
+import com.ak.otaku_kun.utils.Utils
 
 class Anime(
     id: Int,
@@ -17,7 +20,7 @@ class Anime(
     endDate: String,
     source: String,
     description: String,
-    studio: String,
+    studio: Pair<Int, String>,
     season: String,
     seasonYear: String,
     averageScore: String,
@@ -26,11 +29,12 @@ class Anime(
     siteUrl: String,
     tags: List<Tag>,
     trailer: Trailer?,
+    relation: List<Pair<String, List<MediaIndex>>>,
     characters: List<Character>,
     staff: List<Staff>,
     val episodes: String,
     val duration: String,
-//    val nextEpisode: Int?
+    val timeUntilAiring: String
 ) : Media(
     id,
     title,
@@ -54,6 +58,44 @@ class Anime(
     siteUrl,
     tags,
     trailer,
+    relation,
     characters,
     staff
-)
+){
+    constructor(
+        mediaCache: MediaCacheEntity,
+        characters: List<Character>,
+        staff: List<Staff>,
+        episodes: String,
+        duration: String
+    ) : this(
+        mediaCache.id,
+        mediaCache.title,
+        mediaCache.format,
+        mediaCache.cover,
+        mediaCache.banner,
+        mediaCache.status,
+        Utils.formatScore(mediaCache.meanScore),
+        mediaCache.isFavorite,
+        mediaCache.genre,
+        mediaCache.startDate,
+        mediaCache.endDate,
+        mediaCache.source,
+        mediaCache.description,
+        mediaCache.studio,
+        mediaCache.season,
+        mediaCache.seasonYear,
+        Utils.formatScore(mediaCache.averageScore),
+        mediaCache.popularity,
+        mediaCache.mediaListEntry,
+        mediaCache.siteUrl,
+        mediaCache.tags,
+        mediaCache.trailer,
+        mediaCache.relations.mapNotNull { Pair(it.key, it.value) },
+        characters,
+        staff,
+        episodes,
+        duration,
+        mediaCache.timeUntilAiring
+    )
+}

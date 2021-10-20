@@ -18,12 +18,12 @@
             android:focusable="true"
             android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="1:0.63"
+            app:layout_constraintDimensionRatio="1:0.6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/sample_trailer"
-            android:contentDescription="Media Trailer Thumbnail" />
+            android:contentDescription="@string/content_media_trailer_thumbnail" />
 
         <ImageView
             android:id="@+id/feed_play_back"
@@ -36,7 +36,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="action nav to youtube" />
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

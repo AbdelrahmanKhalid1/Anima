@@ -1,8 +1,8 @@
 package com.ak.otaku_kun.utils
 
-import com.ak.otaku_kun.model.details.Media
-import com.ak.otaku_kun.model.details.Media.Date
-import com.ak.quries.media.MediaQuery
+import android.content.Context
+import android.util.TypedValue
+import com.ak.queries.media.MediaQuery
 import com.ak.type.MediaSeason
 import com.ak.type.MediaType
 import java.util.*
@@ -28,27 +28,40 @@ object Utils {
     }
 
     @JvmStatic
-    fun formatDate(date: Date?): String {
-        if (date == null) {
-            return Const.NO_VALUE
-        }
-        return "${convertDateNumToString(date.month)} ${date.day}, ${date.year}"
+    fun getDpValue(value: Float, context: Context): Float {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            value,
+            context.resources.displayMetrics
+        )
     }
+
+//    @JvmStatic
+//    fun formatDate(date: Date?): String {
+//        if (date == null) {
+//            return Const.NO_VALUE
+//        }
+//        return "${convertDateNumToString(date.month)} ${date.day}, ${date.year}"
+//    }
 
     @JvmStatic
     fun formatDate(date: MediaQuery.StartDate?, str: String): String {
-        if (date == null) {
-            return Const.NO_VALUE
+        date.run {
+            if (this == null || (year == null && month == null && day == null)) {
+                return Const.NO_VALUE
+            }
+            return "$str: ${convertDateNumToString(month)} ${day ?: ""}, ${year ?: ""}"
         }
-        return "$str: ${convertDateNumToString(date.month)} ${date.day}, ${date.year}"
     }
 
     @JvmStatic
     fun formatDate(date: MediaQuery.EndDate?, str: String): String {
-        if (date?.year == null || date.month == null || date.day == null) {
-            return Const.NO_VALUE
+        date.run {
+            if (this == null || (year == null && month == null && day == null)) {
+                return Const.NO_VALUE
+            }
+            return "$str: ${convertDateNumToString(month)} ${day ?: ""}, ${year ?: ""}"
         }
-        return "$str: ${convertDateNumToString(date.month)} ${date.day}, ${date.year}"
     }
 
     @JvmStatic
@@ -66,7 +79,7 @@ object Utils {
             10 -> "Oct"
             11 -> "Nov"
             12 -> "Dec"
-            else -> Const.NO_VALUE
+            else -> ""
         }
 
     @JvmStatic
@@ -105,19 +118,4 @@ object Utils {
                 animeSeasonYear?.toString() ?: Const.NO_VALUE
         }
 
-    @JvmStatic
-    fun mapTrailer(trailer: MediaQuery.Trailer?): Media.Trailer? {
-        if (trailer == null)
-            return null
-        return Media.Trailer(trailer.id!!, trailer.site!!, trailer.thumbnail ?: "")
-    }
-
-    @JvmStatic
-    fun mapTag(tag: MediaQuery.Tag): Media.Tag =
-        Media.Tag(
-            id = tag.id,
-            name = tag.name,
-//            rank = tag.rank,
-//            description = tag.description
-        )
 }

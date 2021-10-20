@@ -19,7 +19,7 @@ private const val TAG = "BasePagingListFragment"
 abstract class BasePagingListFragment<V : ViewDataBinding, I : Any>(layoutId: Int) :
     BaseFragment<V>(layoutId) {
 
-    internal val dataHandler = DataHandler.DataHandlerPaging<I>()
+    private val dataHandler = DataHandler.DataHandlerPaging<I>()
 
     override fun setUpUI() {
         getRecyclerAdapter().apply {

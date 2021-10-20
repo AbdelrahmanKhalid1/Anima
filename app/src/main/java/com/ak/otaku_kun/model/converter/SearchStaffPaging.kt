@@ -1,11 +1,10 @@
 package com.ak.otaku_kun.model.converter
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.ak.otaku_kun.model.index.Staff
 import com.ak.otaku_kun.utils.EmptyDataException
-import com.ak.quries.staff.StaffSearchQuery
+import com.ak.queries.staff.StaffSearchQuery
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Input
 import com.apollographql.apollo.coroutines.await

@@ -5,7 +5,7 @@ import androidx.paging.PagingState
 import com.ak.otaku_kun.model.index.User
 import com.ak.otaku_kun.remote.mapper.UserSearchMapper
 import com.ak.otaku_kun.utils.EmptyDataException
-import com.ak.quries.user.UserSearchQuery
+import com.ak.queries.user.UserSearchQuery
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Input
 import com.apollographql.apollo.coroutines.await

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="media"
+            type="com.ak.otaku_kun.model.index.Media" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        style="@style/CardViewBase">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/media_cover"
+                style="@style/ImageCoverStyle"
+                image="@{media.cover}"
+                android:contentDescription="@string/content_desc_media_cover"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1.55"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                tools:src="@drawable/sample_cover" />
+
+            <com.ak.otaku_kun.ui.view.MediaDetailsCustomView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                title="@{media.title}"
+                format="@{media.format}"
+                status="@{media.status}"
+                genre="@{media.genre}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+            <com.ak.otaku_kun.ui.view.RatingCustomView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                score="@{media.averageScore}"
+                isFavorite="@{media.favorite}"
+                mediaListEntry="@{media.mediaListEntry}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

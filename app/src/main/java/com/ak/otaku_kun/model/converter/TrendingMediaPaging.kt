@@ -5,7 +5,7 @@ import androidx.paging.PagingState
 import com.ak.otaku_kun.model.index.Media
 import com.ak.otaku_kun.remote.mapper.MediaBrowseMapper
 import com.ak.otaku_kun.utils.EmptyDataException
-import com.ak.quries.media.MediaBrowseQuery
+import com.ak.queries.media.MediaBrowseQuery
 import com.ak.type.MediaSort
 import com.ak.type.MediaType
 import com.apollographql.apollo.ApolloClient

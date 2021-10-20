@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.ak.otaku_kun.databinding.ItemStudioBinding
-import com.ak.otaku_kun.model.index.Character
+import com.ak.otaku_kun.model.index.Media
 import com.ak.otaku_kun.model.index.Studio
 import com.ak.otaku_kun.ui.base.adapter.BasePagingAdapter
 import com.ak.otaku_kun.ui.base.custom.BaseViewHolder

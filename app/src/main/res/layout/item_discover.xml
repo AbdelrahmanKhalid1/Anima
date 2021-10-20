@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="position"
             type="java.lang.Integer" />
+
         <variable
             name="type"
             type="java.lang.String" />
@@ -17,13 +19,15 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:orientation="vertical">
-
+<!--        android:background="?selectableItemBackground"-->
+<!--        android:clickable="true"-->
+<!--        android:focusable="true"-->
         <TextView
             android:id="@+id/text_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             position="@{position}"
             type="@{type}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:padding="16dp"
             android:textSize="18sp"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,15 +35,15 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layoutAnimation="@anim/layout_animation"
-            app:layout_constraintDimensionRatio="1:0.53"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:0.55"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_category"
-            tools:listitem="@layout/item_media" />
+            tools:listitem="@layout/item_media_horizontal"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

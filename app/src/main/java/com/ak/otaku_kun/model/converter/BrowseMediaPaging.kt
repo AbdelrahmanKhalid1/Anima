@@ -1,16 +1,13 @@
 package com.ak.otaku_kun.model.converter
 
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.util.Log
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.ak.otaku_kun.model.index.Media
 import com.ak.otaku_kun.remote.mapper.MediaBrowseMapper
 import com.ak.otaku_kun.utils.EmptyDataException
 import com.ak.otaku_kun.utils.QueryFilters
-import com.ak.quries.media.MediaBrowseQuery
+import com.ak.queries.media.MediaBrowseQuery
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Input
 import com.apollographql.apollo.coroutines.await
