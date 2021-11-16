@@ -42,9 +42,9 @@
                     android:paddingBottom="2dp"
                     android:visibility="gone"
                     app:tabGravity="fill"
-                    app:tabMinWidth="120dp"
                     app:tabIndicatorColor="?colorSecondary"
                     app:tabIndicatorHeight="3dp"
+                    app:tabMinWidth="120dp"
                     app:tabSelectedTextColor="?colorSecondary"
                     app:tabTextColor="@color/white" />
             </com.google.android.material.appbar.AppBarLayout>
@@ -65,9 +65,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|bottom"
                 android:layout_margin="20dp"
+                android:contentDescription="perform search"
                 android:src="@drawable/ic_search"
-                app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-                android:contentDescription="perform search" />
+                app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <com.google.android.material.navigation.NavigationView
@@ -75,7 +75,7 @@
             style="@style/NavigationViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:headerLayout="@layout/header_nav"
-            app:menu="@menu/drawer_menu" />
+            app:menu="@menu/drawer_menu"
+            tools:headerLayout="@layout/header_nav" />
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

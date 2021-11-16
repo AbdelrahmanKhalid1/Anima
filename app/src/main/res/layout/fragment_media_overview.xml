@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.activity.detail.MediaActivity">
 
-    <data>
+    <data
+        android:layout_width="31dp"
+        android:layout_height="71dp">
 
         <variable
             name="media"
-            type="com.ak.otaku_kun.model.details.Media" />
+            type="com.ak.anima.model.details.Media" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -21,7 +23,7 @@
             android:orientation="vertical"
             android:padding="8dp">
 
-            <com.ak.otaku_kun.ui.view.CardViewBase
+            <com.ak.anima.ui.view.CardViewBase
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/md_margin">
@@ -53,7 +55,7 @@
                         app:trimMode="trimModeLength"
                         tools:text="The final season of Shingeki no Kyojin.\n\nIt’s been four years since the Scout Regiment reached the shoreline, and the world looks different now. Things are heating up as the fate of the Scout Regiment—and the people of Paradis—are determined at last. Howe" />
                 </LinearLayout>
-            </com.ak.otaku_kun.ui.view.CardViewBase>
+            </com.ak.anima.ui.view.CardViewBase>
 
             <FrameLayout
                 android:id="@+id/youtube_view"

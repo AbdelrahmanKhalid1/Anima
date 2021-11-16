@@ -173,7 +173,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/filter_start_year" />
 
-                    <com.ak.otaku_kun.ui.view.DatePickerCustom
+                    <com.ak.anima.ui.view.DatePickerCustom
                         android:id="@+id/date_picker"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />

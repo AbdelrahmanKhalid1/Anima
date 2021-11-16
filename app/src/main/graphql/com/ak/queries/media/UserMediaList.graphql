@@ -1,0 +1,50 @@
+query UserMediaList ($page: Int, $userId:Int, $listType: MediaType, $listStatus: MediaListStatus, $scoreFormat: ScoreFormat) {
+    Page(page: $page) {
+        pageInfo{
+            currentPage
+            hasNextPage
+        }
+        mediaList(userId: $userId, type: $listType, status: $listStatus) {
+            id
+            mediaId
+            score
+            status
+            scoreRaw: score(format: $scoreFormat)
+            progress
+            progressVolumes
+            repeat
+#            private
+#            priority
+            notes
+            hiddenFromStatusLists
+            startedAt {
+                year
+                month
+                day
+            }
+            completedAt {
+                year
+                month
+                day
+            }
+            media {
+                id
+                type
+                title {
+                    userPreferred
+                }
+                coverImage {
+                    extraLarge
+                    large
+                }
+                isFavourite
+                format
+                status
+                nextAiringEpisode{
+                    timeUntilAiring
+                    episode
+                }
+            }
+        }
+    }
+}

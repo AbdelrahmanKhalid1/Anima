@@ -2,11 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph">
+    android:id="@+id/nav_graph"
+    tools:ignore="InvalidNavigation">
 
     <fragment
         android:id="@+id/nav_browse_anime"
-        android:name="com.ak.otaku_kun.ui.browse.BrowseMediaFragment"
+        android:name="com.ak.anima.ui.browse.BrowseMediaFragment"
         android:label="Browse Anime"
         tools:layout="@layout/fragment_list">
         <argument
@@ -17,7 +18,7 @@
 
     <fragment
         android:id="@+id/nav_browse_manga"
-        android:name="com.ak.otaku_kun.ui.browse.BrowseMediaFragment"
+        android:name="com.ak.anima.ui.browse.BrowseMediaFragment"
         android:label="Browse Manga"
         tools:layout="@layout/fragment_list">
         <argument
@@ -28,27 +29,75 @@
 
     <fragment
         android:id="@+id/nav_filter"
-        android:name="com.ak.otaku_kun.ui.dialog.FilterQueryDialog"
+        android:name="com.ak.anima.ui.dialog.FilterQueryDialog"
         android:label=""
-        tools:layout="@layout/dialog_filter">
-    </fragment>
+        tools:layout="@layout/dialog_filter" />
 
     <fragment
         android:id="@+id/nav_discover_media"
-        android:name="com.ak.otaku_kun.ui.discover.DiscoverFragment"
+        android:name="com.ak.anima.ui.discover.DiscoverFragment"
         android:label="Discover"
         tools:layout="@layout/fragment_list_tab" />
 
     <fragment
         android:id="@+id/nav_trending_media"
-        android:name="com.ak.otaku_kun.ui.trending.TrendingFragment"
+        android:name="com.ak.anima.ui.trending.TrendingFragment"
         android:label="Trending"
         tools:layout="@layout/fragment_list_tab" />
 
     <fragment
         android:id="@+id/nav_search"
-        android:name="com.ak.otaku_kun.ui.search.SearchFragment"
+        android:name="com.ak.anima.ui.search.SearchFragment"
         android:label=""
         tools:layout="@layout/fragment_list_tab" />
 
+    <dialog
+        android:id="@+id/nav_sign_in"
+        android:name="com.ak.anima.ui.dialog.LoginDialog"
+        android:label="Sing in"
+        tools:layout="@layout/dialog_login" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.ak.anima.ui.SettingsFragment"
+        android:label="Settings" />
+
+    <fragment
+        android:id="@+id/nav_myAnime"
+        android:name="com.ak.anima.ui.user_list.UserMediaFragment"
+        android:label="My Anime List"
+        tools:layout="@layout/fragment_list_tab">
+        <argument
+            android:name="mediaType"
+            android:defaultValue="ANIME"
+            app:argType="com.ak.type.MediaType" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_myManga"
+        android:name="com.ak.anima.ui.user_list.UserMediaFragment"
+        android:label="My Manga List"
+        tools:layout="@layout/fragment_list_tab">
+        <argument
+            android:name="mediaType"
+            android:defaultValue="MANGA"
+            app:argType="com.ak.type.MediaType" />
+    </fragment>
+
+<!--    <action-->
+<!--        android:id="@+id/action_nav_filters"-->
+<!--        app:destination="@id/nav_filter">-->
+<!--        <argument-->
+<!--            android:name="queryFilters"-->
+<!--            app:argType="com.ak.anima.utils.QueryFilters" />-->
+<!--    </action>-->
+    <action
+        android:id="@+id/action_sign_in"
+        app:destination="@+id/nav_sign_in" />
+
+    <action
+        android:id="@+id/action_settings"
+        app:destination="@id/nav_settings" />
+
+    <action android:id="@+id/action_about" />
 </navigation>

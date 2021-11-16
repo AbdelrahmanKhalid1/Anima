@@ -6,7 +6,7 @@
     <data>
         <variable
             name="media"
-            type="com.ak.otaku_kun.model.index.Media" />
+            type="com.ak.anima.model.index.Media" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="@{media.title}"
+                    android:text="@{media.title.userPreferred}"
                     android:textColor="#fff"
                     android:textSize="12sp"
                     android:textStyle="bold" />

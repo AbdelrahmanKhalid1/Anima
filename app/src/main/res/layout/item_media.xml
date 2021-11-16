@@ -4,13 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="media"
-            type="com.ak.otaku_kun.model.index.Media" />
+            type="com.ak.anima.model.index.Media" />
+
+        <variable
+            name="isMyList"
+            type="java.lang.Boolean" />
     </data>
 
-    <androidx.cardview.widget.CardView
-        style="@style/CardViewBase">
+    <androidx.cardview.widget.CardView style="@style/CardViewBase">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -18,36 +22,37 @@
 
             <ImageView
                 android:id="@+id/media_cover"
-                image="@{media.cover}"
                 style="@style/ImageCoverStyle"
+                image="@{media.cover}"
                 android:contentDescription="@string/content_desc_media_cover"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1.4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/sample_cover"/>
+                tools:src="@drawable/sample_cover" />
 
-            <com.ak.otaku_kun.ui.view.MediaDetailsCustomView
+            <com.ak.anima.ui.view.MediaDetailsCustomView
+                format="@{media.format}"
+                genre="@{media.genre}"
+                status="@{media.status}"
+                title="@{media.title.userPreferred}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                title="@{media.title}"
-                format="@{media.format}"
-                status="@{media.status}"
-                genre="@{media.genre}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+                app:layout_constraintRight_toRightOf="parent" />
 
-            <com.ak.otaku_kun.ui.view.RatingCustomView
+            <com.ak.anima.ui.view.ScoreCustomView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                score="@{media.averageScore}"
-                isFavorite="@{media.favorite}"
-                mediaListEntry="@{media.mediaListEntry}"
+                app:isFavorite="@{media.favorite}"
+                app:isMyList="@{isMyList}"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:mediaListEntry="@{media.mediaListEntry}"
+                app:score="@{media.averageScore}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

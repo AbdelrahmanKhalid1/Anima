@@ -6,7 +6,7 @@
     <data>
         <variable
             name="media"
-            type="com.ak.otaku_kun.model.details.Media" />
+            type="com.ak.anima.model.details.Media" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -65,7 +65,7 @@
                         android:orientation="vertical"
                         app:layout_constraintGuide_percent="0.43" />
 
-                    <com.ak.otaku_kun.ui.view.MediaInfoCustomView
+                    <com.ak.anima.ui.view.MediaInfoCustomView
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginEnd="6dp"

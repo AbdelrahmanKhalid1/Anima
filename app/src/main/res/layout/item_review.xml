@@ -7,10 +7,10 @@
 
         <variable
             name="review"
-            type="com.ak.otaku_kun.model.index.Review" />
+            type="com.ak.anima.model.index.Review" />
     </data>
 
-    <com.ak.otaku_kun.ui.view.CardViewBase
+    <com.ak.anima.ui.view.CardViewBase
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.ak.otaku_kun.ui.view.VoteCustomView
+                <com.ak.anima.ui.view.VoteCustomView
                     android:id="@+id/vote"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -126,5 +126,5 @@
                     android:textStyle="bold" />
             </FrameLayout>
         </LinearLayout>
-    </com.ak.otaku_kun.ui.view.CardViewBase>
+    </com.ak.anima.ui.view.CardViewBase>
 </layout>

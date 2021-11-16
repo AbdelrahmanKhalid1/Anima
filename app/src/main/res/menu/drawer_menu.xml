@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_discover"
+        android:id="@+id/section_browse"
         android:title="@string/discover">
         <menu>
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_home_feed"
-                    android:title=""
                     android:icon="@drawable/ic_home"
+                    android:title=""
                     android:visible="false" />
                 <item
                     android:id="@+id/nav_browse_anime"
@@ -26,13 +26,13 @@
                 <item
                     android:id="@+id/nav_trending_media"
                     android:icon="@drawable/ic_trending"
-                    android:title="@string/what_s_trending"/>
+                    android:title="@string/what_s_trending" />
             </group>
         </menu>
     </item>
 
     <item
-        android:id="@+id/action_manage"
+        android:id="@+id/section_manage"
         android:title="@string/manage"
         android:visible="false">
         <menu>
@@ -48,21 +48,4 @@
             </group>
         </menu>
     </item>
-
-    <group
-        android:id="@+id/group_settings">
-            <item
-                android:id="@+id/nav_sing_out"
-                android:title="@string/sign_out"
-                android:icon="@drawable/ic_logout"
-                android:visible="false" />
-            <item
-                android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_settings"
-                android:title="@string/settings" />
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_info"
-                android:title="@string/about" />
-    </group>
 </menu>

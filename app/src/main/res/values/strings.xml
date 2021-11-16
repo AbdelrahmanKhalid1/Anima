@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Otaku-Kun</string>
+    <string name="app_name">Anima</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
@@ -115,6 +115,7 @@
     <string name="manage">Manage</string>
     <string name="my_anime_list">My Anime List</string>
     <string name="my_manga_list">My Manga List</string>
+    <string name="sign_in">Sign In</string>
     <string name="sign_out">Sign Out</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
@@ -178,4 +179,26 @@
     <string name="content_disc_error_image">image error</string>
 
     <string name="error_connection">Not connected to Internet!\nPlease check internet connection.</string>
+
+    <!--Oauth  -->
+    <string name="text_sign_in">Otaku-kun Sign-In</string>
+    <string name="sign_into_anilist">Sign Into AniList</string>
+    <string name="create_account">Do you want to create an account?</string>
+    <string name="text_create_account"><![CDATA[Don\'t have an account? <a href=\"https://anilist.co/signup\">Create Account</a>]]></string>
+
+    <!-- Preference Titles -->
+    <string name="appearance_header">Appearance</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="theme_title">Theme</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="title_activity_settings">SettingsActivity</string>
 </resources>

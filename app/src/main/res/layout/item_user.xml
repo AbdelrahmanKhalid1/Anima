@@ -7,7 +7,7 @@
 
         <variable
             name="user"
-            type="com.ak.otaku_kun.model.index.User" />
+            type="com.ak.anima.model.index.User" />
     </data>
 
     <androidx.cardview.widget.CardView

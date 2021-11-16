@@ -3,15 +3,47 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/Anima/app/src/main/res/layout/fragment_media_overview.xml" value="0.1" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/Anima/app/src/main/res/layout/header_nav.xml" value="0.1" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/Anima/app/src/main/res/layout/header_nav_sign_in.xml" value="0.1" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/Anima/app/src/main/res/layout/load_state_footer.xml" value="0.11480263157894736" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/Anima/app/src/main/res/menu/browse_menu.xml" value="0.1" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/drawable/bg_media_banner.xml" value="0.2202729044834308" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/drawable/bg_play_circular.xml" value="0.2202729044834308" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/drawable/ic_account_circle.xml" value="0.18092105263157895" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/drawable/ic_bookmark.xml" value="0.13322368421052633" />
         <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/drawable/ic_favorite.xml" value="0.15789473684210525" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/drawable/ic_logout.xml" value="0.18092105263157895" />
         <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/drawable/ic_player.xml" value="0.1375" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/drawable/ic_star.xml" value="0.15296052631578946" />
         <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/drawable/ic_thumb_down.xml" value="0.15789473684210525" />
         <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/drawable/ic_thumb_up.xml" value="0.15789473684210525" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/activity_main.xml" value="0.17793715846994534" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/activity_media.xml" value="0.11578947368421053" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/custom_score_bar.xml" value="0.75" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/custom_view_error.xml" value="0.20760233918128654" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/custom_view_load.xml" value="0.11578947368421053" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/custom_view_media_cover.xml" value="0.20760233918128654" />
         <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/custom_view_vote.xml" value="0.3620331950207469" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/dialog_filter.xml" value="0.11644736842105263" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/dialog_login.xml" value="0.18" />
         <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/fragment_list.xml" value="0.21019736842105263" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/fragment_login.xml" value="0.12335526315789473" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/header_nav.xml" value="0.1680921052631579" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/header_nav_signin.xml" value="0.18" />
         <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/item_media.xml" value="0.1" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/item_media_horizontal.xml" value="0.11988304093567251" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/item_media_mini.xml" value="0.11988304093567251" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/item_media_relation.xml" value="0.11988304093567251" />
         <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/item_review.xml" value="0.33" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/load_state_footer.xml" value="0.1" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/layout/settings_activity.xml" value="0.11644736842105263" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/menu/drawer_menu.xml" value="0.1680921052631579" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/menu/filter_menu.xml" value="0.16217105263157894" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/menu/main_menu.xml" value="0.11578947368421053" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/xml/login_preferences.xml" value="0.11644736842105263" />
+        <entry key="..\:/Users/Abdelrahman/AndroidStudioProjects/OtakuKun/app/src/main/res/xml/root_preferences.xml" value="0.25" />
       </map>
     </option>
   </component>

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="studio"
-            type="com.ak.otaku_kun.model.index.Studio" />
+            type="com.ak.anima.model.index.Studio" />
     </data>
 
     <androidx.cardview.widget.CardView

@@ -38,8 +38,8 @@ query MediaBrowse(
             }
             mediaListEntry {
                 id
-                userId
-                mediaId
+#                userId
+#                mediaId
                 progress
                 status
                 score
@@ -53,6 +53,7 @@ query MediaBrowse(
                     month
                     day
                 }
+                notes
                 progressVolumes
             }
             isFavourite

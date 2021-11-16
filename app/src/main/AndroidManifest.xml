@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ak.otaku_kun">
+    package="com.ak.anima">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".ui.OtakuKunApplication"
+        android:name="com.ak.anima.ui.OtakuKunApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,21 +14,41 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OtakuKun">
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name="com.ak.anima.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.ak.anima.ui.activity.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/search" />
-        </activity>
-        <activity android:name=".ui.details.media.MediaActivity"
-            android:parentActivityName=".ui.activity.MainActivity"/>
 
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="otaku-kun"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.ak.anima.ui.details.media.MediaActivity"
+            android:parentActivityName="com.ak.anima.ui.activity.MainActivity" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

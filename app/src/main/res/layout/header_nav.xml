@@ -4,26 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:gravity="bottom"
+    android:layout_gravity="bottom"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:paddingHorizontal="16dp">
 
     <ImageView
         android:id="@+id/user_avatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:src="@drawable/sample_avatar" />
 
     <TextView
         android:id="@+id/user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Otaku-kun"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@android:color/white" />
+        android:text="@string/app_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Powered by Anilist"
-        android:textColor="@android:color/white" />
+        android:text="Anima powered by Anilist"/>
 </LinearLayout>

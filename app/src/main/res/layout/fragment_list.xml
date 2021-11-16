@@ -6,24 +6,25 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
 
-        <include
-            android:id="@+id/progress_bar"
-            android:visibility="gone"
-            layout="@layout/custom_view_load" />
+        <com.ak.anima.ui.view.ProgressBarCustom
+            android:id="@+id/custom_view_load"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
 
         <include
             android:id="@+id/view_error"
-            android:visibility="gone"
-            layout="@layout/custom_view_error"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            layout="@layout/custom_view_error"
+            android:visibility="gone" />
+    </FrameLayout>
 </layout>

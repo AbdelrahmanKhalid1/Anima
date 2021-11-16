@@ -6,10 +6,10 @@
 
         <variable
             name="media"
-            type="com.ak.otaku_kun.model.details.Media" />
+            type="com.ak.anima.model.details.Media" />
     </data>
 
-    <com.ak.otaku_kun.ui.view.CardViewBase
+    <com.ak.anima.ui.view.CardViewBase
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -244,5 +244,5 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </com.ak.otaku_kun.ui.view.CardViewBase>
+    </com.ak.anima.ui.view.CardViewBase>
 </layout>
